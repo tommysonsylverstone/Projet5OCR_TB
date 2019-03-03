@@ -1,11 +1,11 @@
 <?php
 
 abstract class User {
-	private id;
-	private type;
-	private name;
-	private password;
-	private email;
+	private $id;
+	private $type;
+	private $name;
+	private $password;
+	private $email;
 
 	public function __construct() {
 		$this->type = strtolower(static::class);
