@@ -4,11 +4,15 @@ class Comment {
 	private $id;
 	private $postId;
 	private $content;
-	private $author;
+	private $authorId;
 	private $date;
 
 	public function getId() {
 		return $this->id;
+	}
+	
+	public function setId(int $id) {
+		$this->id = $id;
 	}
 
 	public function getPostId() {
@@ -18,37 +22,24 @@ class Comment {
 	public function getContent() {
 		return $this->content;
 	}
+	
+	public function setContent(string $content) {
+		$this->content = $content;
+	}
 
-	public function getAuthour() {
+	public function getAuthorId() {
 		return $this->author;
+	}
+	
+	public function setAuthorId(int $author) {
+		$this->author = $author;
 	}
 
 	public function getDate() {
 		return $this->date;
 	}
-
-	public function setId($id) {
-		$id = (int) $id;
-		if ($id > 0) {
-			$this->id = $id;
-		}
-	}
-
-	public function setContent($content) {
-		if (is_string($content)) {
-			$this->content = $content;
-		}
-	}
-
+	
 	public function setDate($date) {
 		$this->date = $date;
 	}
-
-	public function setAuthor($author) {
-		if (is_string($author) {
-			$this->author = $author;
-		}
-	}
 }
-
-
