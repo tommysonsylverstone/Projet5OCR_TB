@@ -5,7 +5,7 @@ class Post {
 	private $title;
 	private $chapo;
 	private $content;
-	private $date;
+	private $postDate;
 	private $authorId;
 	private $lastUpdated;
 
@@ -41,20 +41,20 @@ class Post {
 		$this->content = $content;
 	}
 
-	public function getDate() {
-		return $this->date;
+	public function getPostDate() {
+		return $this->postDate;
 	}
 	
-	public function setDate($date) {
-		$this->date = $date;
+	public function setPostDate($postDate) {
+		$this->postDate = $postDate;
 	}
 
-	public function getAuthor() {
-		return $this->author;
+	public function getAuthorId() {
+		return $this->authorId;
 	}
 	
-	public function setAuthor(int $author) {
-		$this->author = $author;
+	public function setAuthorId(int $authorId) {
+		$this->authorId = $authorId;
 	}
 
 	public function getLastUpdated() {
