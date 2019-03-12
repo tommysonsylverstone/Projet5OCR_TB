@@ -3,23 +3,23 @@
 class Comment {
 	private $id;
 	private $postId;
-	private $content;
 	private $authorId;
+	private $content;
 	private $date;
 
-	public function getId() {
+	public function getId():int {
 		return $this->id;
 	}
 	
-	public function setId(int $id) {
+	public function setId(int $id):void {
 		$this->id = $id;
 	}
 
-	public function getPostId() {
+	public function getPostId():int {
 		return $this->postId;
 	}
 
-	public function getContent() {
+	public function getContent():string {
 		return $this->content;
 	}
 	
@@ -27,7 +27,7 @@ class Comment {
 		$this->content = $content;
 	}
 
-	public function getAuthorId() {
+	public function getAuthorId():int {
 		return $this->author;
 	}
 	

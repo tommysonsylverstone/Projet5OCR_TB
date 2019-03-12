@@ -15,8 +15,18 @@ abstract class User {
 		return $this->id;
 	}
 
+	public function setId(int $id) {
+		if ($id > 0) {
+			$this->id = $id;
+		}
+	}
+
 	public function getName() {
 		return $this->name;
+	}
+
+	public function setName(string $name) {
+		$this->name = $name;
 	}
 
 	public function getType() {
@@ -27,38 +37,19 @@ abstract class User {
 		return $this->password;
 	}
 
+	public function setPassword(string $password) {
+		$this->password = $password;
+	}
+
 	public function getEmail() {
 		return $this->email;
 	}
 
-	public function setId($id) {
-		$id = (int) $id;
-		if ($id > 0) {
-			$this->id = $id;
-		}
+	public function setEmail(string $email) {
+		$this->email = $email;
 	}
-
-	public function setName($name) {
-		if (is_string($name)) {
-			$this->name = $name;
-		}
-	}
-
-	public function setPassword($password) {
-		if (is_string($password)) {
-			$this->password = $password;
-		}
-	}
-
-	public function setEmail($email) {
-		if (is_string($email)) {
-			$this->email = $email;
-		}
-	}
-
 }
 
 class Admin extends User {}
 
 class Member extends User {}
-
