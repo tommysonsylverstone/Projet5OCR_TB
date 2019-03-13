@@ -11,17 +11,15 @@ abstract class User {
 		$this->type = strtolower(static::class);
 	}
 
-	public function getId() {
+	public function getId():int {
 		return $this->id;
 	}
 
-	public function setId(int $id) {
-		if ($id > 0) {
-			$this->id = $id;
-		}
+	public function setId(int $id):void {
+		$this->id = $id;
 	}
 
-	public function getName() {
+	public function getName():string {
 		return $this->name;
 	}
 
@@ -33,7 +31,7 @@ abstract class User {
 		return $this->type;
 	}
 
-	public function getPassword() {
+	public function getPassword():string {
 		return $this->password;
 	}
 
@@ -41,7 +39,7 @@ abstract class User {
 		$this->password = $password;
 	}
 
-	public function getEmail() {
+	public function getEmail():string {
 		return $this->email;
 	}
 

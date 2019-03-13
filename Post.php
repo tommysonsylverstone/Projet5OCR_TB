@@ -9,15 +9,15 @@ class Post {
 	private $authorId;
 	private $lastUpdated;
 
-	public function getId() {
+	public function getId():int {
 		return $this->id;
 	}
 	
-	public function setId(int $id) {
+	public function setId(int $id):void {
 		$this->id = $id;
 	}
 
-	public function getTitle() {
+	public function getTitle():string {
 		return $this->title;
 	}
 	
@@ -25,7 +25,7 @@ class Post {
 		$this->title = $title;
 	}
 
-	public function getChapo() {
+	public function getChapo():string {
 		return $this->chapo;
 	}
 	
@@ -33,7 +33,7 @@ class Post {
 		$this->chapo = $chapo;
 	}
 
-	public function getContent() {
+	public function getContent():string {
 		return $this->content;
 	}
 	
@@ -49,11 +49,11 @@ class Post {
 		$this->postDate = $postDate;
 	}
 
-	public function getAuthorId() {
+	public function getAuthorId():int {
 		return $this->authorId;
 	}
 	
-	public function setAuthorId(int $authorId) {
+	public function setAuthorId(int $authorId):void {
 		$this->authorId = $authorId;
 	}
 
