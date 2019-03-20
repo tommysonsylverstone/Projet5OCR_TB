@@ -5,7 +5,7 @@ class Comment {
 	private $postId;
 	private $authorId;
 	private $content;
-	private $date;
+	private $commentDate;
 
 	public function getId():int {
 		return $this->id;
@@ -35,11 +35,11 @@ class Comment {
 		$this->author = $author;
 	}
 
-	public function getDate() {
-		return $this->date;
+	public function getCommentDate() {
+		return $this->commentDate;
 	}
 	
-	public function setDate($date) {
-		$this->date = $date;
+	public function setCommentDate($date) {
+		$this->commentDate = $commentDate;
 	}
 }
