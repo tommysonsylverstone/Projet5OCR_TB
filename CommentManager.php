@@ -1,23 +1,27 @@
 <?php
 
-class CommentManager {
-	private $db;
+class CommentManager extends BaseManager {
 
-	public function __construct($db) {
-		$this->setDb($db);
 	}
 
 	public function addComment(Comment $comment) {
-		$q = $this->db->prepare('INSERT INTO comment(postId, authorId, content, date) VALUES(:postId, :authorId, :content, :date');
+		$db = $this->dbConnect();
+
+		$q = $db->prepare('INSERT INTO comments(postId, authorId, content, commentDate) VALUES(:postId, :authorId, :content, NOW())');
 
 		$q->bindValue(':postId', $comment->getPostId());
 		$q->bindValue(':authorId', $comment->getAuthorId());
 		$q->bindValue(':content', $comment->getContent());
-		$q->bindValue(':date', $comment->getDate());
 
 		$q->execute();
 
-		$comment->hydrate([':id' => $this->db->lastInsertId()]);
+		$comment->hydrate([':id' => $db->lastInsertId()]);
+	}
+
+	public function getComment(Comment $comment) {
+		$db = $this->dbConnect();
+
+		$q = $db->prepare('SELECT * FROM comments')
 	}
 
 	public function confirmComment(Comment $comment) {
