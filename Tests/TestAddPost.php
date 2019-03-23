@@ -1,3 +1,12 @@
+<?php
+
+require_once('post.php');
+
+$post = new Post();
+
+$post->setAuthorId(1);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +19,24 @@
 		<label for="content">Votre billet :</label>		<textarea name="content" id="content"></textarea>
 	</form>
 	<input type="submit" name="submit" value="Valider" />
+
 	<?php
+		function post() {
+			$postManager = new PostManager();
+			$post = $postManager->getAuthorId(1);
+		}
+?>
+		<div class="news">
+    <h3>
+        <?= htmlspecialchars($post['title']) ?>
+        <?= htmlspecialchars($post['chapo']) ?>
+        <em>le <?= $post['postDate_fr'] ?></em>
+    </h3>
+    
+    <p>
+        <?= nl2br(htmlspecialchars($post['content'])) ?>
+    </p>
+</div>
 	?>
 </body>
 </html>
