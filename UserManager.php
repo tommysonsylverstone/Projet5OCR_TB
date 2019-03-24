@@ -1,5 +1,5 @@
 <?php
-require_once('User.php');
+
 require_once('BaseManager.php');
 
 class UserManager extends BaseManager {
@@ -57,7 +57,7 @@ class UserManager extends BaseManager {
 				echo "Nom d'utilisateur ou mot de passe incorrect.";
 			}
 		} else {
-			echo "Please enter username and password";
+			echo "Veuillez ne pas oublier de champ.";
 		}
 	}
 }
