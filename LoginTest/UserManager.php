@@ -3,11 +3,9 @@
 require_once('BaseManager.php');
 
 class UserManager extends BaseManager {
-	private $db;
 
 	// Fonction qui permet de se connecter à la DB dès que l'on appelle l'objet
 	public function __construct() {
-		$this->db = new BaseManager();
 		$this->db = $this->dbConnect();
 	}
 
