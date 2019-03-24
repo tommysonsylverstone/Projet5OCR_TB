@@ -5,10 +5,10 @@ require_once('BaseManager.php');
 class UserManager extends BaseManager {
 	private $db;
 
-	//Fonction qui permet de se connecter à la DB dès que l'on appelle l'objet
+	// Fonction qui permet de se connecter à la DB dès que l'on appelle l'objet
 	public function __construct() {
 		$this->db = new BaseManager();
-		$this->db = $this->db->dbConnect();
+		$this->db = $this->dbConnect();
 	}
 
 
@@ -46,11 +46,11 @@ class UserManager extends BaseManager {
 			$q = $this->db->prepare('SELECT * FROM users WHERE name=:name and password=:password');
 
 			$q->bindValue('name', $name, PDO::PARAM_STR);
-			$q->bindValue('password', $password, PDO::PARAM_STR);
+			$q->bindValue('password', MD5($password), PDO::PARAM_STR);
 
 			$q->execute();
 
-			if ($q->rowCount() == 1) {
+			if ($q->rowCount() === 1) {
 				$_SESSION['username'] = $name;
 				header('location: loginSuccess.php');
 			} else {

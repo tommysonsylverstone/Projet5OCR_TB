@@ -28,14 +28,10 @@ if (isset($_POST['submit-button'])) {
 			<input type="password" name="pwd" placeholder="Mot de passe" /><br/>
 			<button type="submit" name="submit-button">Se connecter</button>
 		</form>
-		<?php
-	} else {
+		<?php } else {
 		echo "Bonjour " . $_SESSION['username'] . " !";
 		?>
 		<a href="logout.php">Se déconnecter.</a>
-		<?php 
-	}
-	?>
-	
+		<?php } ?>
 </body>
 </html>
