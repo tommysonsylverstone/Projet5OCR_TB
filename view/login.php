@@ -4,11 +4,11 @@ session_start();
 include_once('UserManager.php');
 
 if (isset($_POST['submit-button'])) {
-	$name = $_POST['username'];
+	$username = $_POST['username'];
 	$password = $_POST['pwd'];
 
 	$uManager = new UserManager();
-	$uManager->login($name, $password);
+	$uManager->login($username, $password);
 }
 
 ?>
@@ -24,18 +24,14 @@ if (isset($_POST['submit-button'])) {
 	if (empty(isset($_SESSION['username']))) {
 		?>
 		<form action="login.php" method="post">
-			<input type="text" name="username" placeholder="Pseudonyme" /><br/>
+			<input type="text" name="username" placeholder="Pseudonyme" value="" /><br/>
 			<input type="password" name="pwd" placeholder="Mot de passe" /><br/>
 			<button type="submit" name="submit-button">Se connecter</button>
 		</form>
-		<?php
-	} else {
+		<?php } else {
 		echo "Bonjour " . $_SESSION['username'] . " !";
 		?>
 		<a href="logout.php">Se déconnecter.</a>
-		<?php 
-	}
-	?>
-	
+		<?php } ?>
 </body>
 </html>
