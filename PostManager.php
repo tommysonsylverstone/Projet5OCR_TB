@@ -25,7 +25,7 @@ class PostManager extends BaseManager {
 	}
 
 	public function addPost(Post $post) {
-		$q = $this->db->prepare('INSERT INTO post(title, chapo, content, postDate, authorName) VALUES(:title, :chapo, :content, NOW(), :authorName');
+		$q = $this->db->prepare('INSERT INTO posts(title, chapo, content, postDate, authorName) VALUES(:title, :chapo, :content, NOW(), :authorName');
 
 		$q->bindValue(':title', $post->getTitle());
 		$q->bindValue(':chapo', $post->getChapo());
@@ -38,7 +38,7 @@ class PostManager extends BaseManager {
 	}
 
 	public function updatePost(Post $post) {
-		$q = $this->db->prepare('UPDATE post SET content = :content, lastUpdated = :lastUpdated WHERE id = :id');
+		$q = $this->db->prepare('UPDATE posts SET content = :content, lastUpdated = :lastUpdated WHERE id = :id');
 
 		$q->bindValue(':content', $post->getContent(), PDO::PARAM_STR);
 		$q->bindValue(':lastUpdated', $post->getLastUpdated());
@@ -48,7 +48,7 @@ class PostManager extends BaseManager {
 	}
 
 	public function deletePost(Post $post) {
-		$q = $this->db->exec('DELETE FROM post WHERE id = :id');
+		$q = $this->db->exec('DELETE FROM posts WHERE id = :id');
 
 		$q->bindValue(':id', $post->getId(), PDO::PARAM_INT);
 	}
