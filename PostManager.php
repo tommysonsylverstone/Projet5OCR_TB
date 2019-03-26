@@ -8,7 +8,7 @@ class PostManager extends BaseManager {
 	}
 
 	public function getPost(post $id) {
-		$q = $this->db->prepare('SELECT id, author, title, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr FROM posts WHERE id = ?');
+		$q = $this->db->prepare('SELECT id, authorName, title, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr FROM posts WHERE id = ?');
 
 		$q->execute(array($id));
 
@@ -19,18 +19,18 @@ class PostManager extends BaseManager {
 	}
 
 	public function getPosts() {
-		$q = $this->db->query('SELECT id, author, title, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr FROM posts ORDER BY id DESC');
+		$q = $this->db->query('SELECT id, authorName, title, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr FROM posts ORDER BY id DESC');
 
 		return $q;
 	}
 
 	public function addPost(Post $post) {
-		$q = $this->db->prepare('INSERT INTO post(title, chapo, content, postDate, author) VALUES(:title, :chapo, :content, NOW(), :author');
+		$q = $this->db->prepare('INSERT INTO post(title, chapo, content, postDate, authorName) VALUES(:title, :chapo, :content, NOW(), :authorName');
 
 		$q->bindValue(':title', $post->getTitle());
 		$q->bindValue(':chapo', $post->getChapo());
 		$q->bindValue(':content', $post->getContent());
-		$q->bindValue(':author', $post->getAuthor());
+		$q->bindValue(':authorName', $post->getAuthorName());
 		
 		$q->execute();
 

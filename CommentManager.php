@@ -8,10 +8,10 @@ class CommentManager extends BaseManager {
 	}
 
 	public function addComment(Comment $comment) {
-		$q = $this->db->prepare('INSERT INTO comments(postId, author, content, commentDate) VALUES(:postId, :author, :content, NOW())');
+		$q = $this->db->prepare('INSERT INTO comments(postId, authorName, content, commentDate) VALUES(:postId, :authorName, :content, NOW())');
 
 		$q->bindValue(':postId', $comment->getPostId());
-		$q->bindValue(':author', $comment->getAuthor());
+		$q->bindValue(':authorName', $comment->getAuthorName());
 		$q->bindValue(':content', $comment->getContent());
 
 		$q->execute();
@@ -20,7 +20,7 @@ class CommentManager extends BaseManager {
 	}
 
 	public function getComments(Comment $postId) {
-		$q = $this->db->prepare('SELECT id, postId, author, content, date_format(commentDate, \'%d/%m/%Y à %Hh%imin%ss\') AS commentDate_fr FROM comments ORDER BY id DESC');
+		$q = $this->db->prepare('SELECT id, postId, authorName, content, date_format(commentDate, \'%d/%m/%Y à %Hh%imin%ss\') AS commentDate_fr FROM comments ORDER BY id DESC');
 
 		$q->execute(array($postId));
 
