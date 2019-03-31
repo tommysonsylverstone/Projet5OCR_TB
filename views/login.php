@@ -2,11 +2,13 @@
 
 session_start();
 include_once('../models/UserManager.php');
+include_once('../models/User.php');
 
 if (isset($_POST['submit-button'])) {
 	$username = $_POST['username'];
 	$password = $_POST['pwd'];
 
+	$user = new User();
 	$uManager = new UserManager();
 	$uManager->login($username, $password);
 }
@@ -29,9 +31,18 @@ if (isset($_POST['submit-button'])) {
 			<button type="submit" name="submit-button">Se connecter</button>
 		</form>
 		<?php } else {
-		echo "Bonjour " . $_SESSION['username'] . " !";
-		?>
-		<a href="logout.php">Se déconnecter.</a>
+			if ($user->getType() == 'admin') {
+				echo "Bonjour " . $_SESSION['username'] . " !";
+				?>
+				<a href="adminView.php">Page d'administration</a>
+				<a href="logout.php">Se déconnecter</a>
+				<?php
+			} else {
+				echo "Bonjour " . $_SESSION['username'] . " !";
+				?>
+
+				<a href="logout.php">Se déconnecter</a>
 		<?php } ?>
+		
 </body>
 </html>
