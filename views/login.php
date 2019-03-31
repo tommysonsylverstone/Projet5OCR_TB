@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-include_once('UserManager.php');
+include_once('../models/UserManager.php');
 
 if (isset($_POST['submit-button'])) {
 	$username = $_POST['username'];
