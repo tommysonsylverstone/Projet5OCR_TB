@@ -2,11 +2,11 @@
 
 class Post {
 	private $id;
-	private $title;
+	private $titleP;
 	private $chapo;
 	private $content;
 	private $postDate;
-	private $author;
+	private $authorName;
 	private $lastUpdated;
 
 	public function getId():int {
@@ -17,12 +17,12 @@ class Post {
 		$this->id = $id;
 	}
 
-	public function getTitle():string {
-		return $this->title;
+	public function getTitleP():string {
+		return $this->titleP;
 	}
 	
-	public function setTitle(string $title) {
-		$this->title = $title;
+	public function setTitleP(string $titleP) {
+		$this->titleP = $titleP;
 	}
 
 	public function getChapo():string {
@@ -49,12 +49,12 @@ class Post {
 		$this->postDate = $postDate;
 	}
 
-	public function getAuthor():string {
-		return $this->author;
+	public function getAuthorName():string {
+		return $this->authorName;
 	}
 	
-	public function setAuthor(string $author) {
-		$this->author = $author;
+	public function setAuthorName(string $authorName) {
+		$this->authorName = $authorName;
 	}
 
 	public function getLastUpdated() {
