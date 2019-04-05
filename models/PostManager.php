@@ -24,7 +24,7 @@ class PostManager extends BaseManager {
 
 	public function addPost(Post $post) {
 		if (!empty($post)) {
-		$q = $this->db->prepare('INSERT INTO posts(titleP, chapo, content, authorName, postDate) VALUES(:titleP, :chapo, :content, :authorName, NOW()');
+		$q = $this->db->prepare('INSERT INTO posts(titleP, chapo, content, authorName, postDate) VALUES(:titleP, :chapo, :content, :authorName, NOW())');
 
 		$q->bindValue(':titleP', $post->getTitleP());
 		$q->bindValue(':chapo', $post->getChapo());
