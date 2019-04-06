@@ -11,7 +11,7 @@ $title = 'Ajout de billet';
 
 if (isset($_POST['confirm-button'])) {	
 	$post = new Post();
-	$post->setAuthorName($_POST['authorName']);
+	$post->setAuthorName($_SESSION['username']);
 	$post->setTitleP($_POST['titleP']);
 	$post->setChapo($_POST['chapo']);
 	$post->setContent($_POST['content']);
@@ -25,7 +25,6 @@ ob_start();
 
 
 <form method="post" action="">
-	<input type="text" name="authorName" placeholder="Auteur"/> <br/>
 	<input type="text" name="titleP" placeholder="Titre" /> <br/>
 	<input type="text" name="chapo" placeholder="Chapo" /> <br/>
 	<textarea name="content" placeholder="Ecrivez votre billet"></textarea> <br/>
