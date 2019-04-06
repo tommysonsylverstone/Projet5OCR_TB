@@ -48,4 +48,8 @@ class PostManager extends BaseManager {
 	public function deletePost(Post $post) {
 		$q = $this->db->exec('DELETE FROM posts WHERE id =' . $post->getId());
 	}
+
+	public function count() {
+		return $this->db->query('SELECT COUNT(*) FROM posts')->fetchColumn();
+	}
 }

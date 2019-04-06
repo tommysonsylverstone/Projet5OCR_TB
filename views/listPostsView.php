@@ -6,6 +6,8 @@ function chargeClass($class) {
 
 spl_autoload_register('chargeClass');
 
+session_start();
+
 ob_start();
 
 include('includes/header.php');
@@ -13,12 +15,12 @@ include('includes/header.php');
 $pManager = new PostManager();
 
 $posts = $pManager->getPosts();
-
+$pNumber = $pManager->count();
 ?>
 
 <section>
 	<?php 
-	if (!isset($posts)) {
+	if ($pNumber == 0) {
 		echo "Pas de billets pour le moment, patience !";
 		} else {
 		while ($data = $posts->fetch()) {
