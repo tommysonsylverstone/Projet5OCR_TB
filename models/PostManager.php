@@ -17,7 +17,7 @@ class PostManager extends BaseManager {
 	}
 
 	public function getPosts() {
-		$q = $this->db->query('SELECT id, authorName, titleP, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr FROM posts ORDER BY id DESC');
+		$q = $this->db->query('SELECT id, authorName, titleP, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr, date_format(lastUpdated, \'%d/%m/%Y à %Hh%imin%ss\') AS lastUpdated_fr FROM posts ORDER BY id DESC');
 
 		return $q;
 	}
