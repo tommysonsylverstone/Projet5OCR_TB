@@ -28,8 +28,8 @@ $pNumber = $pManager->count();
 			<div class="news">
 				<h3>
 					<?= htmlspecialchars($data['titleP']) ?>
-					<em>le <?= $data['postDate_fr']?></em> par <?= $data['authorName']?>
-
+					<em>le <?= $data['postDate_fr']?></em> par <?= $data['authorName']?><br/>
+						<h4><em><?= $data['chapo'] ?></em></h4>
 					<p>
 						<?= nl2br(htmlspecialchars($data['content'])) ?>
 						<br />
