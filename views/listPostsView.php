@@ -1,8 +1,20 @@
-<?php $title = 'Liste des billets'; ?>
+<?php $title = 'Liste des billets'; 
 
-<?php ob_start(); ?>
+function chargeClass($class) {
+	require '../models/'.$class.'.php';
+}
 
-<?php include('includes/header.php') ?>
+spl_autoload_register('chargeClass');
+
+ob_start();
+
+include('includes/header.php');
+
+$pManager = new PostManager();
+
+$posts = $pManager->getPosts();
+
+?>
 
 <section>
 	<?php 
@@ -13,7 +25,7 @@
 		?>
 			<div class="news">
 				<h3>
-					<?= htmlspecialchars($data['title']) ?>
+					<?= htmlspecialchars($data['titleP']) ?>
 					<em>le <?= $data['postDate_fr']?></em>
 
 					<p>
