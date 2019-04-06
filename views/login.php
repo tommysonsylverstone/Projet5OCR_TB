@@ -25,13 +25,13 @@ if (isset($_POST['submit-button'])) {
 		include_once('includes/header.php');
 		?>
 		<form action="login.php" method="post">
-			<input type="text" name="username" placeholder="Pseudonyme" value="" /><br/>
+			<input type="text" name="username" placeholder="Pseudonyme" value="<?php if (isset($_POST['username'])) { echo $_POST['username'];} else {echo '';} ?>" /><br/>
 			<input type="password" name="pwd" placeholder="Mot de passe" /><br/>
 			<button type="submit" name="submit-button">Se connecter</button>
 		</form>
 		<?php } else {
 		echo "Bonjour " . $_SESSION['username'] . " !";
-		?>
+		?> <br/>
 		<a href="mainPageView.php">Retour à l'accueil</a> <br />
 		<a href="logout.php">Se déconnecter.</a>
 		<?php } ?>
