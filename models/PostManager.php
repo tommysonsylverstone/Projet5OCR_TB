@@ -36,9 +36,7 @@ class PostManager extends BaseManager {
 	}
 
 	public function updatePost(Post $post) {
-		$db = $this->dbConnect();
-
-		$q = $db->prepare('UPDATE posts SET content = :content, lastUpdated = :lastUpdated WHERE id = :id');
+		$q = $this->db->prepare('UPDATE posts SET content = :content, lastUpdated = :lastUpdated WHERE id = :id');
 
 		$q->bindValue(':content', $post->getContent(), PDO::PARAM_STR);
 		$q->bindValue(':lastUpdated', $post->getLastUpdated());
@@ -48,10 +46,6 @@ class PostManager extends BaseManager {
 	}
 
 	public function deletePost(Post $post) {
-		$db = $this->dbConnect();
-
-		$q = $db->exec('DELETE FROM posts WHERE id = :id');
-
-		$q->bindValue(':id', $post->getId(), PDO::PARAM_INT);
+		$q = $this->db->exec('DELETE FROM posts WHERE id =' . $post->getId());
 	}
 }
