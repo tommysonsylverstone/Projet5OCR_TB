@@ -35,6 +35,7 @@ $pNumber = $pManager->count();
 						<br />
 						<em><a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Accéder aux commentaires</a></em>
 						<a href="deletePostView.php?id=<?= $data['id'] ?>">Supprimer ce post</a>
+						<a href="editPostView.php?id=<?= $data['id'] ?>">éditer</a>
 					</p>
 				</h3>
 			</div>

@@ -36,11 +36,12 @@ class PostManager extends BaseManager {
 	}
 
 	public function updatePost(Post $post) {
-		$q = $this->db->prepare('UPDATE posts SET content = :content, lastUpdated = :lastUpdated WHERE id = :id');
+		$q = $this->db->prepare('UPDATE posts SET titleP = :titleP, chapo = :chapo, authorName = :authorName, content = :content, lastUpdated = NOW() WHERE id =' . $post->getId());
 
+		$q->bindValue(':titleP', $post->getTitleP(), PDO::PARAM_STR);
+		$q->bindValue(':chapo', $post->getChapo(), PDO::PARAM_STR);
+		$q->bindValue(':authorName', $post->getAuthorName(), PDO::PARAM_STR);
 		$q->bindValue(':content', $post->getContent(), PDO::PARAM_STR);
-		$q->bindValue(':lastUpdated', $post->getLastUpdated());
-		$q->bindValue(':id', $post->getId(), PDO::PARAM_INT);
 
 		$q->execute();
 	}
