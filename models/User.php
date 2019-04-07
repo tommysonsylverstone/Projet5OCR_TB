@@ -3,12 +3,23 @@
 abstract class User {
 	private $id;
 	private $type;
-	private $name;
+	private $username;
 	private $password;
 	private $email;
 
 	public function __construct() {
+		$this->hydrate($data);
 		$this->type = strtolower(static::class);
+	}
+
+	public function hydrate(array $data) {
+		foreach ($data as $key => $value) {
+			$method = 'set'.ucfirst($key);
+
+			if(method_exists($this, $method)) {
+				$this->$method($value);
+			}
+		}
 	}
 
 	public function getId():int {
@@ -19,11 +30,11 @@ abstract class User {
 		$this->id = $id;
 	}
 
-	public function getName():string {
+	public function getUserName():string {
 		return $this->name;
 	}
 
-	public function setName(string $name) {
+	public function setUserName(string $username) {
 		$this->name = $name;
 	}
 

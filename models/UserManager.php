@@ -3,7 +3,6 @@
 require_once('BaseManager.php');
 
 class UserManager extends BaseManager {
-
 	public function __construct() {
 		$this->db = $this->dbConnect();
 	}
@@ -16,12 +15,12 @@ class UserManager extends BaseManager {
 		$q->bindValue(':email', $user->getEmail());
 		$q->bindValue(':type', $user->getType());
 
-		$q->execute();
+		$q-> execute();
 
 		$this->hydrate([':id' => $this->db->lastInsertId()]);
 	}
 
-	public function updatePassword(User $user, string $password) {
+	public function updatePassword(User $user) {
 		$q = $this->db->prepare('UPDATE users SET password = :password');
 
 		$q->bindValue(':password', $user->getPassword(), PDO::PARAM_STR);
@@ -29,7 +28,7 @@ class UserManager extends BaseManager {
 		$q->execute();
 	}
 
-	public function updateEmail(User $user, string $email) {
+	public function updateEmail(User $user) {
 		$q = $this->db->prepare('UPDATE users SET email = :email');
 
 		$q->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
@@ -55,5 +54,13 @@ class UserManager extends BaseManager {
 		} else {
 			echo "Veuillez ne pas oublier de champ.";
 		}
+	}
+
+	public function getUser($userId) {
+		$q = $this->db->prepare('SELECT * FROM users WHERE username = ?');
+		$q->execute(array($userId));
+		$user = $q->fetch();
+
+		return $user;
 	}
 }
