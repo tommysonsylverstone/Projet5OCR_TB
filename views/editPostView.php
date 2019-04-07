@@ -1,13 +1,8 @@
-<?php 
+<?php $title = 'Edition de post';
 
-function chargeClass($class) {
-	require '../models/'.$class.'.php';
-}
-
-spl_autoload_register('chargeClass');
+include_once('includes/autoloader.php');
 
 session_start();
-$title = 'Edition de post';
 
 if (isset($_POST['confirm-edit'])) {
 	if (empty($_POST['authorName']) || empty($_POST['titleP']) || empty($_POST['chapo']) || empty($_POST['content'])) {
@@ -27,11 +22,14 @@ if (isset($_POST['confirm-edit'])) {
 }
 
 ob_start(); ?>
+
 <p>Voici le billet que vous voulez modifier :</p>
+
 <?php
-$pManager = new PostManager(); 
+$pManager = new PostManager();
 $postId = $pManager->getPost($_GET['id']);
 ?>
+
 <div>
 	<h3><?= htmlspecialchars($postId['titleP']) ?> écrit par <em><?= $postId['authorName'] ?></em></h3><br/>
 	<?= $postId['chapo'] ?><br/>

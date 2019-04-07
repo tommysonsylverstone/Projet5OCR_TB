@@ -1,4 +1,4 @@
-<?php
+<?php $title = "Vous êtes connecté !";
 
 session_start();
 
@@ -11,6 +11,4 @@ if(isset($_SESSION["username"])) {
 	echo "Quelque chose s'est mal passé.";
 	?>
 	<a href="login.php">Vous reconnecter</a>
-	<?php
-}
-?>
+<?php } ?>

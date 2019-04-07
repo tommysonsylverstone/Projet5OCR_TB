@@ -1,10 +1,6 @@
-<?php $title = 'Suppression de billet'; 
+<?php $title = 'Suppression de billet';
 
-function chargeClass($class) {
-	require '../models/'.$class.'.php';
-}
-
-spl_autoload_register('chargeClass');
+include_once('includes/autoloader.php');
 
 ob_start();
 
@@ -17,4 +13,4 @@ header("location: listPostsView.php");
 
 $content = ob_get_clean();
 
-require('includes/template.php'); ?>
+require('includes/template.php');

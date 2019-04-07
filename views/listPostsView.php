@@ -1,10 +1,6 @@
-<?php $title = 'Liste des billets'; 
+<?php $title = 'Liste des billets';
 
-function chargeClass($class) {
-	require '../models/'.$class.'.php';
-}
-
-spl_autoload_register('chargeClass');
+include_once('includes/autoloader.php');
 
 session_start();
 
@@ -13,7 +9,6 @@ ob_start();
 include('includes/header.php');
 
 $pManager = new PostManager();
-
 $posts = $pManager->getPosts();
 $pNumber = $pManager->count();
 ?>
@@ -45,8 +40,6 @@ $pNumber = $pManager->count();
 	?>
 </section>
 
+<?php $content = ob_get_clean();
 
-
-<?php $content = ob_get_clean(); ?>
-
-<?php require('includes/template.php'); ?>
+require('includes/template.php'); ?>
