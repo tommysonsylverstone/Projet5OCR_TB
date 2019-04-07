@@ -7,7 +7,6 @@ class UserManager extends BaseManager {
 		$this->db = $this->dbConnect();
 	}
 
-
 	public function addUser(User $user) {
 		$q = $this->db->prepare('INSERT INTO users(username, password, email, type) VALUES(:username, :password, :email, :type)');
 
@@ -55,5 +54,13 @@ class UserManager extends BaseManager {
 		} else {
 			echo "Veuillez ne pas oublier de champ.";
 		}
+	}
+
+	public function getUser($userId) {
+		$q = $this->db->prepare('SELECT * FROM users WHERE username = ?');
+		$q->execute(array($userId));
+		$user = $q->fetch();
+
+		return $user;
 	}
 }

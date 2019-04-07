@@ -1,6 +1,17 @@
 <?php
 
+function chargeClass($class) {
+	require '../models/'.$class.'.php';
+}
+
+spl_autoload_register('chargeClass');
+
 session_start();
+
+if (isset($_SESSION['username'])) {
+	$uManager = new UserManager();
+	$userData = $uManager->getUser($_SESSION['username']);
+}
 
 $title = 'Accueil';
 ?>
