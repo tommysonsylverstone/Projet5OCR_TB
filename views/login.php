@@ -9,9 +9,7 @@ if (isset($_POST['submit-button'])) {
 
 	$uManager = new UserManager();
 	$uManager->login($username, $password);
-}
-
-?>
+} ?>
 
 <!DOCTYPE html>
 <html>
@@ -22,7 +20,7 @@ if (isset($_POST['submit-button'])) {
 <body>
 	<?php
 	if (empty(isset($_SESSION['username']))) {
-		include_once('includes/header.php');
+		include('includes/header.php');
 		?>
 		<form action="login.php" method="post">
 			<input type="text" name="username" placeholder="Pseudonyme" value="<?php if (isset($_POST['username'])) { echo $_POST['username'];} else {echo '';} ?>" /><br/>
@@ -30,6 +28,7 @@ if (isset($_POST['submit-button'])) {
 			<button type="submit" name="submit-button">Se connecter</button>
 		</form>
 		<?php } else {
+			include('includes/header.php');
 		echo "Bonjour " . $_SESSION['username'] . " !";
 		?> <br/>
 		<a href="mainPageView.php">Retour à l'accueil</a> <br />

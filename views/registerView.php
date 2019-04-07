@@ -8,32 +8,45 @@ include_once('../models/user.php');
 if (isset($_POST['register-button'])) {
 	$uManager = new UserManager();
 	$user = new Member();
-	if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['pass1']) || empty($_POST['pass2'])) {
+	$username = $_POST['username'];
+	$email = $_POST['email'];
+	$passone = $_POST['pass1'];
+	$passtwo = $_POST['pass2'];
+	if (empty($username) || empty($email) || empty($passone) || empty($passtwo)) {
 		echo "Veuillez renseigner tous les champs";
-	} elseif (isset($_POST['pass1']) != isset($_POST['pass2'])) {
-		echo "Les deux mots de passe ne correspondent pas"; 
-	} elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+	} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		echo "L'adresse mail est invalide";
-	} elseif ($uManager->userExists($_POST['username'])) {
+	} elseif ($uManager->userExists($username)) {
 		echo "Ce nom d'utilisateur est déjà pris";
-	} elseif ($uManager->emailExists($_POST['email'])) {
+	} elseif ($uManager->emailExists($email)) {
 		echo "Cette adresse mail est déjà utilisée";
+	} elseif (!preg_match("#^[a-zA-Z0-9_-]{3,20}$#", $username)) {
+		echo "Le nom d'utilisateur fait plus de 20 caractères ou ne respecte pas les normes";
+	} elseif (!preg_match("#^[a-zA-Z0-9]{10,}$#", $passone)) {
+		echo "Le mot de passe doit faire plus de 10 caractères";
+	} elseif ($passone !== $passtwo) {
+		echo "Les deux mots de passe ne correspondent pas"; 
 	} else {
-	$user->setUsername($_POST['username']);
-	$user->setPassword($_POST['pass1']);
-	$user->setEmail($_POST['email']);
+	$user->setUsername($username);
+	$user->setPassword($passone);
+	$user->setEmail($email);
 	$uManager->register($user);
+
+	header("location: registerSuccess.php?registration=success");
 	}
-	
 }
 
 ob_start(); ?>
 
 <form method="post" action="">
-	<input type="text" name="username" placeholder="Nom d'utilisateur" /><br/>
-	<input type="text" name="email" placeholder="Adresse e-mail" /><br/>
-	<input type="password" name="pass1" placeholder="Mot de passe" /><br/>
-	<input type="password" name="pass2" placeholder="Confirmer le mot de passe" /><br/>
+	<label for="username">Nom d'utilisateur :</label><br/>
+	<input type="text" name="username" id="username" placeholder="Nom d'utilisateur" value="<?php if (isset($_POST['username'])) { echo $_POST['username'];} else {echo '';} ?>" /><br/>
+	<label for="email">Adresse e-mail :</label><br/>
+	<input type="text" name="email" id="email" placeholder="Adresse e-mail" value="<?php if (isset($_POST['email'])) { echo $_POST['email'];} else {echo '';} ?>"/><br/>
+	<label for="pass1">Mot de passe :</label><br/>
+	<input type="password" name="pass1" id="pass1" placeholder="Mot de passe" /><br/>
+	<label for="pass2">Confirmer mot de passe :</label><br/>
+	<input type="password" name="pass2" id="pass2" placeholder="Confirmer le mot de passe" /><br/>
 	<button name="register-button">Confirmer</button>
 </form>
 
