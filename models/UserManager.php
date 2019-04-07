@@ -7,17 +7,15 @@ class UserManager extends BaseManager {
 		$this->db = $this->dbConnect();
 	}
 
-	public function addUser(User $user) {
+	public function register(User $user) {
 		$q = $this->db->prepare('INSERT INTO users(username, password, email, type) VALUES(:username, :password, :email, :type)');
 
 		$q->bindValue(':username', $user->getUsername());
-		$q->bindValue(':password', $user->getPassword());
+		$q->bindValue(':password', md5($user->getPassword()));
 		$q->bindValue(':email', $user->getEmail());
 		$q->bindValue(':type', $user->getType());
 
 		$q-> execute();
-
-		$this->hydrate([':id' => $this->db->lastInsertId()]);
 	}
 
 	public function updatePassword(User $user) {
@@ -62,5 +60,19 @@ class UserManager extends BaseManager {
 		$user = $q->fetch();
 
 		return $user;
+	}
+
+	public function userExists($uName) {
+		$q = $this->db->prepare('SELECT COUNT(*) FROM users WHERE username = :username');
+		$q->execute([':username' => $uName]);
+
+		return (bool) $q->fetchColumn();
+	}
+
+	public function emailExists($email) {
+		$q = $this->db->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
+		$q->execute([':email' => $email]);
+
+		return (bool) $q->fetchColumn();
 	}
 }
