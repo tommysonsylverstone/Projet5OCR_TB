@@ -12,6 +12,8 @@ if (isset($_POST['register-button'])) {
 		echo "Veuillez renseigner tous les champs";
 	} elseif (isset($_POST['pass1']) != isset($_POST['pass2'])) {
 		echo "Les deux mots de passe ne correspondent pas"; 
+	} elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+		echo "L'adresse mail est invalide";
 	} elseif ($uManager->userExists($_POST['username'])) {
 		echo "Ce nom d'utilisateur est déjà pris";
 	} elseif ($uManager->emailExists($_POST['email'])) {
