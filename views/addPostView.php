@@ -1,13 +1,8 @@
-<?php 
+<?php $title = 'Ajout de billet';
 
-function chargeClass($class) {
-	require '../models/'.$class.'.php';
-}
-
-spl_autoload_register('chargeClass');
+include_once('includes/autoloader.php');
 
 session_start();
-$title = 'Ajout de billet';
 
 if (isset($_POST['confirm-button'])) {
 	if (empty($_SESSION['username'])) {
@@ -24,12 +19,11 @@ if (isset($_POST['confirm-button'])) {
 		$pManager->addPost($post);
 	}
 }
-ob_start();
 
+ob_start();
 
 include('includes/header.php');
 ?>
-
 
 <form method="post" action="">
 	<input type="text" name="titleP" placeholder="Titre" /> <br/>
@@ -38,8 +32,6 @@ include('includes/header.php');
 	<button type="submit" name="confirm-button">Confirmer</button>
 </form>
 
+<?php $content = ob_get_clean();
 
-
-<?php $content = ob_get_clean(); ?>
-
-<?php require('includes/template.php'); ?>
+require('includes/template.php'); ?>

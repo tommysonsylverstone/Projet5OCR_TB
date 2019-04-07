@@ -1,7 +1,8 @@
-<?php 
+<?php $title = "Connexion";
+
+include_once('includes/autoloader.php');
 
 session_start();
-include_once('../models/UserManager.php');
 
 if (isset($_POST['submit-button'])) {
 	$username = $_POST['username'];

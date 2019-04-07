@@ -1,6 +1,4 @@
-<?php 
-
-$title = "Inscription";
+<?php $title = "Inscription";
 
 include_once('includes/autoloader.php');
 include_once('../models/user.php');

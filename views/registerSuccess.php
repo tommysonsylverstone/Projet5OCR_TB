@@ -1,10 +1,6 @@
-<?php
+<?php $title = "Enregistrement";
 
-$title = "Enregistrement";
-
-ob_start(); ?>
-
-<?php 
+ob_start(); 
 
 if (!isset($_GET['registration']) || $_GET['registration'] !== 'success') {
 	?>
@@ -17,9 +13,8 @@ if (!isset($_GET['registration']) || $_GET['registration'] !== 'success') {
 		<a href="login.php">Vous connecter</a>
 		</p>
 	</section>
-	<?php } ?>
+	<?php } 
 
-
-<?php $content = ob_get_clean();
+$content = ob_get_clean();
 
 require('includes/template.php'); ?>
