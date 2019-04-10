@@ -6,6 +6,7 @@ class Comment {
 	private $authorName;
 	private $content;
 	private $commentDate;
+	private $isValidated;
 
 	public function getId():int {
 		return $this->id;
@@ -45,5 +46,13 @@ class Comment {
 
 	public function setCommentDate(string $commentDate) {
 		$this->commentDate = $commentDate;
+	}
+
+	public function getIsValidated():bool {
+		return $this->isValidated;
+	}
+
+	public function setIsValidated(bool $isValidated) {
+		$this->isValidated = $isValidated;
 	}
 }
