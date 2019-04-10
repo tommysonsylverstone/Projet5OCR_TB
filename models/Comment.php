@@ -8,6 +8,12 @@ class Comment {
 	private $commentDate;
 	private $isValidated;
 
+	public function __construct($postId, $authorName, $content) {
+		$this->setPostId($postId);
+		$this->setAuthorName($authorName);
+		$this->setContent($content);
+	}
+
 	public function getId():int {
 		return $this->id;
 	}

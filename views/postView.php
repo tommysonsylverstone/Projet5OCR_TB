@@ -9,10 +9,7 @@ $post = $pManager->getPost($_GET['id']);
 $title = $post['titleP'];
 
 if (isset($_POST['confirm-comment'])) {
-	$comment = new Comment();
-	$comment->setPostId($_GET['id']);
-	$comment->setAuthorName($_SESSION['username']);
-	$comment->setContent($_POST['content']);
+	$comment = new Comment($_GET['id'], $_SESSION['username'], $_POST['content']);
 	$cManager = new CommentManager();
 	$commentP = $cManager->addComment($comment);
 }
