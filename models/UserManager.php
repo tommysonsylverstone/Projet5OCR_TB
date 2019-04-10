@@ -3,12 +3,9 @@
 require_once('BaseManager.php');
 
 class UserManager extends BaseManager {
-	public function __construct() {
-		$this->db = $this->dbConnect();
-	}
-
-	public function register(User $user) {
-		$q = $this->db->prepare('INSERT INTO users(username, password, email, type) VALUES(:username, :password, :email, :type)');
+	public static function register(User $user) {
+		$db = self::dbConnect();
+		$q = $db->prepare('INSERT INTO users(username, password, email, type) VALUES(:username, :password, :email, :type)');
 
 		$q->bindValue(':username', $user->getUsername());
 		$q->bindValue(':password', md5($user->getPassword()));
@@ -36,7 +33,8 @@ class UserManager extends BaseManager {
 
 	public function login($username, $password) {
 		if (!empty($username) && !empty($password)) {
-			$q = $this->db->prepare('SELECT * FROM users WHERE username=:username and password=:password');
+			$db = self::dbConnect();
+			$q = $db->prepare('SELECT * FROM users WHERE username=:username and password=:password');
 
 			$q->bindValue('username', $username, PDO::PARAM_STR);
 			$q->bindValue('password', MD5($password), PDO::PARAM_STR);
@@ -54,23 +52,26 @@ class UserManager extends BaseManager {
 		}
 	}
 
-	public function getUser($userId) {
-		$q = $this->db->prepare('SELECT * FROM users WHERE username = ?');
-		$q->execute(array($userId));
-		$user = $q->fetch();
+	public static function getUser(string $username) {
+		$db = self::dbConnect();
+		$q = $db->prepare('SELECT * FROM users WHERE username = ?');
+		$q->execute(array($username));
+		$data = $q->fetch();
 
-		return $user;
+		return $data;
 	}
 
-	public function userExists($uName) {
-		$q = $this->db->prepare('SELECT COUNT(*) FROM users WHERE username = :username');
+	public static function userExists($uName) {
+		$db = static::dbConnect();
+		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE username = :username');
 		$q->execute([':username' => $uName]);
 
 		return (bool) $q->fetchColumn();
 	}
 
-	public function emailExists($email) {
-		$q = $this->db->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
+	public static function emailExists($email) {
+		$db = static::dbConnect();
+		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
 		$q->execute([':email' => $email]);
 
 		return (bool) $q->fetchColumn();
