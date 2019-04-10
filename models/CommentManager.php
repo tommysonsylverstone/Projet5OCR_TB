@@ -7,7 +7,7 @@ class CommentManager extends BaseManager {
 		$this->db = $this->dbConnect();
 	}
 
-	public function getComments($postId) {
+	public function getCommentsForPost(int $postId) {
 		$q = $this->db->prepare('SELECT id, postId, authorName, content, date_format(commentDate, \'%d/%m/%Y à %Hh%imin%ss\') AS commentDate_fr FROM comments WHERE postId = ? ORDER BY id DESC');
 		$q->execute(array($postId));
 

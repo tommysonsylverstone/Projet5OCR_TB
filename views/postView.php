@@ -43,7 +43,7 @@ include('includes/header.php'); ?>
 <section class="comments-list">
 	<?php 
 		$cManager = new CommentManager();
-		$comments = $cManager->getComments($_GET['id']);
+		$comments = $cManager->getCommentsForPost($_GET['id']);
 		$comNumbers = $cManager->count(); 
 		if ($comNumbers == 0) {
 			echo "Pas de commentaires pour le moment";
