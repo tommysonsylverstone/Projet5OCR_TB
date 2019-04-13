@@ -28,16 +28,19 @@ $pNumber = $pManager->count();
 					<p>
 						<?= nl2br(htmlspecialchars($data['content'])) ?>
 						<br />
-						<em><a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Accéder aux commentaires</a></em>
-						<a href="deletePostView.php?id=<?= $data['id'] ?>">Supprimer ce post</a>
-						<a href="editPostView.php?id=<?= $data['id'] ?>">éditer</a>
+						<em><a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Accéder au billet</a></em>
+						<?php new UserManager();
+						$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
+						if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
+							<a href="deletePostView.php?id=<?= $data['id'] ?>">Supprimer ce post</a>
+							<a href="editPostView.php?id=<?= $data['id'] ?>">éditer</a>
+						<?php } ?>
 					</p>
 				</h3>
 			</div>
 			<?php
 		}
-	}
-	?>
+	} ?>
 </section>
 
 <?php $content = ob_get_clean();
