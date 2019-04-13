@@ -58,13 +58,20 @@ include('includes/header.php'); ?>
 			
 </section>
 
-<section class="comment-form">
+<?php if (!empty($_SESSION['username'])) {
+	?>
+	<section class="comment-form">
 	<form method="post" action="">
 		<label for="content">Votre commentaire :</label><br/>
 		<textarea name="content" placeholder="Ecrire votre commentaire ici"></textarea><br/>
 		<button name="confirm-comment">Envoyer</button>
 	</form>
-</section>
-<?php $content = ob_get_clean();
+</section> 
+<?php } else { ?>
+	<p>Pour commenter, vous devez vous connecter. <a href="register.php">Vous inscrire</a></p>
+<?php }
+
+$content = ob_get_clean();
+
 
 require('includes/template.php'); ?>
