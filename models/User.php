@@ -27,7 +27,7 @@ abstract class User {
 		$this->username = $username;
 	}
 
-	public function getType() {
+	public function getType():string {
 		return $this->type;
 	}
 
