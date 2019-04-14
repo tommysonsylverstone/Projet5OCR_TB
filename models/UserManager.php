@@ -16,7 +16,8 @@ class UserManager extends BaseManager {
 	}
 
 	public function updatePassword(User $user) {
-		$q = $this->db->prepare('UPDATE users SET password = :password');
+		$db = self::dbConnect();
+		$q = $db->prepare('UPDATE users SET password = :password');
 
 		$q->bindValue(':password', $user->getPassword(), PDO::PARAM_STR);
 
@@ -24,7 +25,8 @@ class UserManager extends BaseManager {
 	}
 
 	public function updateEmail(User $user) {
-		$q = $this->db->prepare('UPDATE users SET email = :email');
+		$db = self::dbConnect();
+		$q = $db->prepare('UPDATE users SET email = :email');
 
 		$q->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
 
@@ -62,7 +64,7 @@ class UserManager extends BaseManager {
 	}
 
 	public static function userExists($uName) {
-		$db = static::dbConnect();
+		$db = self::dbConnect();
 		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE username = :username');
 		$q->execute([':username' => $uName]);
 
@@ -70,7 +72,7 @@ class UserManager extends BaseManager {
 	}
 
 	public static function emailExists($email) {
-		$db = static::dbConnect();
+		$db = self::dbConnect();
 		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
 		$q->execute([':email' => $email]);
 
