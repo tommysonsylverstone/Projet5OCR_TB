@@ -55,7 +55,7 @@ include('includes/header.php'); ?>
 				<h3>Par <?= $comment['authorName'] ?> le <?= $comment['commentDate_fr'] ?></h3>
 			</div>
 			<div class="comment-content">
-				<p><?= $comment['content'] ?></p>
+				<p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
 			</div>
 		<?php }
 		} ?>
@@ -72,7 +72,7 @@ include('includes/header.php'); ?>
 	</form>
 </section> 
 <?php } else { ?>
-	<p>Pour commenter, vous devez vous connecter. <a href="register.php">Vous inscrire</a></p>
+	<p>Pour commenter, vous devez vous connecter. <a href="registerView.php">Vous inscrire</a> ou <a href="login.php">Vous connecter</a></p>
 <?php }
 
 $content = ob_get_clean();
