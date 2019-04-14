@@ -8,12 +8,11 @@ class PostManager extends BaseManager {
 	}
 
 	public function getPost($postId) {
-		$q = $this->db->prepare('SELECT id, authorName, titleP, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr FROM posts WHERE id = ?');
+		$q = $this->db->prepare('SELECT id, authorName, titleP, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr, date_format(lastUpdated, \'%d/%m/%Y à %Hh%imin%ss\') AS lastUpdated_fr FROM posts WHERE id = ?');
 		$q->execute(array($postId));
 		$post = $q->fetch();
 
 		return $post;
-		
 	}
 
 	public function getPosts() {
