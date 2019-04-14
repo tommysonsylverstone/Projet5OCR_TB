@@ -11,7 +11,7 @@ $title = $post['titleP'];
 if (isset($_POST['confirm-comment'])) {
 	$comment = new Comment($_GET['id'], $_SESSION['username'], $_POST['content']);
 	$cManager = new CommentManager();
-	$commentP = $cManager->addComment($comment);
+	$cManager->addComment($comment);
 }
 
 ob_start(); 
