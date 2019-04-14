@@ -28,7 +28,7 @@ $pNumber = $pManager->count();
 					<p>
 						<?= nl2br(htmlspecialchars($data['content'])) ?>
 						<br />
-						<em><a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Accéder au billet</a></em>
+						<em><a href="postView.php?id=<?= $data['id'] ?>">Accéder au billet</a></em>
 						<?php new UserManager();
 						$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
 						if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
