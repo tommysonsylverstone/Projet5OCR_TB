@@ -8,8 +8,9 @@ $pManager = new PostManager();
 $post = $pManager->getPost($_GET['id']);
 $title = $post['titleP'];
 
+$postC = $_POST['comment-content'] ?? '';
 if (isset($_POST['confirm-comment'])) {
-	$comment = new Comment($_GET['id'], $_SESSION['username'], $_POST['content']);
+	$comment = new Comment($_GET['id'], $_SESSION['username'], $postC);
 	$cManager = new CommentManager();
 	$cManager->addComment($comment);
 }
@@ -62,8 +63,8 @@ include('includes/header.php'); ?>
 	?>
 	<section class="comment-form">
 	<form method="post" action="">
-		<label for="content">Votre commentaire :</label><br/>
-		<textarea name="content" placeholder="Ecrire votre commentaire ici"></textarea><br/>
+		<label for="comment-content">Votre commentaire :</label><br/>
+		<textarea name="comment-content" placeholder="Ecrire votre commentaire ici" value="<?= $postC ?>"></textarea><br/>
 		<button name="confirm-comment">Envoyer</button>
 	</form>
 </section> 
