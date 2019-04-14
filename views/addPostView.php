@@ -8,7 +8,7 @@ if (isset($_POST['confirm-button'])) {
 	if (empty($_SESSION['username'])) {
 		echo "Vous n'avez pas accès à cette page";
 	} elseif (empty($_POST['titleP']) || empty($_POST['chapo']) || empty($_POST['content'])) {	
-		echo "Veuillez remplir tous les champs les champs";
+		echo "Veuillez remplir tous les champs";
 	} else {
 		$post = new Post();
 		$post->setAuthorName($_SESSION['username']);
