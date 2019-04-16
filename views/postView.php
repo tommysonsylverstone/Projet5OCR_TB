@@ -38,6 +38,11 @@ include('includes/header.php'); ?>
 		<p><?= nl2br(htmlspecialchars($post['content'])) ?>
 	</div>
 	<a href="listPostsView.php">Retour à la liste des billets</a>
+	<?php new UserManager();
+	$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
+	if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
+		<a href="editPostView.php?id=<?= $_GET['id'] ?>">éditer ce post</a>
+	<?php } ?>
 </article>
 
 <section class="comments-list">
