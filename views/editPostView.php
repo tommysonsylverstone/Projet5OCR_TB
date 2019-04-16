@@ -21,7 +21,9 @@ if (isset($_POST['confirm-edit'])) {
 	}
 }
 
-ob_start(); ?>
+ob_start(); 
+
+include('includes/header.php'); ?>
 
 <p>Voici le billet que vous voulez modifier :</p>
 
@@ -32,8 +34,8 @@ $postId = $pManager->getPost($_GET['id']);
 
 <div>
 	<h3><?= htmlspecialchars($postId['titleP']) ?> écrit par <em><?= $postId['authorName'] ?></em></h3><br/>
-	<?= $postId['chapo'] ?><br/>
-	<p><?= $postId['content'] ?></p>
+	<?= htmlspecialchars($postId['chapo']) ?><br/>
+	<p><?= nl2br(htmlspecialchars($postId['content'])) ?></p>
 </div>
 
 <section>
@@ -46,6 +48,8 @@ $postId = $pManager->getPost($_GET['id']);
 	</form>
 </section>
 
-<? $content = ob_get_clean();
+<?php include('includes/footer.php');
+
+$content = ob_get_clean();
 
 require('includes/template.php'); ?>
