@@ -35,13 +35,12 @@ include('includes/header.php'); ?>
 		</div>
 	<?php } ?>
 	<div class="post-content">
-		<p><?= $post['content'] ?>
+		<p><?= nl2br(htmlspecialchars($post['content'])) ?>
 	</div>
 </article>
 
-<h2>Commentaires : </h2>
-
 <section class="comments-list">
+	<h2>Commentaires : </h2>
 	<?php 
 		$cManager = new CommentManager();
 		$comments = $cManager->getCommentsForPost($_GET['id']);
@@ -51,10 +50,8 @@ include('includes/header.php'); ?>
 		} else {
 			while($comment = $comments->fetch()) {
 			?>
-			<div class="comment-header">
+			<div class="comment-body">
 				<h3>Par <?= $comment['authorName'] ?> le <?= $comment['commentDate_fr'] ?></h3>
-			</div>
-			<div class="comment-content">
 				<p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
 			</div>
 		<?php }
@@ -65,12 +62,12 @@ include('includes/header.php'); ?>
 <?php if (!empty($_SESSION['username'])) {
 	?>
 	<section class="comment-form">
-	<form method="post" action="">
-		<label for="comment-content">Votre commentaire :</label><br/>
-		<textarea name="comment-content" placeholder="Ecrire votre commentaire ici" value="<?= $postC ?>"></textarea><br/>
-		<button name="confirm-comment">Envoyer</button>
-	</form>
-</section> 
+		<form method="post" action="">
+			<label for="comment-content">Votre commentaire :</label><br/>
+			<textarea name="comment-content" class="comment-textarea" placeholder="Ecrire votre commentaire ici" value="<?= $postC ?>"></textarea><br/>
+			<button name="confirm-comment">Envoyer</button>
+		</form>
+	</section> 
 <?php } else { ?>
 	<p>Pour commenter, vous devez vous connecter. <a href="registerView.php">Vous inscrire</a> ou <a href="login.php">Vous connecter</a></p>
 <?php }
