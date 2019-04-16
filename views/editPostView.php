@@ -8,6 +8,7 @@ $authorName = $_POST['authorName'] ?? '';
 $titleP = $_POST['titleP'] ?? '';
 $chapo = $_POST['chapo'] ?? '';
 $content = $_POST['content'] ?? '';
+$postGetId = $_GET['id'];
 
 if (isset($_POST['confirm-edit'])) {
 	if (empty($authorName) || empty($titleP) || empty($chapo) || empty($content)) {
@@ -18,7 +19,7 @@ if (isset($_POST['confirm-edit'])) {
 		$pManager = new PostManager();
 		$pManager->updatePost($post);
 
-		header("location: listPostsview.php");
+		header("location: PostView.php?id=$postGetId");
 	}
 }
 
