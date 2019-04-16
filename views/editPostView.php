@@ -4,6 +4,9 @@ include_once('includes/autoloader.php');
 
 session_start();
 
+$authorName = $_POST['authorName'] ?? '';
+
+
 if (isset($_POST['confirm-edit'])) {
 	if (empty($_POST['authorName']) || empty($_POST['titleP']) || empty($_POST['chapo']) || empty($_POST['content'])) {
 		echo "Veuillez remplir tous les champs";
@@ -40,10 +43,10 @@ $postId = $pManager->getPost($_GET['id']);
 
 <section>
 	<form method="post" action="">
-		<input type="text" name="authorName" placeholder="Auteur" /><br/>
-		<input type="text" name="titleP" placeholder="Titre" /><br/>
-		<input type="text" name="chapo" placeholder="Chapo" /><br/>
-		<textarea name="content" placeholder="Contenu du billet"></textarea><br/>
+		<input type="text" name="authorName" placeholder="Auteur" value="<?= $postId['authorName'] ?>" /><br/>
+		<input type="text" name="titleP" placeholder="Titre" value="<?= $postId['titleP'] ?>" /><br/>
+		<input type="text" name="chapo" placeholder="Chapo" value="<?= $postId['chapo'] ?>"/><br/>
+		<textarea name="content" placeholder="Contenu du billet"><?=  $postId['content'] ?></textarea><br/>
 		<button name="confirm-edit">Confirmer</button>
 	</form>
 </section>
