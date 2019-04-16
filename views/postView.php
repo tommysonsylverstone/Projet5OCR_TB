@@ -37,6 +37,7 @@ include('includes/header.php'); ?>
 	<div class="post-content">
 		<p><?= nl2br(htmlspecialchars($post['content'])) ?>
 	</div>
+	<a href="listPostsView.php">Retour à la liste des billets</a>
 </article>
 
 <section class="comments-list">
