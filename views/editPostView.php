@@ -5,18 +5,16 @@ include_once('includes/autoloader.php');
 session_start();
 
 $authorName = $_POST['authorName'] ?? '';
-
+$titleP = $_POST['titleP'] ?? '';
+$chapo = $_POST['chapo'] ?? '';
+$content = $_POST['content'] ?? '';
 
 if (isset($_POST['confirm-edit'])) {
-	if (empty($_POST['authorName']) || empty($_POST['titleP']) || empty($_POST['chapo']) || empty($_POST['content'])) {
+	if (empty($authorName) || empty($titleP) || empty($chapo) || empty($content)) {
 		echo "Veuillez remplir tous les champs";
 	} else {
-		$post = new Post();
+		$post = new Post($titleP, $chapo, $content, $authorName);
 		$post->setId($_GET['id']);
-		$post->setAuthorName($_POST['authorName']);
-		$post->setTitleP($_POST['titleP']);
-		$post->setChapo($_POST['chapo']);
-		$post->setContent($_POST['content']);
 		$pManager = new PostManager();
 		$pManager->updatePost($post);
 
