@@ -9,6 +9,14 @@ class Post {
 	private $authorName;
 	private $lastUpdated;
 
+
+	public function __construct ($titleP, $chapo, $content, $authorName) {
+		$this->titleP = $titleP;
+		$this->chapo = $chapo;
+		$this->content = $content;
+		$this->authorName = $authorName;
+	}
+
 	public function getId():int {
 		return $this->id;
 	}

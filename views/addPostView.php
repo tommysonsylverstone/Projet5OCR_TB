@@ -4,17 +4,18 @@ include_once('includes/autoloader.php');
 
 session_start();
 
+$username = $_SESSION['username'];
+$titleP = $_POST['titleP'] ?? '';
+$chapo = $_POST['chapo'] ?? '';
+$content = $_POST['content'] ?? '';
+
 if (isset($_POST['confirm-button'])) {
-	if (empty($_SESSION['username'])) {
+	if (empty($username)) {
 		echo "Vous n'avez pas accès à cette page";
-	} elseif (empty($_POST['titleP']) || empty($_POST['chapo']) || empty($_POST['content'])) {	
+	} elseif (empty($titleP) || empty($chapo) || empty($content)) {	
 		echo "Veuillez remplir tous les champs";
 	} else {
-		$post = new Post();
-		$post->setAuthorName($_SESSION['username']);
-		$post->setTitleP($_POST['titleP']);
-		$post->setChapo($_POST['chapo']);
-		$post->setContent($_POST['content']);
+		$post = new Post($titleP, $chapo, $content, $username);
 		$pManager = new PostManager();
 		$pManager->addPost($post);
 	}
