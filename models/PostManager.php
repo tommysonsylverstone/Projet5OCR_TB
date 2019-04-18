@@ -5,7 +5,7 @@ require_once('BaseManager.php');
 class PostManager extends BaseManager {
 	public function getPost($postId) {
 		$db = self::dbConnect();
-		$q = $db->prepare('SELECT id, authorName, titleP, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr, date_format(lastUpdated, \'%d/%m/%Y à %Hh%imin%ss\') AS lastUpdated_fr FROM posts WHERE id = ?');
+		$q = $db->prepare('SELECT id, authorName, titleP, chapo, content, postDate, lastUpdated FROM posts WHERE id = ?');
 		$q->execute(array($postId));
 		$post = $q->fetch();
 
@@ -14,7 +14,7 @@ class PostManager extends BaseManager {
 
 	public function getPosts() {
 		$db = self::dbConnect();
-		$q = $db->query('SELECT id, authorName, titleP, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr, date_format(lastUpdated, \'%d/%m/%Y à %Hh%imin%ss\') AS lastUpdated_fr FROM posts ORDER BY id DESC');
+		$q = $db->query('SELECT id, authorName, titleP, chapo, content, postDate, lastUpdated FROM posts ORDER BY id DESC');
 
 		return $q;
 	}

@@ -9,6 +9,12 @@ $post = $pManager->getPost($_GET['id']);
 $title = $post['titleP'];
 $postC = $_POST['comment-content'] ?? '';
 
+$date = date_create($post['postDate']);
+$dateFr = date_format($date, 'd/m/Y à H:i:s');
+
+$lastUp = date_create($post['lastUpdated']);
+$lastUpFr = date_format($lastUp, 'd/m/Y à H:i:s');
+
 if (isset($_POST['confirm-comment'])) {
 	$comment = new Comment($_GET['id'], $_SESSION['username'], $postC);
 	$cManager = new CommentManager();
@@ -23,13 +29,13 @@ ob_start(); ?>
 
 <article class="single-post">
 	<div class="post-header">
-		<h1><?= $post['titleP'] ?> écrit par <?= $post['authorName'] ?> le <?= $post['postDate_fr'] ?></h1>
+		<h1><?= $post['titleP'] ?> écrit par <?= $post['authorName'] ?> le <?= $dateFr ?></h1>
 	</div>
 	<?php
-	if (!empty($post['lastUpdated_fr'])) {
+	if (!empty($post['lastUpdated'])) {
 		?>
 		<div class="last-updated">
-			édité le <?= $post['lastUpdated_fr'] ?>
+			édité le <?= $lastUpFr ?>
 		</div>
 	<?php } ?>
 	<div class="post-content">
