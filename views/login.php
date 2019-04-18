@@ -14,10 +14,7 @@ if (isset($_POST['submit-button'])) {
 
 ob_start(); 
 
-	include('includes/header.php');
-	if (empty(isset($_SESSION['username']))) {
-
-		?>
+	if (empty(isset($_SESSION['username']))) { ?>
 		<form action="login.php" method="post">
 			<input type="text" name="username" placeholder="Pseudonyme" value="<?php $username ?>" /><br/>
 			<input type="password" name="pwd" placeholder="Mot de passe" /><br/>

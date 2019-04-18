@@ -50,8 +50,6 @@ $postId = $pManager->getPost($_GET['id']);
 	</form>
 </section>
 
-<?php include('includes/footer.php');
-
-$content = ob_get_clean();
+<?php $content = ob_get_clean();
 
 require('includes/template.php'); ?>

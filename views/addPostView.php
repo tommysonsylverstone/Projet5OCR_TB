@@ -21,10 +21,7 @@ if (isset($_POST['confirm-button'])) {
 	}
 }
 
-ob_start();
-
-include('includes/header.php');
-?>
+ob_start(); ?>
 
 <form method="post" action="">
 	<input type="text" name="titleP" placeholder="Titre" /> <br/>

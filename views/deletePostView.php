@@ -12,5 +12,3 @@ $deleteP = $pManager->deletePost($post);
 header("location: listPostsView.php");
 
 $content = ob_get_clean();
-
-require('includes/template.php');

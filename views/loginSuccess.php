@@ -11,4 +11,6 @@ if(isset($_SESSION["username"])) {
 	echo "Quelque chose s'est mal passé.";
 	?>
 	<a href="login.php">Vous reconnecter</a>
-<?php } ?>
+<?php } 
+
+require('includes/template.php'); ?>

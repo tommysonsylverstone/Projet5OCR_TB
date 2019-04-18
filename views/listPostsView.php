@@ -6,8 +6,6 @@ session_start();
 
 ob_start();
 
-include('includes/header.php');
-
 $pManager = new PostManager();
 $posts = $pManager->getPosts();
 $pNumber = $pManager->count();
