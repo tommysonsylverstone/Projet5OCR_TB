@@ -30,8 +30,6 @@ $pNumber = $pManager->count(); ?>
 					} ?><br/>
 					<h4><em><?= $data['chapo'] ?></em></h4>
 					<p>
-						<?= nl2br(htmlspecialchars($data['content'])) ?>
-						<br />
 						<em><a href="postView.php?id=<?= $data['id'] ?>">Accéder au billet</a></em>
 						<?php new UserManager();
 						$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
