@@ -24,7 +24,10 @@ $pNumber = $pManager->count(); ?>
 			<div class="news">
 				<h3>
 					<?= htmlspecialchars($data['titleP']) ?>
-					<em>le <?= $pDate ?></em> par <?= $data['authorName']?> <?php if (isset($upDate)) { echo "<em>édité le " . $upDate . "</em>"; }?><br/>
+					<em>le <?= $pDate ?></em> par <?= $data['authorName']?>
+					<?php if (isset($upDate)) {
+						echo "<em>édité le " . $upDate . "</em>";
+					} ?><br/>
 					<h4><em><?= $data['chapo'] ?></em></h4>
 					<p>
 						<?= nl2br(htmlspecialchars($data['content'])) ?>

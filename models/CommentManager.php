@@ -11,6 +11,13 @@ class CommentManager extends BaseManager {
 		return $q;
 	}
 
+	public function getCommentsForAdmin() {
+		$db = self::dbConnect();
+		$q = $db->query('SELECT id, postId, authorName, content, commentDate, isValidated FROM comments WHERE isValidated = FALSE ORDER BY id DESC');
+
+		return $q;
+	}
+
 	public function addComment(Comment $comment) {
 		$db = self::dbConnect();
 		$q = $db->prepare('INSERT INTO comments(postId, authorName, content, commentDate) VALUES(:postId, :authorName, :content, NOW())');
