@@ -59,14 +59,16 @@ ob_start(); ?>
 		echo "Pas de commentaires pour le moment";
 	} else {
 		while($comment = $comments->fetch()) {
-			$cDate = date_create($comment['commentDate']);
-			$cDateFr = date_format($cDate, 'd/m/Y à H:i:s');
-			?>
-			<div class="comment-body">
-				<h3>Par <?= $comment['authorName'] ?> le <?= $cDateFr ?></h3>
-				<p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
-			</div>
-		<?php }
+			if ($comment['isValidated'] == true) {
+				$cDate = date_create($comment['commentDate']);
+				$cDateFr = date_format($cDate, 'd/m/Y à H:i:s');
+				?>
+				<div class="comment-body">
+					<h3>Par <?= $comment['authorName'] ?> le <?= $cDateFr ?></h3>
+					<p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
+				</div>
+			<?php }
+		}
 	} ?>
 </section>
 

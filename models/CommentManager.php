@@ -5,7 +5,7 @@ require_once('BaseManager.php');
 class CommentManager extends BaseManager {
 	public function getCommentsForPost(int $postId, bool $isValidated=true) {
 		$db = self::dbConnect();
-		$q = $db->prepare('SELECT id, postId, authorName, content, commentDate FROM comments WHERE postId = ? ORDER BY id DESC');
+		$q = $db->prepare('SELECT * FROM comments WHERE postId = ? ORDER BY id DESC');
 		$q->execute(array($postId));
 
 		return $q;
@@ -13,7 +13,7 @@ class CommentManager extends BaseManager {
 
 	public function getCommentsForAdmin() {
 		$db = self::dbConnect();
-		$q = $db->query('SELECT id, postId, authorName, content, commentDate, isValidated FROM comments WHERE isValidated = FALSE ORDER BY id DESC');
+		$q = $db->query('SELECT * FROM comments WHERE isValidated = FALSE ORDER BY id DESC');
 
 		return $q;
 	}
