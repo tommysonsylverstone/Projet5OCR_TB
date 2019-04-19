@@ -29,6 +29,16 @@ class CommentManager extends BaseManager {
 		$q->execute();
 	}
 
+	public function validateComment(int $commentId, bool $isValidated) {
+		$db = self::dbConnect();
+		$q = $db->prepare('UPDATE comments SET isValidated=:isValidated WHERE id=:id');
+
+		$q->bindValue('id', $commentId);
+		$q->bindValue(':isValidated', $isValidated, PDO::PARAM_BOOL);
+
+		$q->execute();
+	}
+
 	public function count() {
 		$db = self::dbConnect();
 		return $db->query('SELECT COUNT(*) FROM comments')->fetchColumn();

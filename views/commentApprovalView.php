@@ -27,7 +27,7 @@ if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
 				<td><?= $comment['authorName'] ?></td>
 				<td><?= $comment['postId'] ?></td>
 				<td><?= nl2br(htmlspecialchars($comment['content'])) ?></td>
-				<td><button>Valider</button></td>
+				<td><a href="commentValidated.php?id=<?= $comment['id'] ?>">Valider</a></td>
 			</tr>
 		<?php } 
 	} else {
