@@ -8,21 +8,24 @@ ob_start();
 
 $pManager = new PostManager();
 $posts = $pManager->getPosts();
-$pNumber = $pManager->count();
-?>
+$pNumber = $pManager->count(); ?>
 
 <section>
-	<?php 
+	<?php
 	if ($pNumber == 0) {
 		echo "Pas de billets pour le moment, patience !";
-		} else {
-		while ($data = $posts->fetch()) {
-		?>
+	} else {
+		while ($data = $posts->fetch()) { 
+			$date = date_create($data['postDate']); 
+			$pDate = date_format($date, 'd/m/Y à H:i:s'); 
+
+			$lastUp = date_create($data['lastUpdated']);
+			$upDate = date_format($lastUp, 'd/m/Y à H:i:s') ?>
 			<div class="news">
 				<h3>
 					<?= htmlspecialchars($data['titleP']) ?>
-					<em>le <?= $data['postDate_fr']?></em> par <?= $data['authorName']?> <?php if (isset($data['lastUpdated_fr'])) { echo "<em>édité le " . $data['lastUpdated_fr'] . "</em>"; }?><br/>
-						<h4><em><?= $data['chapo'] ?></em></h4>
+					<em>le <?= $pDate ?></em> par <?= $data['authorName']?> <?php if (isset($upDate)) { echo "<em>édité le " . $upDate . "</em>"; }?><br/>
+					<h4><em><?= $data['chapo'] ?></em></h4>
 					<p>
 						<?= nl2br(htmlspecialchars($data['content'])) ?>
 						<br />
@@ -36,8 +39,7 @@ $pNumber = $pManager->count();
 					</p>
 				</h3>
 			</div>
-			<?php
-		}
+		<?php }
 	} ?>
 </section>
 
