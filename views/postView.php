@@ -9,11 +9,11 @@ $post = $pManager->getPost($_GET['id']);
 $title = $post['titleP'];
 $postC = $_POST['comment-content'] ?? '';
 
-$date = date_create($post['postDate']);
-$dateFr = date_format($date, 'd/m/Y à H:i:s');
+$pDate = date_create($post['postDate']);
+$pDateFr = date_format($pDate, 'd/m/Y à H:i:s');
 
-$lastUp = date_create($post['lastUpdated']);
-$lastUpFr = date_format($lastUp, 'd/m/Y à H:i:s');
+$pLastUp = date_create($post['lastUpdated']);
+$pLastUpFr = date_format($pLastUp, 'd/m/Y à H:i:s');
 
 if (isset($_POST['confirm-comment'])) {
 	$comment = new Comment($_GET['id'], $_SESSION['username'], $postC);
@@ -29,13 +29,13 @@ ob_start(); ?>
 
 <article class="single-post">
 	<div class="post-header">
-		<h1><?= $post['titleP'] ?> écrit par <?= $post['authorName'] ?> le <?= $dateFr ?></h1>
+		<h1><?= $post['titleP'] ?> écrit par <?= $post['authorName'] ?> le <?= $pDateFr ?></h1>
 	</div>
 	<?php
 	if (!empty($post['lastUpdated'])) {
 		?>
 		<div class="last-updated">
-			édité le <?= $lastUpFr ?>
+			édité le <?= $pLastUpFr ?>
 		</div>
 	<?php } ?>
 	<div class="post-content">
@@ -59,9 +59,11 @@ ob_start(); ?>
 		echo "Pas de commentaires pour le moment";
 	} else {
 		while($comment = $comments->fetch()) {
+			$cDate = date_create($comment['commentDate']);
+			$cDateFr = date_format($cDate, 'd/m/Y à H:i:s');
 			?>
 			<div class="comment-body">
-				<h3>Par <?= $comment['authorName'] ?> le <?= $comment['commentDate_fr'] ?></h3>
+				<h3>Par <?= $comment['authorName'] ?> le <?= $cDateFr ?></h3>
 				<p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
 			</div>
 		<?php }
