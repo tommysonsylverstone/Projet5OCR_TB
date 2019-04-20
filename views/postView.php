@@ -35,9 +35,12 @@ ob_start(); ?>
 	if (!empty($post['lastUpdated'])) {
 		?>
 		<div class="last-updated">
-			édité le <?= $pLastUpFr ?>
+			<p>édité le <?= $pLastUpFr ?></p>
 		</div>
 	<?php } ?>
+	<div class="post-chapo">
+		<p><?= htmlspecialchars($post['chapo']) ?></p>
+	</div>
 	<div class="post-content">
 		<p><?= nl2br(htmlspecialchars($post['content'])) ?>
 	</div>
