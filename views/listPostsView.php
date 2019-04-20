@@ -8,8 +8,9 @@ ob_start();
 
 $pManager = new PostManager();
 $posts = $pManager->getPosts();
-$pNumber = $pManager->count(); ?>
-
+$pNumber = $pManager->count();
+$page = (!empty($_GET['page']) ? $_GET['page'] : 1);
+$limit = 5; ?>
 <section>
 	<?php
 	if ($pNumber == 0) {
@@ -17,15 +18,16 @@ $pNumber = $pManager->count(); ?>
 	} else {
 		while ($data = $posts->fetch()) { 
 			$date = date_create($data['postDate']); 
-			$pDate = date_format($date, 'd/m/Y à H:i:s'); 
-
-			$lastUp = date_create($data['lastUpdated']);
-			$upDate = date_format($lastUp, 'd/m/Y à H:i:s') ?>
+			$pDate = date_format($date, 'd/m/Y à H:i:s'); ?>
 			<div class="news">
 				<h3>
 					<?= htmlspecialchars($data['titleP']) ?>
 					<em>le <?= $pDate ?></em> par <?= $data['authorName']?>
-					<?php if (isset($upDate)) {
+					<?php if (empty($data['lastUpdated'])) {
+						echo '';
+					} else {
+						$lastUp = date_create($data['lastUpdated']);
+						$upDate = date_format($lastUp, 'd/m/Y à H:i:s');
 						echo "<em>édité le " . $upDate . "</em>";
 					} ?><br/>
 					<h4><em><?= $data['chapo'] ?></em></h4>
@@ -44,6 +46,8 @@ $pNumber = $pManager->count(); ?>
 	} ?>
 </section>
 
+<a href="?page=<?= $page - 1; ?>">Page précédente</a>
+<a href="?page=<?= $page + 1; ?>">Page suivante</a>
 <?php $content = ob_get_clean();
 
 require('includes/template.php'); ?>

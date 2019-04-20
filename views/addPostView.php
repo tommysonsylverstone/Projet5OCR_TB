@@ -18,6 +18,8 @@ if (isset($_POST['confirm-button'])) {
 		$post = new Post($titleP, $chapo, $content, $username);
 		$pManager = new PostManager();
 		$pManager->addPost($post);
+
+		header("location: listPostsView.php");
 	}
 }
 
