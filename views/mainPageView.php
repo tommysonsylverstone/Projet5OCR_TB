@@ -2,8 +2,6 @@
 
 include_once('includes/autoloader.php');
 
-session_start();
-
 ob_start(); ?>
 
 <article>
