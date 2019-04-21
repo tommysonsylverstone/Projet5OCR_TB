@@ -2,15 +2,7 @@
 
 include_once('views/includes/autoloader.php');
 
-session_start();
-
 ob_start(); 
-
-$comments = new CommentManager();
-$invalidComm = $comments->getCommentsForAdmin(); 
-
-new UserManager();
-$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
 
 if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
 	<table border="1">

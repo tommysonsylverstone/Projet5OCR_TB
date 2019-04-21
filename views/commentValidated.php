@@ -2,12 +2,7 @@
 
 include_once('views/includes/autoloader.php');
 
-session_start();
-
 ob_start();
-
-new UserManager();
-$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
 
 if ($user['type'] == 'admin' && !empty($_SESSION['username'])) {
 	$valid = new CommentManager();

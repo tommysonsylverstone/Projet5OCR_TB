@@ -48,10 +48,17 @@ function administration() {
 }
 
 function unapprovedList() {
+	$comments = new CommentManager();
+	$invalidComm = $comments->getCommentsForAdmin(); 
+
+	new UserManager();
+	$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
 	require('views/commentApprovalView.php');
 }
 
 function commentValidated() {
+	new UserManager();
+	$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
 	require('views/commentValidated.php');
 }
 
