@@ -19,7 +19,7 @@ if (isset($_POST['confirm-button'])) {
 		$pManager = new PostManager();
 		$pManager->addPost($post);
 
-		header("location: ?action=listPostsView");
+		header("location: ?action=postsList");
 	}
 }
 

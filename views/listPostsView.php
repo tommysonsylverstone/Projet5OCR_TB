@@ -1,6 +1,6 @@
 <?php $title = 'Liste des billets';
 
-include_once('includes/autoloader.php');
+include_once('views/includes/autoloader.php');
 
 session_start();
 
@@ -31,12 +31,12 @@ $pNumber = $pManager->count(); ?>
 					} ?><br/>
 					<h4><em><?= $data['chapo'] ?></em></h4>
 					<p>
-						<em><a href="postView.php?id=<?= $data['id'] ?>">Accéder au billet</a></em>
+						<em><a href="?action=post&amp;id=<?= $data['id'] ?>">Accéder au billet</a></em>
 						<?php new UserManager();
 						$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
 						if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
-							<a href="deletePostView.php?id=<?= $data['id'] ?>">Supprimer ce post</a>
-							<a href="editPostView.php?id=<?= $data['id'] ?>">éditer</a>
+							<a href="?action=deletePost&amp;id=<?= $data['id'] ?>">Supprimer ce post</a>
+							<a href="?action=editPost&amp;id=<?= $data['id'] ?>">éditer</a>
 						<?php } ?>
 					</p>
 				</h3>
@@ -47,4 +47,4 @@ $pNumber = $pManager->count(); ?>
 
 <?php $content = ob_get_clean();
 
-require('includes/template.php'); ?>
+require('views/includes/template.php'); ?>

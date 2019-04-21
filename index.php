@@ -62,12 +62,12 @@ try {
 			break;
 
 			default:
-
+			//what do i insert in this ? 404 page ?
 			break;
 		}
 	}
 	else {
-		mainPageView();
+		mainPage();
 	}
 }
 catch(Exception $e) {

@@ -12,7 +12,7 @@ if ($user['type'] == 'admin' && !empty($_SESSION['username'])) {
 	$pManager = new PostManager();
 	$pManager->deletePost($_GET['id']);
 
-	header("location: ?action=listPostsView");
+	header("location: ?action=postsList");
 } else { ?>
 	<p>Vous n'avez pas accès à cette page<br/>
 	<a href="index.php">Retour à l'accueil</a></p>

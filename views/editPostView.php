@@ -19,7 +19,7 @@ if (isset($_POST['confirm-edit'])) {
 		$pManager = new PostManager();
 		$pManager->updatePost($post);
 
-		header("location: ?action=postView&id=$postGetId");
+		header("location: ?action=post&id=$postGetId");
 	}
 }
 

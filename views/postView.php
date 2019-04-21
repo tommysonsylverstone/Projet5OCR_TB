@@ -44,11 +44,11 @@ ob_start(); ?>
 	<div class="post-content">
 		<p><?= nl2br(htmlspecialchars($post['content'])) ?>
 	</div>
-	<a href="?action=listPostsView">Retour à la liste des billets</a>
+	<a href="?action=postsList">Retour à la liste des billets</a>
 	<?php new UserManager();
 	$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
 	if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
-		<a href="?action=editPostView&amp;id=<?= $_GET['id'] ?>">éditer ce post</a>
+		<a href="?action=editPost&amp;id=<?= $_GET['id'] ?>">éditer ce post</a>
 	<?php } ?>
 </article>
 
@@ -84,7 +84,7 @@ ob_start(); ?>
 		</form>
 	</section>
 <?php } else { ?>
-	<p>Pour commenter, vous devez vous connecter. <a href="?action=registerView">Vous inscrire</a> ou <a href="?action=login">Vous connecter</a></p>
+	<p>Pour commenter, vous devez vous connecter. <a href="?action=register">Vous inscrire</a> ou <a href="?action=login">Vous connecter</a></p>
 <?php }
 
 $content = ob_get_clean();

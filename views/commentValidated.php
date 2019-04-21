@@ -12,7 +12,7 @@ $user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username'
 if ($user['type'] == 'admin' && !empty($_SESSION['username'])) {
 	$valid = new CommentManager();
 	$valid->validateComment($_GET['id'], TRUE);
-	header("location: ?action=commentApprovalView");
+	header("location: ?action=unapprovedList");
 } else { ?>
 	<p>Vous n'avez pas accès à cette page</p>
 <?php }
