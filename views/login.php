@@ -2,16 +2,6 @@
 
 include_once('views/includes/autoloader.php');
 
-session_start();
-
-$username = $_POST['username'] ?? '';
-$password = $_POST['pwd'] ?? '';
-
-if (isset($_POST['submit-button'])) {
-	$uManager = new UserManager();
-	$uManager->login($username, $password);
-} 
-
 ob_start(); 
 
 if (empty(isset($_SESSION['username']))) { ?>
