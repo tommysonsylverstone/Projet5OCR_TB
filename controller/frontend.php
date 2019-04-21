@@ -2,6 +2,8 @@
 
 include_once('views/includes/autoloader.php');
 
+session_start();
+
 function addPost() {
 	require('views/addPostView.php');
 }
@@ -19,6 +21,14 @@ function commentValidated() {
 }
 
 function deletePost() {
+	new UserManager();
+	$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
+	if ($user['type'] == 'admin' && !empty($_SESSION['username'])) {
+		$pManager = new PostManager();
+		$pManager->deletePost($_GET['id']);
+
+		header("location: ?action=postsList");
+	}
 	require('views/deletePostView.php');
 }
 
