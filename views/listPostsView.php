@@ -1,7 +1,5 @@
 <?php $title = 'Liste des billets';
 
-include_once('views/includes/autoloader.php');
-
 ob_start(); ?>
 
 <section>

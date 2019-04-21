@@ -1,7 +1,5 @@
 <?php $title = 'Accueil';
 
-include_once('includes/autoloader.php');
-
 ob_start(); ?>
 
 <article>

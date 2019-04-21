@@ -1,7 +1,5 @@
 <?php $title = 'Ajout de billet';
 
-include_once('views/includes/autoloader.php');
-
 ob_start(); ?>
 
 <form method="post" action="?action=addPost">

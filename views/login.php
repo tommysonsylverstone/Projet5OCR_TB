@@ -1,7 +1,5 @@
 <?php $title = "Connexion";
 
-include_once('views/includes/autoloader.php');
-
 ob_start(); 
 
 if (empty(isset($_SESSION['username']))) { ?>

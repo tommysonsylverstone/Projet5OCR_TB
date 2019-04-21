@@ -1,7 +1,5 @@
 <?php $title = 'Commentaires en attente';
 
-include_once('views/includes/autoloader.php');
-
 ob_start(); 
 
 if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>

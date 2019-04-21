@@ -1,7 +1,5 @@
 <?php 
 
-include_once('views/includes/autoloader.php');
-
 $postC = $_POST['comment-content'] ?? '';
 
 $pDate = date_create($post['postDate']);

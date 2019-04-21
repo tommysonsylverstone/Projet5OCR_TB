@@ -1,9 +1,5 @@
 <?php $title = 'Edition de post';
 
-include_once('views/includes/autoloader.php');
-
-session_start();
-
 $authorName = $_POST['authorName'] ?? '';
 $titleP = $_POST['titleP'] ?? '';
 $chapo = $_POST['chapo'] ?? '';

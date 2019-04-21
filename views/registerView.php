@@ -1,8 +1,5 @@
 <?php $title = "Inscription";
 
-include_once('views/includes/autoloader.php');
-include_once('models/user.php');
-
 ob_start(); ?>
 
 <div class="register-form">

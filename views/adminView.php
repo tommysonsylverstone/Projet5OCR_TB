@@ -1,9 +1,5 @@
 <?php $title = 'Page d\'administration';
 
-include_once('includes/autoloader.php');
-
-session_start();
-
 ob_start(); ?>
 
 <ul>
