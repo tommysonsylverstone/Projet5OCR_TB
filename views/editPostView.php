@@ -1,24 +1,5 @@
 <?php $title = 'Edition de post';
 
-$authorName = $_POST['authorName'] ?? '';
-$titleP = $_POST['titleP'] ?? '';
-$chapo = $_POST['chapo'] ?? '';
-$content = $_POST['content'] ?? '';
-$postGetId = $_GET['id'];
-
-if (isset($_POST['confirm-edit'])) {
-	if (empty($authorName) || empty($titleP) || empty($chapo) || empty($content)) {
-		echo "Veuillez remplir tous les champs";
-	} else {
-		$post = new Post($titleP, $chapo, $content, $authorName);
-		$post->setId($postGetId);
-		$pManager = new PostManager();
-		$pManager->updatePost($post);
-
-		header("location: ?action=post&id=$postGetId");
-	}
-}
-
 ob_start(); ?>
 
 <p>Voici le billet que vous voulez modifier :</p>
