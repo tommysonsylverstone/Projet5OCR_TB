@@ -7,12 +7,16 @@ session_start();
 function addComment() {
 	$postC = $_POST['comment-content'] ?? '';
 	$postId = $_GET['id'];
-	$comment = new Comment($postId, $_SESSION['username'], $postC);
-	$cManager = new CommentManager();
-	$cManager->addComment($comment);
+	if (empty($postC)) {
+		header("location: ?action=post&id=".$postId);
+	} else {
+		$comment = new Comment($postId, $_SESSION['username'], $postC);
+		$cManager = new CommentManager();
+		$cManager->addComment($comment);
 
-	header("location: ?action=post&id=".$postId);
-	exit();
+		header("location: ?action=post&id=".$postId);
+		exit();
+	}
 }	
 
 function addPost() {

@@ -2,6 +2,8 @@
 
 include_once('views/includes/autoloader.php');
 
+$postC = $_POST['comment-content'] ?? '';
+
 $pDate = date_create($post['postDate']);
 $pDateFr = date_format($pDate, 'd/m/Y à H:i:s');
 
@@ -55,7 +57,10 @@ ob_start(); ?>
 	} ?>
 </section>
 
-<?php if (!empty($_SESSION['username'])) { ?>
+<?php if (!empty($_SESSION['username'])) { 
+	if (empty($postC)) { ?>
+		<div class="warning"><p>Veuillez écrire un commentaire</p></div>
+	<?php }?>
 	<section class="comment-form">
 		<form method="post" action="index.php?action=addComment&amp;id=<?= $post['id'] ?>">
 			<label for="comment-content">Votre commentaire :</label><br/>
