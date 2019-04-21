@@ -8,9 +8,8 @@ ob_start();
 
 $pManager = new PostManager();
 $posts = $pManager->getPosts();
-$pNumber = $pManager->count();
-$page = (!empty($_GET['page']) ? $_GET['page'] : 1);
-$limit = 5; ?>
+$pNumber = $pManager->count(); ?>
+
 <section>
 	<?php
 	if ($pNumber == 0) {
@@ -46,8 +45,6 @@ $limit = 5; ?>
 	} ?>
 </section>
 
-<a href="?page=<?= $page - 1; ?>">Page précédente</a>
-<a href="?page=<?= $page + 1; ?>">Page suivante</a>
 <?php $content = ob_get_clean();
 
 require('includes/template.php'); ?>
