@@ -8,7 +8,8 @@ function addComment() {
 	$postC = $_POST['comment-content'] ?? '';
 	$postId = $_GET['id'];
 	if (empty($postC)) {
-		header("location: ?action=post&id=".$postId);
+		echo "Désolé, un problème s'est passé.<br/>";
+		echo '<a href="?action=post&id='.$postId.'">Revenir au billet</a>';
 	} else {
 		$comment = new Comment($postId, $_SESSION['username'], $postC);
 		$cManager = new CommentManager();

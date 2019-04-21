@@ -57,10 +57,7 @@ ob_start(); ?>
 	} ?>
 </section>
 
-<?php if (!empty($_SESSION['username'])) { 
-	if (empty($postC)) { ?>
-		<div class="warning"><p>Veuillez écrire un commentaire</p></div>
-	<?php }?>
+<?php if (!empty($_SESSION['username'])) { ?>
 	<section class="comment-form">
 		<form method="post" action="index.php?action=addComment&amp;id=<?= $post['id'] ?>">
 			<label for="comment-content">Votre commentaire :</label><br/>
