@@ -1,31 +1,36 @@
 <?php
+
 require('controller/frontend.php');
 
 try {
 	if (isset($_GET['action'])) {
 		switch ($_GET['action']) {
-			case 'addPostView':
-			addPostView();
+			case 'addPost':
+			addPost();
 			break;
 
-			case 'adminView':
-			adminView();
+			case 'administration':
+			administration();
 			break;
 
-			case 'commentApprovalView':
-			commentApprovalView();
+			case 'unapprovedList':
+			unapprovedList();
 			break;
 
 			case 'commentValidated':
 			commentValidated();
 			break;
 
-			case 'deletePostView':
-			deletePostView();
+			case 'deletePost':
+			deletePost();
 			break;
 			
-			case 'editPostView':
-			editPostView();
+			case 'editPost':
+			editPost();
+			break;
+
+			case 'postsList':
+			postsList();
 			break;
 
 			case 'login':
@@ -40,20 +45,20 @@ try {
 			logout();
 			break;
 
-			case 'mainPageView':
-			mainPageView();
+			case 'mainPage':
+			mainPage();
 			break;
 
-			case 'postView':
-			postView();
+			case 'post':
+			post();
 			break;
 
 			case 'registerSuccess':
 			registerSuccess();
 			break;
 
-			case 'registerView':
-			registerView();
+			case 'register':
+			register();
 			break;
 
 			default:

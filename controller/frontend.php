@@ -2,15 +2,15 @@
 
 include_once('views/includes/autoloader.php');
 
-function addPostView() {
+function addPost() {
 	require('views/addPostView.php');
 }
 
-function adminView() {
+function administration() {
 	require('views/adminView.php');
 }
 
-function commentApprovalView() {
+function unapprovedList() {
 	require('views/commentApprovalView.php');
 }
 
@@ -18,15 +18,15 @@ function commentValidated() {
 	require('views/commentValidated.php');
 }
 
-function deletePostView() {
+function deletePost() {
 	require('views/deletePostView.php');
 }
 
-function editPostView() {
+function editPost() {
 	require('views/editPostView.php');
 }
 
-function listPostsView() {
+function postsList() {
 	require('views/listPostsView.php');
 }
 
@@ -42,11 +42,11 @@ function logout() {
 	require('views/logout.php');
 }
 
-function mainPageView() {
+function mainPage() {
 	require('views/mainPageView.php');
 }
 
-function postView() {
+function post() {
 	require('views/postView.php');
 }
 
@@ -54,6 +54,6 @@ function registerSuccess() {
 	require('views/registerSuccess.php');
 }
 
-function registerView() {
+function register() {
 	require('views/registerView.php');
 }
