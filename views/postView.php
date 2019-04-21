@@ -2,30 +2,13 @@
 
 include_once('views/includes/autoloader.php');
 
-session_start();
-
-$pManager = new PostManager();
-$post = $pManager->getPost($_GET['id']);
-$title = $post['titleP'];
-$postC = $_POST['comment-content'] ?? '';
-
 $pDate = date_create($post['postDate']);
 $pDateFr = date_format($pDate, 'd/m/Y à H:i:s');
 
 $pLastUp = date_create($post['lastUpdated']);
 $pLastUpFr = date_format($pLastUp, 'd/m/Y à H:i:s');
 
-if (isset($_POST['confirm-comment'])) {
-	$comment = new Comment($_GET['id'], $_SESSION['username'], $postC);
-	$cManager = new CommentManager();
-	$cManager->addComment($comment);
-
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
-}
-
 ob_start(); ?>
-
 
 <article class="single-post">
 	<div class="post-header">
@@ -55,9 +38,6 @@ ob_start(); ?>
 <section class="comments-list">
 	<h2>Commentaires : </h2>
 	<?php
-	$cManager = new CommentManager();
-	$comments = $cManager->getCommentsForPost($_GET['id']);
-	$comNumbers = $cManager->count(); 
 	if ($comNumbers == 0) {
 		echo "Pas de commentaires pour le moment";
 	} else {

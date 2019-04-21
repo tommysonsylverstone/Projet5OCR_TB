@@ -4,6 +4,20 @@ include_once('views/includes/autoloader.php');
 
 session_start();
 
+function addComment() {
+	$postC = $_POST['comment-content'] ?? '';
+
+	if (isset($_POST['confirm-comment'])) {
+		$comment = new Comment($_GET['id'], $_SESSION['username'], $postC);
+		$cManager = new CommentManager();
+		$cManager->addComment($comment);
+
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
+	}
+	require('views/postView.php');
+}
+
 function addPost() {
 	require('views/addPostView.php');
 }
@@ -40,7 +54,7 @@ function postsList() {
 	$pManager = new PostManager();
 	$posts = $pManager->getPosts();
 	$pNumber = $pManager->count();
-	
+
 	require('views/listPostsView.php');
 }
 
@@ -61,6 +75,12 @@ function mainPage() {
 }
 
 function post() {
+	$pManager = new PostManager();
+	$post = $pManager->getPost($_GET['id']);
+	$title = $post['titleP'];
+	$cManager = new CommentManager();
+	$comments = $cManager->getCommentsForPost($_GET['id']);
+	$comNumbers = $cManager->count();
 	require('views/postView.php');
 }
 
