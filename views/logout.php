@@ -2,4 +2,4 @@
 
 session_start();
 session_destroy();
-header('Location: mainPageView.php');
+header('Location: index.php');

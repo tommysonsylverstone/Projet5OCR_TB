@@ -1,6 +1,6 @@
 <?php
 
-include_once('../views/includes/autoloader.php');
+include_once('views/includes/autoloader.php');
 
 function addPostView() {
 	require('views/addPostView.php');
@@ -16,6 +16,10 @@ function commentApprovalView() {
 
 function commentValidated() {
 	require('views/commentValidated.php');
+}
+
+function deletePostView() {
+	require('views/deletePostView.php');
 }
 
 function editPostView() {

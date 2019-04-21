@@ -1,6 +1,6 @@
 <?php $title = "Connexion";
 
-include_once('includes/autoloader.php');
+include_once('views/includes/autoloader.php');
 
 session_start();
 
@@ -14,19 +14,25 @@ if (isset($_POST['submit-button'])) {
 
 ob_start(); 
 
-	if (empty(isset($_SESSION['username']))) { ?>
-		<form action="login.php" method="post">
-			<input type="text" name="username" placeholder="Pseudonyme" value="<?php $username ?>" /><br/>
-			<input type="password" name="pwd" placeholder="Mot de passe" /><br/>
-			<button type="submit" name="submit-button">Se connecter</button>
-		</form>
-		<?php } else {
-		echo "Bonjour " . $_SESSION['username'] . " !";
-		?> <br/>
-		<a href="mainPageView.php">Retour à l'accueil</a> <br />
-		<a href="logout.php">Se déconnecter.</a>
-		<?php } 
+if (empty(isset($_SESSION['username']))) { ?>
+	<div class="login-form">
+		<div class ="login-input">
+			<form action="" method="post">
+				<label for="username">Pseudonyme :</label><br/>
+				<input type="text" name="username" placeholder="Pseudonyme" value="<?php $username ?>" /><br/>
+				<label for="password">Mot de passe :</label><br/>
+				<input type="password" name="pwd" placeholder="Mot de passe" /><br/>
+				<button type="submit" name="submit-button">Se connecter</button>
+			</form>
+		</div>
+	</div>
+<?php } else {
+	echo "Bonjour " . $_SESSION['username'] . " !";
+	?> <br/>
+	<a href="index.php">Retour à l'accueil</a> <br />
+	<a href="?action=logout">Se déconnecter.</a>
+<?php } 
 
 $content = ob_get_clean();
 
-require('includes/template.php'); ?>
+require('views/includes/template.php'); ?>

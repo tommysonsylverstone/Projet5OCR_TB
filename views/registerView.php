@@ -1,7 +1,7 @@
 <?php $title = "Inscription";
 
-include_once('includes/autoloader.php');
-include_once('../models/user.php');
+include_once('views/includes/autoloader.php');
+include_once('models/user.php');
 
 $username = $_POST['username'] ?? '';
 $email = $_POST['email'] ?? '';
@@ -32,24 +32,28 @@ if (isset($_POST['register-button'])) {
 		$user->setEmail($email);
 		UserManager::register($user);
 
-		header("location: registerSuccess.php?registration=success");
+		header("location: ?action=registerSuccess&registration=success");
 	}
 }
 
 ob_start(); ?>
 
-<form method="post" action="">
-	<label for="username">Nom d'utilisateur :</label><br/>
-	<input type="text" name="username" id="username" placeholder="Nom d'utilisateur" value="<?php $username ?>" /><br/>
-	<label for="email">Adresse e-mail :</label><br/>
-	<input type="text" name="email" id="email" placeholder="Adresse e-mail" value="<?php $email ?>"/><br/>
-	<label for="pass1">Mot de passe :</label><br/>
-	<input type="password" name="pass1" id="pass1" placeholder="Mot de passe" /><br/>
-	<label for="pass2">Confirmer mot de passe :</label><br/>
-	<input type="password" name="pass2" id="pass2" placeholder="Confirmer le mot de passe" /><br/>
-	<button name="register-button">Confirmer</button>
-</form>
+<div class="register-form">
+	<div class="register-input">
+		<form method="post" action="">
+			<label for="username">Nom d'utilisateur :</label><br/>
+			<input type="text" name="username" id="username" placeholder="Nom d'utilisateur" value="<?php $username ?>" /><br/>
+			<label for="email">Adresse e-mail :</label><br/>
+			<input type="text" name="email" id="email" placeholder="Adresse e-mail" value="<?php $email ?>"/><br/>
+			<label for="pass1">Mot de passe :</label><br/>
+			<input type="password" name="pass1" id="pass1" placeholder="Mot de passe" /><br/>
+			<label for="pass2">Confirmer mot de passe :</label><br/>
+			<input type="password" name="pass2" id="pass2" placeholder="Confirmer le mot de passe" /><br/>
+			<button name="register-button">Confirmer</button>
+		</form>
+	</div>
+</div>
 
-<? $content = ob_get_clean();
+<?php $content = ob_get_clean();
 
-require('includes/template.php'); ?>
+require('views/includes/template.php'); ?>

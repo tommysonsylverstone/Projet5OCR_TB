@@ -5,7 +5,7 @@ require_once('BaseManager.php');
 class PostManager extends BaseManager {
 	public function getPost($postId) {
 		$db = self::dbConnect();
-		$q = $db->prepare('SELECT id, authorName, titleP, chapo, content, postDate, lastUpdated FROM posts WHERE id = ?');
+		$q = $db->prepare('SELECT * FROM posts WHERE id = ?');
 		$q->execute(array($postId));
 		$post = $q->fetch();
 
@@ -14,7 +14,7 @@ class PostManager extends BaseManager {
 
 	public function getPosts() {
 		$db = self::dbConnect();
-		$q = $db->query('SELECT id, authorName, titleP, chapo, content, postDate, lastUpdated FROM posts ORDER BY id DESC');
+		$q = $db->query('SELECT * FROM posts ORDER BY id DESC');
 
 		return $q;
 	}
@@ -45,9 +45,9 @@ class PostManager extends BaseManager {
 		$q->execute();
 	}
 
-	public function deletePost(Post $post) {
+	public function deletePost($postId) {
 		$db = self::dbConnect();
-		$q = $db->exec('DELETE FROM posts WHERE id =' . $post->getId());
+		$q = $db->exec('DELETE FROM posts WHERE id ='. $postId);
 	}
 
 	public function count() {

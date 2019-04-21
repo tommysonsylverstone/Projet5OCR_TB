@@ -2,15 +2,19 @@
 
 session_start();
 
+ob_start();
+
 if(isset($_SESSION["username"])) {
 	echo '<h3>Vous êtes connecté, bienvenue ' . $_SESSION["username"] . ' !</h3>';
 	?>
-	<a href="login.php">Revenir à la page de connexion</a>
+	<a href="index.php">Revenir à l'accueil</a>
 	<?php
 } else {
 	echo "Quelque chose s'est mal passé.";
 	?>
-	<a href="login.php">Vous reconnecter</a>
+	<a href="?action=login">Vous reconnecter</a>
 <?php } 
 
-require('includes/template.php'); ?>
+$content = ob_get_clean();
+
+require('views/includes/template.php'); ?>

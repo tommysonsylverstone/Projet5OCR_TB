@@ -7,10 +7,10 @@ session_start();
 ob_start(); ?>
 
 <ul>
-	<li><a href="addPostView.php" class="Addpost">Ajouter un billet</a></li>
+	<li><a href="?action=addPostView" class="Addpost">Ajouter un billet</a></li>
 	<li><a href="index.php?action=ViewMembersList" class="Viewmembers">Voir la liste des membres</a></li>
-	<li><a href="logout.php" class="Deconnection">Vous déconnecter</a></li>
-	<li><a href="commentApprovalView.php">Voir la liste des commentaires non validés</a></li>
+	<li><a href="?action=logout" class="Deconnection">Vous déconnecter</a></li>
+	<li><a href="?action=commentApprovalView">Voir la liste des commentaires non validés</a></li>
 </ul>
 
 <section>Bienvenue <?= $_SESSION['username'] ?>!</section>

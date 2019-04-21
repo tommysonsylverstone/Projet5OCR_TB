@@ -1,6 +1,6 @@
 <?php $title = 'Ajout de billet';
 
-include_once('includes/autoloader.php');
+include_once('views/includes/autoloader.php');
 
 session_start();
 
@@ -19,7 +19,7 @@ if (isset($_POST['confirm-button'])) {
 		$pManager = new PostManager();
 		$pManager->addPost($post);
 
-		header("location: listPostsView.php");
+		header("location: ?action=listPostsView");
 	}
 }
 
@@ -34,4 +34,4 @@ ob_start(); ?>
 
 <?php $content = ob_get_clean();
 
-require('includes/template.php'); ?>
+require('views/includes/template.php'); ?>

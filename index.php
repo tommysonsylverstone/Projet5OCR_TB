@@ -20,6 +20,10 @@ try {
 			commentValidated();
 			break;
 
+			case 'deletePostView':
+			deletePostView();
+			break;
+			
 			case 'editPostView':
 			editPostView();
 			break;

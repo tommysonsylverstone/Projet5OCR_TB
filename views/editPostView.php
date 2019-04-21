@@ -1,6 +1,6 @@
 <?php $title = 'Edition de post';
 
-include_once('includes/autoloader.php');
+include_once('views/includes/autoloader.php');
 
 session_start();
 
@@ -15,23 +15,21 @@ if (isset($_POST['confirm-edit'])) {
 		echo "Veuillez remplir tous les champs";
 	} else {
 		$post = new Post($titleP, $chapo, $content, $authorName);
-		$post->setId($_GET['id']);
+		$post->setId($postGetId);
 		$pManager = new PostManager();
 		$pManager->updatePost($post);
 
-		header("location: PostView.php?id=$postGetId");
+		header("location: ?action=postView&id=$postGetId");
 	}
 }
 
-ob_start(); 
-
-include('includes/header.php'); ?>
+ob_start(); ?>
 
 <p>Voici le billet que vous voulez modifier :</p>
 
 <?php
 $pManager = new PostManager();
-$postId = $pManager->getPost($_GET['id']);
+$postId = $pManager->getPost($postGetId);
 ?>
 
 <div>
@@ -52,4 +50,4 @@ $postId = $pManager->getPost($_GET['id']);
 
 <?php $content = ob_get_clean();
 
-require('includes/template.php'); ?>
+require('views/includes/template.php'); ?>

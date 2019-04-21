@@ -45,7 +45,7 @@ class UserManager extends BaseManager {
 
 			if ($q->rowCount() === 1) {
 				$_SESSION['username'] = $username;
-				header('location: loginSuccess.php');
+				header('location: ?action=loginSuccess');
 			} else {
 				echo "Nom d'utilisateur ou mot de passe incorrect.";
 			}

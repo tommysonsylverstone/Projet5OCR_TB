@@ -1,6 +1,6 @@
 <?php $title = 'Commentaires en attente';
 
-include_once('includes/autoloader.php');
+include_once('views/includes/autoloader.php');
 
 session_start();
 
@@ -27,7 +27,7 @@ if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
 				<td><?= $comment['authorName'] ?></td>
 				<td><?= $comment['postId'] ?></td>
 				<td><?= nl2br(htmlspecialchars($comment['content'])) ?></td>
-				<td><a href="commentValidated.php?id=<?= $comment['id'] ?>">Valider</a></td>
+				<td><a href="?action=commentValidated&amp;id=<?= $comment['id'] ?>">Valider</a></td>
 			</tr>
 		<?php } 
 	} else {
@@ -36,4 +36,4 @@ if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
 </table>
 <?php $content = ob_get_clean();
 
-require('includes/template.php'); ?>
+require('views/includes/template.php'); ?>
