@@ -37,6 +37,10 @@ function editPost() {
 }
 
 function postsList() {
+	$pManager = new PostManager();
+	$posts = $pManager->getPosts();
+	$pNumber = $pManager->count();
+	
 	require('views/listPostsView.php');
 }
 

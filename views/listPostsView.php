@@ -2,13 +2,7 @@
 
 include_once('views/includes/autoloader.php');
 
-session_start();
-
-ob_start();
-
-$pManager = new PostManager();
-$posts = $pManager->getPosts();
-$pNumber = $pManager->count(); ?>
+ob_start(); ?>
 
 <section>
 	<?php
