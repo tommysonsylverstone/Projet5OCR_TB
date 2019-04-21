@@ -81,6 +81,9 @@ function editPost() {
 	$content = $_POST['content'] ?? '';
 	$postGetId = $_GET['id'];
 
+	$pManager = new PostManager();
+	$postId = $pManager->getPost($postGetId);
+	
 	if (isset($_POST['confirm-edit'])) {
 		if (empty($authorName) || empty($titleP) || empty($chapo) || empty($content)) {
 			echo "Veuillez remplir tous les champs";

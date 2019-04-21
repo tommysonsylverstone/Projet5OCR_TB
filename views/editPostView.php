@@ -4,11 +4,6 @@ ob_start(); ?>
 
 <p>Voici le billet que vous voulez modifier :</p>
 
-<?php
-$pManager = new PostManager();
-$postId = $pManager->getPost($postGetId);
-?>
-
 <div>
 	<h3><?= htmlspecialchars($postId['titleP']) ?> écrit par <em><?= $postId['authorName'] ?></em></h3><br/>
 	<?= htmlspecialchars($postId['chapo']) ?><br/>
