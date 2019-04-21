@@ -16,6 +16,25 @@ function addComment() {
 }	
 
 function addPost() {
+	$username = $_SESSION['username'];
+	$titleP = $_POST['titleP'] ?? '';
+	$chapo = $_POST['chapo'] ?? '';
+	$content = $_POST['content'] ?? '';
+	if (empty($username)) {
+		echo "Vous n'avez pas accès à cette page";
+	} elseif (empty($titleP) || empty($chapo) || empty($content)) {	
+		echo "Veuillez remplir tous les champs";
+	} else {
+		$post = new Post($titleP, $chapo, $content, $username);
+		$pManager = new PostManager();
+		$pManager->addPost($post);
+
+		header("location: ?action=postsList");
+	}
+	require('views/addPostView.php');
+}
+
+function addPostView() {
 	require('views/addPostView.php');
 }
 

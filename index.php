@@ -12,7 +12,13 @@ try {
 			break;
 
 			case 'addPost':
-			addPost();
+			if (isset($_POST['confirm-button'])) {
+				addPost();
+			}
+			break;
+
+			case 'addPostView':
+			addPostView();
 			break;
 
 			case 'administration':
