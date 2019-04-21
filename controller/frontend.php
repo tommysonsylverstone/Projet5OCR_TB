@@ -6,17 +6,14 @@ session_start();
 
 function addComment() {
 	$postC = $_POST['comment-content'] ?? '';
+	$postId = $_GET['id'];
+	$comment = new Comment($postId, $_SESSION['username'], $postC);
+	$cManager = new CommentManager();
+	$cManager->addComment($comment);
 
-	if (isset($_POST['confirm-comment'])) {
-		$comment = new Comment($_GET['id'], $_SESSION['username'], $postC);
-		$cManager = new CommentManager();
-		$cManager->addComment($comment);
-
-		header("location: " . $_SERVER['REQUEST_URI']);
-		exit();
-	}
-	require('views/postView.php');
-}
+	header("location: ?action=post&id=".$postId);
+	exit();
+}	
 
 function addPost() {
 	require('views/addPostView.php');

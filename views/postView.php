@@ -57,7 +57,7 @@ ob_start(); ?>
 
 <?php if (!empty($_SESSION['username'])) { ?>
 	<section class="comment-form">
-		<form method="post" action="">
+		<form method="post" action="index.php?action=addComment&amp;id=<?= $post['id'] ?>">
 			<label for="comment-content">Votre commentaire :</label><br/>
 			<textarea name="comment-content" class="comment-textarea" placeholder="Ecrire votre commentaire ici" value="<?= $postC ?>"></textarea><br/>
 			<button name="confirm-comment">Envoyer</button>

@@ -5,6 +5,12 @@ require('controller/frontend.php');
 try {
 	if (isset($_GET['action'])) {
 		switch ($_GET['action']) {
+			case 'addComment':
+			if (isset($_POST['confirm-comment'])) {
+				addComment();
+			}
+			break;
+
 			case 'addPost':
 			addPost();
 			break;
