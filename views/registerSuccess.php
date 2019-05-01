@@ -2,7 +2,7 @@
 
 ob_start(); 
 
-if (!isset($_GET['registration']) || $_GET['registration'] !== 'success') { 
+if (!isset($_GET['registration']) || $_GET['registration'] !== 'success') {
 	header("location: index.php");
 } else { ?>
 	<section class="register_success">
