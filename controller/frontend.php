@@ -85,8 +85,8 @@ function commentValidated() {
 
 function deletePost() {
 	new UserManager();
-	$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
-	if ($user['type'] == 'admin' && !empty($_SESSION['username'])) {
+	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+	if ($user->getType() == 'admin') {
 		$pManager = new PostManager();
 		$pManager->deletePost($_GET['id']);
 
