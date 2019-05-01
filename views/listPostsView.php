@@ -8,46 +8,41 @@ ob_start();
 
 $pManager = new PostManager();
 $posts = $pManager->getPosts();
-$pNumber = $pManager->count();
-$page = (!empty($_GET['page']) ? $_GET['page'] : 1);
-$limit = 5; ?>
+$pNumber = $pManager->count(); ?>
+
 <section>
-	<?php
-	if ($pNumber == 0) {
+	<?php if ($pNumber == 0) {
 		echo "Pas de billets pour le moment, patience !";
 	} else {
-		while ($data = $posts->fetch()) { 
-			$date = date_create($data['postDate']); 
-			$pDate = date_format($date, 'd/m/Y à H:i:s'); ?>
-			<div class="news">
-				<h3>
-					<?= htmlspecialchars($data['titleP']) ?>
-					<em>le <?= $pDate ?></em> par <?= $data['authorName']?>
-					<?php if (empty($data['lastUpdated'])) {
-						echo '';
-					} else {
-						$lastUp = date_create($data['lastUpdated']);
-						$upDate = date_format($lastUp, 'd/m/Y à H:i:s');
-						echo "<em>édité le " . $upDate . "</em>";
-					} ?><br/>
-					<h4><em><?= $data['chapo'] ?></em></h4>
-					<p>
-						<em><a href="postView.php?id=<?= $data['id'] ?>">Accéder au billet</a></em>
-						<?php new UserManager();
+		foreach ($posts as $post) { ?>
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="post-preview">
+						<a href="?action=post&amp;id=<?= $post->getId() ?>" title="Accéder au billet">
+							<h2 class="post-title">
+								<?= $post->getTitle() ?>
+							</h2><br/>
+							<h3 class="post-subtitle"><?= $post->getChapo() ?></h3><br/>
+						</a>
+						écrit le <?= $post->getFormattedDate() ?> par <?= $post->getAuthorName() ?><br/>
+						<?php if (empty($post->getLastUpdated())) {
+							echo '';
+						} else {
+							echo "<em>édité le " . $post->getFormattedLastUpdated() . "</em>";
+						} new UserManager();
 						$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
 						if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
-							<a href="deletePostView.php?id=<?= $data['id'] ?>">Supprimer ce post</a>
-							<a href="editPostView.php?id=<?= $data['id'] ?>">éditer</a>
+							<a href="deletePostView.php?id=<?= $post->getId() ?>">Supprimer ce post</a>
+							<a href="editPostView.php?id=<?= $post->getId() ?>">éditer</a>
 						<?php } ?>
-					</p>
-				</h3>
+					</div>
+					<hr>
+				</div>
 			</div>
 		<?php }
 	} ?>
 </section>
 
-<a href="?page=<?= $page - 1; ?>">Page précédente</a>
-<a href="?page=<?= $page + 1; ?>">Page suivante</a>
 <?php $content = ob_get_clean();
 
 require('includes/template.php'); ?>
