@@ -54,13 +54,18 @@ class UserManager extends BaseManager {
 		}
 	}
 
-	public static function getUser(string $username) {
+	public static function getAdmin(string $adminName) {
 		$db = self::dbConnect();
 		$q = $db->prepare('SELECT * FROM users WHERE username = ?');
-		$q->execute(array($username));
+		$q->execute(array($adminName));
+
 		$data = $q->fetch();
 
-		return $data;
+		$admin = new User();
+		$admin->setUserName($adminName);
+		$admin->setType($data['type'] ?? '');
+
+		return $admin;
 	}
 
 	public static function userExists($uName) {
