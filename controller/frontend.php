@@ -87,9 +87,11 @@ function commentValidated() {
 function deletePost() {
 	$user = UserManager::getCurrentUser();
 
+	$postId = $_GET['id'];
+
 	if ($user->isAdmin()) {
 		$pManager = new PostManager();
-		$pManager->deletePost($_GET['id']);
+		$pManager->deletePost($postId);
 
 		header("location: ?action=postsList");
 	}

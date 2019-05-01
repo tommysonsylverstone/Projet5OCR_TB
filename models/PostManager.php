@@ -37,10 +37,10 @@ class PostManager extends BaseManager {
 			$db = self::dbConnect();
 			$q = $db->prepare('INSERT INTO posts(titleP, chapo, content, authorName, postDate) VALUES(:titleP, :chapo, :content, :authorName, NOW())');
 
-			$q->bindValue(':titleP', $post->getTitle());
-			$q->bindValue(':chapo', $post->getChapo());
-			$q->bindValue(':content', $post->getContent());
-			$q->bindValue(':authorName', $post->getAuthorName());
+			$q->bindValue(':titleP', $post->getTitle(), PDO::PARAM_STR);
+			$q->bindValue(':chapo', $post->getChapo(), PDO::PARAM_STR);
+			$q->bindValue(':content', $post->getContent(), PDO::PARAM_STR);
+			$q->bindValue(':authorName', $post->getAuthorName(), PDO::PARAM_STR);
 			
 			$q->execute();
 		}
@@ -48,8 +48,9 @@ class PostManager extends BaseManager {
 
 	public function updatePost(Post $post) {
 		$db = self::dbConnect();
-		$q = $db->prepare('UPDATE posts SET titleP = :titleP, chapo = :chapo, authorName = :authorName, content = :content, lastUpdated = NOW() WHERE id =' . $post->getId());
+		$q = $db->prepare('UPDATE posts SET titleP=:titleP, chapo=:chapo, authorName=:authorName, content=:content, lastUpdated=NOW() WHERE id=:id');
 
+		$q->bindValue(':id', $post->getId(), PDO::PARAM_INT);
 		$q->bindValue(':titleP', $post->getTitle(), PDO::PARAM_STR);
 		$q->bindValue(':chapo', $post->getChapo(), PDO::PARAM_STR);
 		$q->bindValue(':authorName', $post->getAuthorName(), PDO::PARAM_STR);
@@ -60,7 +61,10 @@ class PostManager extends BaseManager {
 
 	public function deletePost($postId) {
 		$db = self::dbConnect();
-		$q = $db->exec('DELETE FROM posts WHERE id ='. $postId);
+		$q = $db->prepare('DELETE FROM posts WHERE id=:id');
+		$q->bindValue('id', $postId, PDO::PARAM_INT);
+
+		$q->execute();
 	}
 
 	public function count() {
