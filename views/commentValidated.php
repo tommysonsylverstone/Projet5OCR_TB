@@ -1,8 +1,15 @@
-<?php 
+<?php $title = "Refus d'accès";
 
-include_once('includes/autoloader.php');
+ob_start();
 
-$valid = new CommentManager();
-$valid->validateComment($_GET['id'], TRUE);
+if ($user->getType() == 'admin') {
+	$valid = new CommentManager();
+	$valid->validateComment($_GET['id'], TRUE);
+	header("location: ?action=unapprovedList");
+} else {
+	header('location: index.php');
+}
 
-header("location: commentApprovalView.php");
+$content = ob_get_clean();
+
+include('views/includes/template.php');

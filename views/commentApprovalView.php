@@ -22,16 +22,16 @@ if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
 				<th>Valider ?</th>
 			</tr>
 		</thead>
-		<?php while ($comment = $invalidComm->fetch()) { ?>
+		<?php foreach ($invalidComm as $comment) { ?>
 			<tr>
-				<td><?= $comment['authorName'] ?></td>
-				<td><?= $comment['postId'] ?></td>
-				<td><?= nl2br(htmlspecialchars($comment['content'])) ?></td>
-				<td><a href="commentValidated.php?id=<?= $comment['id'] ?>">Valider</a></td>
+				<td><?= $comment->getAuthorName() ?></td>
+				<td><?= $comment->getPostId() ?></td>
+				<td><?= $comment->getEscapedContent() ?></td>
+				<td><a href="commentValidated.php?id=<?= $comment->getId() ?>">Valider</a></td>
 			</tr>
 		<?php } 
 	} else {
-		echo "Vous n'avez pas accès à cette page";
+		header('location: index.php');
 	} ?>
 </table>
 <?php $content = ob_get_clean();
