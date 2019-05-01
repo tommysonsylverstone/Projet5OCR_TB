@@ -65,13 +65,21 @@ function unapprovedList() {
 	$invalidComm = $comments->getCommentsForAdmin(); 
 
 	new UserManager();
-	$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
+	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+
+	if ($user->getType() !== 'admin') {
+		header('location: index.php');
+	}
 	require('views/commentApprovalView.php');
 }
 
 function commentValidated() {
 	new UserManager();
-	$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
+	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+	
+	if ($user->getType() !== 'admin') {
+		header('location: index.php');
+	}
 	require('views/commentValidated.php');
 }
 
