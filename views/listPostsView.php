@@ -3,8 +3,7 @@
 ob_start(); ?>
 
 <section>
-	<?php
-	if ($pNumber == 0) {
+	<?php if ($pNumber == 0) {
 		echo "Pas de billets pour le moment, patience !";
 	} else {
 		foreach ($posts as $post) { ?>

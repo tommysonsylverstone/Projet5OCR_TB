@@ -1,3 +1,4 @@
+
 <?php $title = $post->getTitle(); 
 
 ob_start(); ?>
@@ -37,7 +38,7 @@ ob_start(); ?>
 					<h3>Par <?= $comment->getAuthorName() ?> le <?= $comment->getFormattedCommentDate() ?></h3>
 					<p><?= $comment->getEscapedContent() ?></p>
 				</div>
-				<hr>s
+				<hr>
 			<?php }
 		}
 	} ?>
