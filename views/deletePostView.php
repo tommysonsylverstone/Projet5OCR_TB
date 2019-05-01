@@ -1,10 +1,15 @@
-<?php $title = 'Suppression de billet';
+<?php $title = "Refus d'accès";
 
-ob_start(); ?>
+ob_start();
 
-<p>Vous n'avez pas accès à cette page<br/>
-<a href="index.php">Retour à l'accueil</a></p>
+if (!$user->isAdmin()) {
+	header('location: index.php');
+} else {
+	$valid = new CommentManager();
+	$valid->validateComment($_GET['id'], TRUE);
+	header("location: ?action=unapprovedList");
+}
 
-<?php $content = ob_get_clean();
+$content = ob_get_clean();
 
-require('views/includes/template.php');
+include('views/includes/template.php');

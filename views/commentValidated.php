@@ -2,7 +2,7 @@
 
 ob_start();
 
-if ($user->getType() !== 'admin') {
+if (!$user->isAdmin()) {
 	header('location: index.php');
 } else {
 	$valid = new CommentManager();

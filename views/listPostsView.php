@@ -2,10 +2,23 @@
 
 ob_start(); ?>
 
-<section>
+<header class="masthead" style="background-image: url('public/img/montagne_rv.jpg')">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="site-heading">
+					<h1><?= $title ?></h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="container">
 	<?php if ($pNumber == 0) {
 		echo "Pas de billets pour le moment, patience !";
-	} else {
+	} else { 
 		foreach ($posts as $post) { ?>
 			<div class="row">
 				<div class="col-lg-8 col-md-10 mx-auto">
@@ -22,7 +35,7 @@ ob_start(); ?>
 						} else {
 							echo "<em>édité le " . $post->getFormattedLastUpdated() . "</em>";
 						}
-						if ($user->getType() == 'admin') { ?>
+						if ($user->isAdmin()) { ?>
 							<ul class="list-inline">
 								<li class="list-inline-item"><a href="?action=deletePost&amp;id=<?= $post->getId() ?>">Supprimer ce post</a></li>
 								<li class="list-inline-item"><a href="?action=editPost&amp;id=<?= $post->getId() ?>">éditer</a></li>
@@ -34,7 +47,7 @@ ob_start(); ?>
 			</div>
 		<?php }
 	} ?>
-</section>
+</div>
 
 <?php $content = ob_get_clean();
 

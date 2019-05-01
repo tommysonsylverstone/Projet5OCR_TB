@@ -1,39 +1,53 @@
-
 <?php $title = $post->getTitle(); 
 
 ob_start(); ?>
 
-<article class="single-post">
-	<div class="post-header">
-		<h1><?= $post->getTitle() ?> écrit par <?= $post->getAuthorName() ?></h1>
-	</div>
-	<?php
-	if (!empty($post->getLastUpdated())) {
-		?>
-		<div class="last-updated">
-			<p>édité le <?= $post->getFormattedLastUpdated() ?></p>
+<header class="masthead" style="background-image: url('public/img/imperial_house.jpg')">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="post-heading">
+					<h1><?= $post->getTitle() ?></h1>
+					<h2 class="subheading"><?= $post->getChapo() ?></h2>
+					<span class="meta">écrit par <?= $post->getAuthorName() ?> le <?= $post->getFormattedDate() ?></span>
+					<?php if (!empty($post->getLastUpdated())) { ?>
+						<span class="meta">édité le <?= $post->getFormattedLastUpdated() ?></span>
+					<?php } ?>
+				</div>
+			</div>
 		</div>
-	<?php } ?>
-	<div class="post-chapo">
-		<p><?= $post->getChapo() ?></p>
 	</div>
-	<div class="post-content">
-		<p><?= $post->getEscapedContent() ?>
+</header>
+
+<article>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<p><?= $post->getEscapedContent() ?></p>
+				<ul class="list-inline">
+					<li class="list-inline-item">
+						<a href="?action=postsList">Retour à la liste des billets</a>
+					</li>
+					<?php if ($user->isAdmin()) { ?>
+						<li class="list-inline-item"><a href="?action=editPost&amp;id=<?= $postId ?>">éditer ce post</a></li>
+					<?php } ?>
+				</ul>
+			</div>
+		</div>
 	</div>
-	<a href="?action=postsList">Retour à la liste des billets</a>
-	<?php if ($user->getType() == 'admin') { ?>
-		<a href="?action=editPost&amp;id=<?= $postId ?>">éditer ce post</a>
-	<?php } ?>
 </article>
 
-<section class="comments-list">
+<hr>
+
+<section class="container">
 	<h2>Commentaires : </h2>
 	<?php
 	if ($comNumbers == 0) {
 		echo "Pas de commentaires pour le moment";
 	} else {
 		foreach($comments as $comment) {
-			if ($comment->getIsValidated() === true) { ?>
+			if ($comment->getIsValidated()) { ?>
 				<div class="comment-body">
 					<h3>Par <?= $comment->getAuthorName() ?> le <?= $comment->getFormattedCommentDate() ?></h3>
 					<p><?= $comment->getEscapedContent() ?></p>
@@ -45,16 +59,20 @@ ob_start(); ?>
 </section>
 
 <?php if (!empty($_SESSION['username'])) { ?>
-	<section class="comment-form">
+	<section class="comment-form container">
 		<h6>/!\ Avant d'être affichés, vos commentaires seront soumis à confirmation par l'administrateur. /!\</h6>
 		<form method="post" action="index.php?action=addComment&amp;id=<?= $post->getId(); ?>">
 			<label for="comment-content">Votre commentaire :</label><br/>
-			<textarea name="comment-content" class="comment-textarea" placeholder="Ecrire votre commentaire ici" required></textarea><br/>
-			<button name="confirm-comment">Envoyer</button>
+			<textarea name="comment-content" rows="5" class="form-control" placeholder="Ecrire votre commentaire ici" required></textarea><br/>
+			<button name="confirm-comment" class="btn btn-primary">Envoyer</button>
 		</form>
 	</section>
+
+	<hr>
 <?php } else { ?>
-	<p>Pour commenter, vous devez vous connecter. <a href="?action=register">Vous inscrire</a> ou <a href="?action=login">Vous connecter</a></p>
+	<div class="container">
+		<p>Pour commenter, vous devez vous connecter. <a href="?action=register">Vous inscrire</a> ou <a href="?action=login">Vous connecter</a></p>
+	</div>
 <?php }
 
 $content = ob_get_clean();
