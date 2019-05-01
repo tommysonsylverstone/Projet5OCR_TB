@@ -8,14 +8,46 @@ class CommentManager extends BaseManager {
 		$q = $db->prepare('SELECT * FROM comments WHERE postId = ? ORDER BY id DESC');
 		$q->execute(array($postId));
 
-		return $q;
+		$commentData = $q->fetchAll(PDO::FETCH_ASSOC);
+		$commentsList = [];
+
+		foreach ($commentData as $key => $value) {
+			$id = $value['id'] ?? '';
+			$postId = $value['postId'] ?? '';
+			$authorName = $value['authorName'] ?? '';
+			$content =  $value['content'] ?? '';
+			$commentDate = $value['commentDate'] ?? '';
+			$isValidated = $value['isValidated'] ?? '';
+			$comment = new Comment($postId, $authorName, $content);
+			$comment->setId($id);
+			$comment->setCommentDate($commentDate);
+			$comment->setIsValidated($isValidated);
+			$commentsList[] = $comment;
+		}
+		return $commentsList;
 	}
 
 	public function getCommentsForAdmin() {
 		$db = self::dbConnect();
 		$q = $db->query('SELECT * FROM comments WHERE isValidated = FALSE ORDER BY id DESC');
 
-		return $q;
+		$comments = $q->fetchAll();
+		$commentsList = [];
+
+		foreach ($comments as $key => $value) {
+			$id = $value['id'] ?? '';
+			$postId = $value['postId'] ?? '';
+			$authorName = $value['authorName'] ?? '';
+			$content =  $value['content'] ?? '';
+			$commentDate = $value['commentDate'] ?? '';
+			$isValidated = $value['isValidated'] ?? '';
+			$comment = new Comment($postId, $authorName, $content);
+			$comment->setId($id);
+			$comment->setCommentDate($commentDate);
+			$comment->setIsValidated($isValidated);
+			$commentsList[] = $comment;
+		}
+		return $commentsList;
 	}
 
 	public function addComment(Comment $comment) {
