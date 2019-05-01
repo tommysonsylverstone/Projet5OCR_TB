@@ -1,0 +1,163 @@
+.body {
+	padding-top: 80px;
+	padding-bottom: 80px;
+	background-color: #d2bb86;
+}
+
+nav {
+	padding-top: 10px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-color: #6B646F;
+}
+
+nav a,
+nav a:hover,
+nav a:active,
+nav a:visited {
+	color: #DCD4BF;
+	text-decoration: none;
+}
+
+a, 
+a:hover, 
+a:active, 
+a:visited {
+	color: #9C7416;
+	text-decoration: none;
+}
+
+nav ul {
+	text-align: right;
+}
+
+footer {
+	padding-top: 5px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	background-color:black;
+}
+
+footer a, 
+footer a:hover, 
+footer a:active, 
+footer a:visited {
+	text-decoration: none;
+	color: #DCD4BF;
+}
+
+footer a,
+nav a {
+	padding: 10px;
+}
+
+footer ul{
+	text-align: center;
+}
+
+footer ul li, 
+nav ul li,
+.news ul li {
+	display: inline-block;
+}
+
+form input {
+	font-size: 1.2em;
+	height: 50px;
+	width: 300px;
+}
+
+.blog-title {
+	text-align: center;
+	color: #E1E0E2;
+	font-size: 1.2em;
+}
+
+.not-connected {
+	text-align: center;
+}
+
+.news {
+	padding: 10px;
+	margin: auto;
+	margin-top: 5px;
+	background-color: #ffe096;
+	border-radius: 5px 5px;
+}
+
+.news a {
+	padding: 10px;
+}
+
+.news ul {
+	margin-top: 5px;
+}
+
+.single-post {
+	width: 60%;
+	height: 30%;
+	margin: auto;
+	background-color: #ffe096;
+	padding: 30px;
+	border-radius: 5px 5px;
+}
+
+.comment-textarea {
+	width: 500px;
+	height: 200px;
+	border-radius: 5px 5px;
+	background-color: white;
+	border-color: white;
+}
+
+.comments-list,
+.comment-form {
+	width: 40%;
+	margin: auto;
+}
+
+.comment-body {
+	background-color: #dfcfaa;
+	margin-bottom: 10px;
+	padding: 5px;
+	border-radius: 5px 5px;
+}
+
+.post-preview {
+	font-size: 1.3em;
+	width: 50%;
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.connection-success {
+	width: 300px;
+	height: 100px;
+	margin: auto;
+	border-radius: 5px 5px;
+	padding: 10px;
+	background-color: #C9E1CB;
+	padding-left: 15px;
+}
+
+.register-form,
+.login-form {
+	padding-top: 10px;
+	width: 350px;
+	height: 380px;
+	margin: auto;
+	background-color: #f7ffd3;
+	border-radius: 5px 5px;
+}
+
+.login-form {
+	height: 220px;
+}
+
+.register-input,
+.login-input {
+	text-align: center;
+}
