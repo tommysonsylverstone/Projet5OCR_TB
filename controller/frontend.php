@@ -25,6 +25,7 @@ function addPost() {
 	$titleP = $_POST['titleP'] ?? '';
 	$chapo = $_POST['chapo'] ?? '';
 	$content = $_POST['content'] ?? '';
+
 	if (empty($username)) {
 		echo "Vous n'avez pas accès à cette page";
 	} elseif (empty($titleP) || empty($chapo) || empty($content)) {	
@@ -40,6 +41,12 @@ function addPost() {
 }
 
 function addPostView() {
+	new UserManager();
+	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+
+	if ($user->getType() !== 'admin') {
+		header('location: index.php');
+	}
 	require('views/addPostView.php');
 }
 
