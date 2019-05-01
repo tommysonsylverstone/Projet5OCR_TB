@@ -128,6 +128,8 @@ function editPost() {
 }
 
 function postsList() {
+	new UserManager();
+	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
 	$pManager = new PostManager();
 	$posts = $pManager->getPosts();
 	$pNumber = $pManager->count();
@@ -158,12 +160,14 @@ function mainPage() {
 }
 
 function post() {
+	$postId = $_GET['id'];
 	$pManager = new PostManager();
-	$post = $pManager->getPost($_GET['id']);
-	$title = $post['titleP'];
+	$post = $pManager->getPost($postId);
 	$cManager = new CommentManager();
-	$comments = $cManager->getCommentsForPost($_GET['id']);
+	$comments = $cManager->getCommentsForPost($postId);
 	$comNumbers = $cManager->count();
+	new UserManager();
+	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
 	require('views/postView.php');
 }
 
