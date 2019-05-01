@@ -1,14 +1,6 @@
 <?php $title = 'Liste des billets';
 
-include_once('includes/autoloader.php');
-
-session_start();
-
-ob_start();
-
-$pManager = new PostManager();
-$posts = $pManager->getPosts();
-$pNumber = $pManager->count(); ?>
+ob_start(); ?>
 
 <section>
 	<?php if ($pNumber == 0) {
@@ -29,11 +21,12 @@ $pNumber = $pManager->count(); ?>
 							echo '';
 						} else {
 							echo "<em>édité le " . $post->getFormattedLastUpdated() . "</em>";
-						} new UserManager();
-						$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
-						if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
-							<a href="deletePostView.php?id=<?= $post->getId() ?>">Supprimer ce post</a>
-							<a href="editPostView.php?id=<?= $post->getId() ?>">éditer</a>
+						}
+						if ($user->getType() == 'admin') { ?>
+							<ul class="list-inline">
+								<li class="list-inline-item"><a href="?action=deletePost&amp;id=<?= $post->getId() ?>">Supprimer ce post</a></li>
+								<li class="list-inline-item"><a href="?action=editPost&amp;id=<?= $post->getId() ?>">éditer</a></li>
+							</ul>
 						<?php } ?>
 					</div>
 					<hr>
@@ -45,4 +38,4 @@ $pNumber = $pManager->count(); ?>
 
 <?php $content = ob_get_clean();
 
-require('includes/template.php'); ?>
+require('views/includes/template.php'); ?>

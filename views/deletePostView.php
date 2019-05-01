@@ -1,14 +1,10 @@
 <?php $title = 'Suppression de billet';
 
-include_once('includes/autoloader.php');
+ob_start(); ?>
 
-ob_start();
+<p>Vous n'avez pas accès à cette page<br/>
+<a href="index.php">Retour à l'accueil</a></p>
 
-$post = new Post();
-$post->setId($_GET['id']);
-$pManager = new PostManager();
-$deleteP = $pManager->deletePost($post);
+<?php $content = ob_get_clean();
 
-header("location: listPostsView.php");
-
-$content = ob_get_clean();
+require('views/includes/template.php');

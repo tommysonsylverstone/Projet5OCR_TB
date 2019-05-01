@@ -9,7 +9,6 @@ class Post {
 	private $authorName;
 	private $lastUpdated;
 
-
 	public function __construct ($title, $chapo, $content, $authorName) {
 		$this->title = $title;
 		$this->chapo = $chapo;

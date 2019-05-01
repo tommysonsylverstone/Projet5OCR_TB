@@ -1,7 +1,7 @@
 <?php
 
-function chargeClass($class) {
-	require '../models/'.$class.'.php';
+function loadClass($class) {
+	require 'models/'.$class.'.php';
 }
 
-spl_autoload_register('chargeClass');
+spl_autoload_register('loadClass');

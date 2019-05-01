@@ -1,55 +1,28 @@
 <?php $title = 'Edition de post';
 
-include_once('includes/autoloader.php');
-
-session_start();
-
-$authorName = $_POST['authorName'] ?? '';
-$titleP = $_POST['titleP'] ?? '';
-$chapo = $_POST['chapo'] ?? '';
-$content = $_POST['content'] ?? '';
-$postGetId = $_GET['id'];
-
-if (isset($_POST['confirm-edit'])) {
-	if (empty($authorName) || empty($titleP) || empty($chapo) || empty($content)) {
-		echo "Veuillez remplir tous les champs";
-	} else {
-		$post = new Post($titleP, $chapo, $content, $authorName);
-		$post->setId($_GET['id']);
-		$pManager = new PostManager();
-		$pManager->updatePost($post);
-
-		header("location: PostView.php?id=$postGetId");
-	}
-}
-
-ob_start(); 
-
-include('includes/header.php'); ?>
-
-<p>Voici le billet que vous voulez modifier :</p>
-
-<?php
-$pManager = new PostManager();
-$postId = $pManager->getPost($_GET['id']);
-?>
+ob_start(); ?>
 
 <div>
-	<h3><?= htmlspecialchars($postId['titleP']) ?> écrit par <em><?= $postId['authorName'] ?></em></h3><br/>
-	<?= htmlspecialchars($postId['chapo']) ?><br/>
-	<p><?= nl2br(htmlspecialchars($postId['content'])) ?></p>
+	<p>Voici le billet que vous voulez modifier :</p>
+	<h3><?= $postId->getTitle() ?> écrit par <em><?= $postId->getAuthorName() ?></em></h3><br/>
+	<?= $postId->getChapo() ?><br/>
+	<p><?= $postId->getEscapedContent() ?></p>
 </div>
 
 <section>
 	<form method="post" action="">
-		<input type="text" name="authorName" placeholder="Auteur" value="<?= $postId['authorName'] ?>" /><br/>
-		<input type="text" name="titleP" placeholder="Titre" value="<?= $postId['titleP'] ?>" /><br/>
-		<input type="text" name="chapo" placeholder="Chapo" value="<?= $postId['chapo'] ?>"/><br/>
-		<textarea name="content" placeholder="Contenu du billet"><?=  $postId['content'] ?></textarea><br/>
+		<label for="authorName">Nom : </label><br/>
+		<input type="text" class="form-control" name="authorName" placeholder="Auteur" value="<?= $postId->getAuthorName() ?>" /><br/>
+		<label for="titleP">Titre : </label><br/>
+		<input type="text" class="form-control" name="titleP" placeholder="Titre" value="<?= $postId->getTitle() ?>" /><br/>
+		<label for="chapo">Chapo : </label>
+		<input type="text" class="form-control" name="chapo" placeholder="Chapo" value="<?= $postId->getChapo() ?>"/><br/>
+		<label for="content">Contenu du billet : </label>
+		<textarea name="content" placeholder="Contenu du billet" rows="5" class="form-control"><?=  $postId->getContent() ?></textarea><br/>
 		<button name="confirm-edit">Confirmer</button>
 	</form>
 </section>
 
 <?php $content = ob_get_clean();
 
-require('includes/template.php'); ?>
+require('views/includes/template.php'); ?>

@@ -1,18 +1,15 @@
-<header>
-	<a href="mainPageView.php">Retour à l'accueil</a>
+<nav class="container-fluid">
 	<ul>
 		<li><a href="index.php" class="">Accueil</a></li>
-		<li><a href="../views/listPostsView.php" class="">Billets</a></li>
-		<li><a href="index.php?action=contact" class="">Contact</a></li>
-			<?php
-			if (empty(isset($_SESSION['username'])) && empty($_SESSION['username'])) {
-				?>
-				<li><a href="login.php">Se connecter</a></li>
-				<li><a href="registerView.php">S'inscrire</a></li>
-				<?php
-			} else {
-				?>
-				<li><a href="logout.php">Se déconnecter</a></li>
-			<?php } ?>
+		<li><a href="?action=postsList" class="">Billets</a></li>
+		<li><a href="?action=contact" class="">Contact</a></li>
+		<?php
+		if (empty(isset($_SESSION['username'])) && empty($_SESSION['username'])) {
+			?>
+			<li><a href="?action=login">Se connecter</a></li>
+			<li><a href="?action=register">S'inscrire</a></li>
+		<?php } else { ?>
+			<li><a href="?action=logout">Se déconnecter</a></li>
+		<?php } ?>
 	</ul>
-</header>
+</nav>

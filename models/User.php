@@ -1,6 +1,6 @@
 <?php
 
-abstract class User {
+class User {
 	private $id;
 	private $type;
 	private $username;
@@ -31,6 +31,10 @@ abstract class User {
 		return $this->type;
 	}
 
+	public function setType(string $type) {
+		$this->type = $type;
+	}
+	
 	public function getPassword():string {
 		return $this->password;
 	}

@@ -2,12 +2,12 @@
 
 ob_start();
 
-if ($user->getType() == 'admin') {
+if ($user->getType() !== 'admin') {
+	header('location: index.php');
+} else {
 	$valid = new CommentManager();
 	$valid->validateComment($_GET['id'], TRUE);
 	header("location: ?action=unapprovedList");
-} else {
-	header('location: index.php');
 }
 
 $content = ob_get_clean();
