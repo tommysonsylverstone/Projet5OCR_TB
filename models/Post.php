@@ -16,6 +16,22 @@ class Post {
 		$this->authorName = $authorName;
 	}
 
+	public static function fromArray(array $value):Post {
+		$id = $value['id'];
+		$title = $value['titleP'];
+		$chapo = $value['chapo'];
+		$content =  $value['content'];
+		$postDate = $value['postDate'];
+		$authorName = $value['authorName'];
+		$lastUpdated = $value['lastUpdated'];
+		$post = new Post($title, $chapo, $content, $authorName);
+		$post->setId($id);
+		$post->setPostDate($postDate);
+		$post->setLastUpdated($lastUpdated);
+
+		return $post;
+	}
+
 	public function getId():int {
 		return $this->id;
 	}

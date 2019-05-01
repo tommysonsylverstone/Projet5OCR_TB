@@ -11,6 +11,18 @@ class User {
 		$this->type = strtolower(static::class);
 	}
 
+	public static function fromArray(array $value):User {
+		$user = new User();
+		$user->setUserName($value['username']);
+		$user->setType($value['type']);
+
+		return $user;
+	}
+
+	public function isAdmin():bool {
+		return $this->getType() === 'admin';
+	}
+
 	public function getId():int {
 		return $this->id;
 	}

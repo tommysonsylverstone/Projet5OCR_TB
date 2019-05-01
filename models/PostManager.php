@@ -25,20 +25,10 @@ class PostManager extends BaseManager {
 		$posts = $q->fetchAll();
 		$postsList = [];
 
-		foreach ($posts as $key => $value) {
-			$id = $value['id'] ?? '';
-			$title = $value['titleP'] ?? '';
-			$chapo = $value['chapo'] ?? '';
-			$content =  $value['content'] ?? '';
-			$postDate = $value['postDate'] ?? '';
-			$authorName = $value['authorName'] ?? '';
-			$lastUpdated = $value['lastUpdated'] ?? '';
-			$post = new Post($title, $chapo, $content, $authorName);
-			$post->setId($id);
-			$post->setPostDate($postDate);
-			$post->setLastUpdated($lastUpdated);
-			$postsList[] = $post;
+		foreach ($posts as $value) {
+			$postsList[] = Post::fromArray($value);
 		}
+		
 		return $postsList;
 	}
 

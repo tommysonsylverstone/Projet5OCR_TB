@@ -34,38 +34,38 @@ class UserManager extends BaseManager {
 	}
 
 	public function login($username, $password) {
-		if (!empty($username) && !empty($password)) {
-			$db = self::dbConnect();
-			$q = $db->prepare('SELECT * FROM users WHERE username=:username and password=:password');
+		$db = self::dbConnect();
+		$q = $db->prepare('SELECT * FROM users WHERE username=:username and password=:password');
 
-			$q->bindValue('username', $username, PDO::PARAM_STR);
-			$q->bindValue('password', MD5($password), PDO::PARAM_STR);
+		$q->bindValue('username', $username, PDO::PARAM_STR);
+		$q->bindValue('password', MD5($password), PDO::PARAM_STR);
 
-			$q->execute();
+		$q->execute();
 
-			if ($q->rowCount() === 1) {
-				$_SESSION['username'] = $username;
-				header('location: ?action=loginSuccess');
-			} else {
-				echo "Nom d'utilisateur ou mot de passe incorrect.";
-			}
+		$correct = $q->rowCount();
+		
+		if ($correct === 1) {
+			$_SESSION['username'] = $username;
+			header('location: ?action=loginSuccess');
 		} else {
-			echo "Veuillez ne pas oublier de champ.";
+			echo "Nom d'utilisation ou mot de passe incorrect";
 		}
 	}
 
-	public static function getAdmin(string $adminName) {
+	public static function getCurrentUser():User {
+		$username = $_SESSION['username'] ?? null;
+
+		if (!$username) {
+			return new User();
+		}
+
 		$db = self::dbConnect();
 		$q = $db->prepare('SELECT * FROM users WHERE username = ?');
-		$q->execute(array($adminName));
+		$q->execute(array($username));
 
 		$data = $q->fetch();
 
-		$admin = new User();
-		$admin->setUserName($adminName);
-		$admin->setType($data['type'] ?? '');
-
-		return $admin;
+		return User::fromArray($data);
 	}
 
 	public static function userExists($uName) {

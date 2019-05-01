@@ -3,50 +3,32 @@
 require_once('BaseManager.php');
 
 class CommentManager extends BaseManager {
-	public function getCommentsForPost(int $postId, bool $isValidated=true) {
+	public function getCommentsForPost(int $postId, bool $isValidated=true):array {
 		$db = self::dbConnect();
-		$q = $db->prepare('SELECT * FROM comments WHERE postId = ? ORDER BY id DESC');
-		$q->execute(array($postId));
+		$q = $db->prepare('SELECT * FROM comments WHERE postId = ? AND isValidated = ? ORDER BY id DESC');
+		$q->execute(array($postId, $isValidated));
 
 		$commentData = $q->fetchAll(PDO::FETCH_ASSOC);
 		$commentsList = [];
 
-		foreach ($commentData as $key => $value) {
-			$id = $value['id'] ?? '';
-			$postId = $value['postId'] ?? '';
-			$authorName = $value['authorName'] ?? '';
-			$content =  $value['content'] ?? '';
-			$commentDate = $value['commentDate'] ?? '';
-			$isValidated = $value['isValidated'] ?? '';
-			$comment = new Comment($postId, $authorName, $content);
-			$comment->setId($id);
-			$comment->setCommentDate($commentDate);
-			$comment->setIsValidated($isValidated);
-			$commentsList[] = $comment;
+		foreach ($commentData as $value) {
+			$commentsList[] = Comment::fromArray($value);
 		}
+
 		return $commentsList;
 	}
 
-	public function getCommentsForAdmin() {
+	public function getCommentsForAdmin():array {
 		$db = self::dbConnect();
 		$q = $db->query('SELECT * FROM comments WHERE isValidated = FALSE ORDER BY id DESC');
 
-		$comments = $q->fetchAll();
+		$comments = $q->fetchAll(PDO::FETCH_ASSOC);
 		$commentsList = [];
 
-		foreach ($comments as $key => $value) {
-			$id = $value['id'] ?? '';
-			$postId = $value['postId'] ?? '';
-			$authorName = $value['authorName'] ?? '';
-			$content =  $value['content'] ?? '';
-			$commentDate = $value['commentDate'] ?? '';
-			$isValidated = $value['isValidated'] ?? '';
-			$comment = new Comment($postId, $authorName, $content);
-			$comment->setId($id);
-			$comment->setCommentDate($commentDate);
-			$comment->setIsValidated($isValidated);
-			$commentsList[] = $comment;
+		foreach ($comments as $value) {
+			$commentsList[] = Comment::fromArray($value);
 		}
+
 		return $commentsList;
 	}
 

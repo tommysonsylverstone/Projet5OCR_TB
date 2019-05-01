@@ -7,6 +7,7 @@ session_start();
 function addComment() {
 	$postC = $_POST['comment-content'] ?? '';
 	$postId = $_GET['id'];
+
 	if (empty($postC)) {
 		echo "Désolé, un problème s'est passé.<br/>";
 		echo '<a href="?action=post&id='.$postId.'">Revenir au billet</a>';
@@ -28,7 +29,7 @@ function addPost() {
 
 	if (empty($username)) {
 		echo "Vous n'avez pas accès à cette page";
-	} elseif (empty($titleP) || empty($chapo) || empty($content)) {	
+	} elseif (empty($titleP) || empty($chapo) || empty($content)) {
 		echo "Veuillez remplir tous les champs";
 	} else {
 		$post = new Post($titleP, $chapo, $content, $username);
@@ -37,61 +38,62 @@ function addPost() {
 
 		header("location: ?action=postsList");
 	}
+
 	require('views/addPostView.php');
 }
 
 function addPostView() {
-	new UserManager();
-	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+	$user = UserManager::getCurrentUser();
 
-	if ($user->getType() !== 'admin') {
+	if (!$user->isAdmin()) {
 		header('location: index.php');
 	}
+
 	require('views/addPostView.php');
 }
 
 function administration() {
-	new UserManager();
-	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+	$user = UserManager::getCurrentUser();
 
-	if ($user->getType() !== 'admin') {
+	if (!$user->isAdmin()) {
 		header('location: index.php');
 	}
+
 	require('views/adminView.php');
+}
+
+function contact() {
+	require('views/contact.php');
 }
 
 function unapprovedList() {
 	$comments = new CommentManager();
-	$invalidComm = $comments->getCommentsForAdmin(); 
+	$invalidComm = $comments->getCommentsForAdmin();
 
-	new UserManager();
-	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+	$user = UserManager::getCurrentUser();
 
-	if ($user->getType() !== 'admin') {
+	if (!$user->isAdmin()) {
 		header('location: index.php');
 	}
+
 	require('views/commentApprovalView.php');
 }
 
 function commentValidated() {
-	new UserManager();
-	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
-	
-	if ($user->getType() !== 'admin') {
-		header('location: index.php');
-	}
+	$user = UserManager::getCurrentUser();
 	require('views/commentValidated.php');
 }
 
 function deletePost() {
-	new UserManager();
-	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
-	if ($user->getType() == 'admin') {
+	$user = UserManager::getCurrentUser();
+
+	if ($user->isAdmin()) {
 		$pManager = new PostManager();
 		$pManager->deletePost($_GET['id']);
 
 		header("location: ?action=postsList");
 	}
+	
 	require('views/deletePostView.php');
 }
 
@@ -102,10 +104,9 @@ function editPost() {
 	$content = $_POST['content'] ?? '';
 	$postGetId = $_GET['id'];
 
-	new UserManager();
-	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+	$user = UserManager::getCurrentUser();
 
-	if (empty($postGetId) || $user->getType() !== 'admin') {
+	if (empty($postGetId) || !$user->isAdmin()) {
 		header('location: index.php');
 	}
 
@@ -124,12 +125,13 @@ function editPost() {
 			header("location: ?action=post&id=$postGetId");
 		}
 	}
+
 	require('views/editPostView.php');
 }
 
 function postsList() {
-	new UserManager();
-	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+	$user = UserManager::getCurrentUser();
+
 	$pManager = new PostManager();
 	$posts = $pManager->getPosts();
 	$pNumber = $pManager->count();
@@ -141,9 +143,14 @@ function login() {
 	$username = $_POST['username'] ?? '';
 	$password = $_POST['pwd'] ?? '';
 	if (isset($_POST['submit-button'])) {
-		$uManager = new UserManager();
-		$uManager->login($username, $password);	
-	} 
+		if (empty($username) || empty($password)) {
+			$fields = "Veuillez remplir tous les champs";
+		} else {
+			$uManager = new UserManager();
+			$uManager->login($username, $password);
+		}
+	}
+
 	require('views/login.php');
 }
 
@@ -160,14 +167,17 @@ function mainPage() {
 }
 
 function post() {
+	$user = UserManager::getCurrentUser();
+
 	$postId = $_GET['id'];
+	
 	$pManager = new PostManager();
 	$post = $pManager->getPost($postId);
+
 	$cManager = new CommentManager();
 	$comments = $cManager->getCommentsForPost($postId);
 	$comNumbers = $cManager->count();
-	new UserManager();
-	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+
 	require('views/postView.php');
 }
 
@@ -182,7 +192,7 @@ function register() {
 	$passtwo = $_POST['pass2'] ?? '';
 
 	if (isset($_POST['register-button'])) {
-		new UserManager();	
+		new UserManager();
 		if (empty($username) || empty($email) || empty($passone) || empty($passtwo)) {
 			echo "Veuillez renseigner tous les champs";
 		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -196,7 +206,7 @@ function register() {
 		} elseif (!preg_match("#^[a-zA-Z0-9]{10,}$#", $passone)) {
 			echo "Le mot de passe doit faire plus de 10 caractères";
 		} elseif ($passone !== $passtwo) {
-			echo "Les deux mots de passe ne correspondent pas"; 
+			echo "Les deux mots de passe ne correspondent pas";
 		} else {
 			$user = new Member();
 			$user->setUsername($username);
@@ -207,5 +217,6 @@ function register() {
 			header("location: ?action=registerSuccess&registration=success");
 		}
 	}
+
 	require('views/registerView.php');
 }

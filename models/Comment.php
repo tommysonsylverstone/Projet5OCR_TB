@@ -14,6 +14,21 @@ class Comment {
 		$this->content = $content;
 	}
 
+	public static function fromArray(array $value):Comment {
+		$id = $value['id'];
+		$postId = $value['postId'];
+		$authorName = $value['authorName'];
+		$content =  $value['content'];
+		$commentDate = $value['commentDate'];
+		$isValidated = $value['isValidated'];
+		$comment = new Comment($postId, $authorName, $content);
+		$comment->setId($id);
+		$comment->setCommentDate($commentDate);
+		$comment->setIsValidated($isValidated);
+
+		return $comment;
+	}
+
 	public function getId():int {
 		return $this->id;
 	}
