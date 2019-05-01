@@ -6,76 +6,80 @@ try {
 	if (isset($_GET['action'])) {
 		switch ($_GET['action']) {
 			case 'addComment':
-			if (isset($_POST['confirm-comment'])) {
-				addComment();
-			}
-			break;
+				if (isset($_POST['confirm-comment'])) {
+					addComment();
+				}
+				break;
 
 			case 'addPost':
-			if (isset($_POST['confirm-button'])) {
-				addPost();
-			}
-			break;
+				if (isset($_POST['confirm-button'])) {
+					addPost();
+				}
+				break;
 
 			case 'addPostView':
-			addPostView();
-			break;
+				addPostView();
+				break;
 
 			case 'administration':
-			administration();
-			break;
+				administration();
+				break;
 
 			case 'unapprovedList':
-			unapprovedList();
-			break;
+				unapprovedList();
+				break;
 
 			case 'commentValidated':
-			commentValidated();
-			break;
+				commentValidated();
+				break;
+
+			case 'contact':
+				contact();
+				break;
 
 			case 'deletePost':
-			deletePost();
-			break;
+				deletePost();
+				break;
 			
 			case 'editPost':
-			editPost();
-			break;
+				editPost();
+				break;
 
 			case 'postsList':
-			postsList();
-			break;
+				postsList();
+				break;
 
 			case 'login':
-			login();
-			break;
+				login();
+				break;
 
 			case 'loginSuccess':
-			loginSuccess();
-			break;
+				loginSuccess();
+				break;
 
 			case 'logout':
-			logout();
-			break;
+				logout();
+				break;
 
 			case 'mainPage':
-			mainPage();
-			break;
+				mainPage();
+				break;
 
 			case 'post':
-			post();
-			break;
+				post();
+				break;
 
 			case 'registerSuccess':
-			registerSuccess();
-			break;
+				registerSuccess();
+				break;
 
 			case 'register':
-			register();
-			break;
+				register();
+				break;
 
 			default:
-			//what do i insert in this ? 404 page ?
-			break;
+				mainPage();
+				break;
 		}
 	}
 	else {
