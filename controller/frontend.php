@@ -102,9 +102,16 @@ function editPost() {
 	$content = $_POST['content'] ?? '';
 	$postGetId = $_GET['id'];
 
+	new UserManager();
+	$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username']));
+
+	if (empty($postGetId) || $user->getType() !== 'admin') {
+		header('location: index.php');
+	}
+
 	$pManager = new PostManager();
 	$postId = $pManager->getPost($postGetId);
-	
+
 	if (isset($_POST['confirm-edit'])) {
 		if (empty($authorName) || empty($titleP) || empty($chapo) || empty($content)) {
 			echo "Veuillez remplir tous les champs";
