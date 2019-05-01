@@ -6,38 +6,41 @@ session_start();
 
 ob_start();
 
-include('includes/header.php');
-
 $pManager = new PostManager();
 $posts = $pManager->getPosts();
-$pNumber = $pManager->count();
-?>
+$pNumber = $pManager->count(); ?>
 
 <section>
-	<?php 
-	if ($pNumber == 0) {
+	<?php if ($pNumber == 0) {
 		echo "Pas de billets pour le moment, patience !";
-		} else {
-		while ($data = $posts->fetch()) {
-		?>
-			<div class="news">
-				<h3>
-					<?= htmlspecialchars($data['titleP']) ?>
-					<em>le <?= $data['postDate_fr']?></em> par <?= $data['authorName']?> <?php if (isset($data['lastUpdated_fr'])) { echo "<em>édité le " . $data['lastUpdated_fr'] . "</em>"; }?><br/>
-						<h4><em><?= $data['chapo'] ?></em></h4>
-					<p>
-						<?= nl2br(htmlspecialchars($data['content'])) ?>
-						<br />
-						<em><a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Accéder aux commentaires</a></em>
-						<a href="deletePostView.php?id=<?= $data['id'] ?>">Supprimer ce post</a>
-						<a href="editPostView.php?id=<?= $data['id'] ?>">éditer</a>
-					</p>
-				</h3>
+	} else {
+		foreach ($posts as $post) { ?>
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="post-preview">
+						<a href="?action=post&amp;id=<?= $post->getId() ?>" title="Accéder au billet">
+							<h2 class="post-title">
+								<?= $post->getTitle() ?>
+							</h2><br/>
+							<h3 class="post-subtitle"><?= $post->getChapo() ?></h3><br/>
+						</a>
+						écrit le <?= $post->getFormattedDate() ?> par <?= $post->getAuthorName() ?><br/>
+						<?php if (empty($post->getLastUpdated())) {
+							echo '';
+						} else {
+							echo "<em>édité le " . $post->getFormattedLastUpdated() . "</em>";
+						} new UserManager();
+						$user = UserManager::getUser($_SESSION['username'] ?? empty($_SESSION['username']));
+						if ($user['type'] == 'admin' && !empty($_SESSION['username'])) { ?>
+							<a href="deletePostView.php?id=<?= $post->getId() ?>">Supprimer ce post</a>
+							<a href="editPostView.php?id=<?= $post->getId() ?>">éditer</a>
+						<?php } ?>
+					</div>
+					<hr>
+				</div>
 			</div>
-			<?php
-		}
-	}
-	?>
+		<?php }
+	} ?>
 </section>
 
 <?php $content = ob_get_clean();

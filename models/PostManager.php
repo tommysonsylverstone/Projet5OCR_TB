@@ -3,42 +3,64 @@
 require_once('BaseManager.php');
 
 class PostManager extends BaseManager {
-	public function __construct() {
-		$this->db = $this->dbConnect();
-	}
-
-	public function getPost($postId) {
-		$q = $this->db->prepare('SELECT id, authorName, titleP, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr FROM posts WHERE id = ?');
+	public function getPost($postId):Post {
+		$db = self::dbConnect();
+		$q = $db->prepare('SELECT * FROM posts WHERE id = ?');
 		$q->execute(array($postId));
-		$post = $q->fetch();
 
-		return $post;
+		$postData = $q->fetch();
+
+		$post = new Post($postData['titleP'], $postData['chapo'], $postData['content'], $postData['authorName']);
+		$post->setId($postId);
+		$post->setPostDate($postData['postDate']);
+		$post->setLastUpdated($postData['lastUpdated']);
 		
+		return $post;
 	}
 
 	public function getPosts() {
-		$q = $this->db->query('SELECT id, authorName, titleP, chapo, content, date_format(postDate, \'%d/%m/%Y à %Hh%imin%ss\') AS postDate_fr, date_format(lastUpdated, \'%d/%m/%Y à %Hh%imin%ss\') AS lastUpdated_fr FROM posts ORDER BY id DESC');
+		$db = self::dbConnect();
+		$q = $db->query('SELECT * FROM posts ORDER BY id DESC');
 
-		return $q;
+		$posts = $q->fetchAll();
+		$postsList = [];
+
+		foreach ($posts as $key => $value) {
+			$id = $value['id'] ?? '';
+			$title = $value['titleP'] ?? '';
+			$chapo = $value['chapo'] ?? '';
+			$content =  $value['content'] ?? '';
+			$postDate = $value['postDate'] ?? '';
+			$authorName = $value['authorName'] ?? '';
+			$lastUpdated = $value['lastUpdated'] ?? '';
+			$post = new Post($title, $chapo, $content, $authorName);
+			$post->setId($id);
+			$post->setPostDate($postDate);
+			$post->setLastUpdated($lastUpdated);
+			$postsList[] = $post;
+		}
+		return $postsList;
 	}
 
 	public function addPost(Post $post) {
 		if (!empty($post)) {
-		$q = $this->db->prepare('INSERT INTO posts(titleP, chapo, content, authorName, postDate) VALUES(:titleP, :chapo, :content, :authorName, NOW())');
+			$db = self::dbConnect();
+			$q = $db->prepare('INSERT INTO posts(titleP, chapo, content, authorName, postDate) VALUES(:titleP, :chapo, :content, :authorName, NOW())');
 
-		$q->bindValue(':titleP', $post->getTitleP());
-		$q->bindValue(':chapo', $post->getChapo());
-		$q->bindValue(':content', $post->getContent());
-		$q->bindValue(':authorName', $post->getAuthorName());
-		
-		$q->execute();
+			$q->bindValue(':titleP', $post->getTitle());
+			$q->bindValue(':chapo', $post->getChapo());
+			$q->bindValue(':content', $post->getContent());
+			$q->bindValue(':authorName', $post->getAuthorName());
+			
+			$q->execute();
 		}
 	}
 
 	public function updatePost(Post $post) {
-		$q = $this->db->prepare('UPDATE posts SET titleP = :titleP, chapo = :chapo, authorName = :authorName, content = :content, lastUpdated = NOW() WHERE id =' . $post->getId());
+		$db = self::dbConnect();
+		$q = $db->prepare('UPDATE posts SET titleP = :titleP, chapo = :chapo, authorName = :authorName, content = :content, lastUpdated = NOW() WHERE id =' . $post->getId());
 
-		$q->bindValue(':titleP', $post->getTitleP(), PDO::PARAM_STR);
+		$q->bindValue(':titleP', $post->getTitle(), PDO::PARAM_STR);
 		$q->bindValue(':chapo', $post->getChapo(), PDO::PARAM_STR);
 		$q->bindValue(':authorName', $post->getAuthorName(), PDO::PARAM_STR);
 		$q->bindValue(':content', $post->getContent(), PDO::PARAM_STR);
@@ -46,11 +68,13 @@ class PostManager extends BaseManager {
 		$q->execute();
 	}
 
-	public function deletePost(Post $post) {
-		$q = $this->db->exec('DELETE FROM posts WHERE id =' . $post->getId());
+	public function deletePost($postId) {
+		$db = self::dbConnect();
+		$q = $db->exec('DELETE FROM posts WHERE id ='. $postId);
 	}
 
 	public function count() {
-		return $this->db->query('SELECT COUNT(*) FROM posts')->fetchColumn();
+		$db = self::dbConnect();
+		return $db->query('SELECT COUNT(*) FROM posts')->fetchColumn();
 	}
 }

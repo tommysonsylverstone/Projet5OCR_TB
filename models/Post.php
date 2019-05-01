@@ -2,12 +2,20 @@
 
 class Post {
 	private $id;
-	private $titleP;
+	private $title;
 	private $chapo;
 	private $content;
 	private $postDate;
 	private $authorName;
 	private $lastUpdated;
+
+
+	public function __construct ($title, $chapo, $content, $authorName) {
+		$this->title = $title;
+		$this->chapo = $chapo;
+		$this->content = $content;
+		$this->authorName = $authorName;
+	}
 
 	public function getId():int {
 		return $this->id;
@@ -17,12 +25,12 @@ class Post {
 		$this->id = $id;
 	}
 
-	public function getTitleP():string {
-		return $this->titleP;
+	public function getTitle():string {
+		return $this->title;
 	}
 	
-	public function setTitleP(string $titleP) {
-		$this->titleP = $titleP;
+	public function setTitle(string $title) {
+		$this->title = $title;
 	}
 
 	public function getChapo():string {
@@ -41,12 +49,20 @@ class Post {
 		$this->content = $content;
 	}
 
+	public function getEscapedContent():string {
+		return nl2br(htmlspecialchars($this->content));
+	}
+
 	public function getPostDate() {
 		return $this->postDate;
 	}
 	
 	public function setPostDate($postDate) {
 		$this->postDate = $postDate;
+	}
+
+	public function getFormattedDate() {
+		return date_format(date_create($this->postDate), 'd/m/Y à H:i');
 	}
 
 	public function getAuthorName():string {
@@ -63,5 +79,9 @@ class Post {
 	
 	public function setLastUpdated($lastUpdated) {
 		$this->lastUpdated = $lastUpdated;
+	}
+
+	public function getFormattedLastUpdated() {
+		return date_format(date_create($this->lastUpdated), 'd/m/Y à H:i');
 	}
 }
