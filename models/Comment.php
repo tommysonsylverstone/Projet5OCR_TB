@@ -9,9 +9,9 @@ class Comment {
 	private $isValidated;
 
 	public function __construct($postId, $authorName, $content) {
-		$this->setPostId($postId);
-		$this->setAuthorName($authorName);
-		$this->setContent($content);
+		$this->postId = $postId;
+		$this->authorName = $authorName;
+		$this->content = $content;
 	}
 
 	public function getId():int {
@@ -46,12 +46,20 @@ class Comment {
 		$this->content = $content;
 	}
 
+	public function getEscapedContent():string {
+		return nl2br(htmlspecialchars($this->content));
+	}
+
 	public function getCommentDate():string {
 		return $this->commentDate;
 	}
 
 	public function setCommentDate(string $commentDate) {
 		$this->commentDate = $commentDate;
+	}
+
+	public function getFormattedCommentDate():string {
+		return date_format(date_create($this->commentDate), 'd/m/Y à H:i');
 	}
 
 	public function getIsValidated():bool {
