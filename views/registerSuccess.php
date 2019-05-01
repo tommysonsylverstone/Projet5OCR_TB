@@ -2,10 +2,9 @@
 
 ob_start(); 
 
-if (!isset($_GET['registration']) || $_GET['registration'] !== 'success') { ?>
-	<p>Vous n'avez pas accès à cette page.<br/></p>
-	<a href="index.php">Retour à l'accueil</a>
-<?php } else { ?>
+if (!isset($_GET['registration']) || $_GET['registration'] !== 'success') { 
+	header("location: index.php");
+} else { ?>
 	<section class="register_success">
 		<p><h2>Votre enregistrement a été effectué avec succès !</h2><br/>
 			<a href="index.php">Retour à l'accueil</a><br/>
