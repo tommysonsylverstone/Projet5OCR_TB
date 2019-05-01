@@ -1,3 +1,6 @@
+<?php new UserManager();
+$user = UserManager::getAdmin($_SESSION['username'] ?? empty($_SESSION['username'])); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
