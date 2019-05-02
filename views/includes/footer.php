@@ -19,7 +19,7 @@
 							</span>
 						</a>
 					</li>
-					<?php if ($user->getType() == 'admin') { ?>
+					<?php if ($user->isAdmin()) { ?>
 						<li class="list-inline-item">
 							<a href="?action=administration">
 								<span class="fa-stack fa-lg">

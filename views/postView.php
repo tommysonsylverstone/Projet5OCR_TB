@@ -47,7 +47,7 @@ ob_start(); ?>
 		<p class="text-center">Pas de commentaires pour le moment</p>
 	<?php } else {
 		foreach($comments as $comment) {
-			if ($comment->getIsValidated()) { ?>
+			if ($comment->getValidated()) { ?>
 				<div class="comment-body">
 					<h3>Par <?= $comment->getAuthorName() ?> le <?= $comment->getFormattedCommentDate() ?></h3>
 					<p><?= $comment->getEscapedContent() ?></p>

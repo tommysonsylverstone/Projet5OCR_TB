@@ -3,10 +3,10 @@
 require_once('BaseManager.php');
 
 class CommentManager extends BaseManager {
-	public function getCommentsForPost(int $postId, bool $isValidated=true):array {
+	public function getCommentsForPost(int $postId, bool $validated=true):array {
 		$db = self::dbConnect();
 		$q = $db->prepare('SELECT * FROM comments WHERE postId = ? AND isValidated = ? ORDER BY id DESC');
-		$q->execute(array($postId, $isValidated));
+		$q->execute(array($postId, $validated));
 
 		$commentData = $q->fetchAll(PDO::FETCH_ASSOC);
 		$commentsList = [];
@@ -43,12 +43,12 @@ class CommentManager extends BaseManager {
 		$q->execute();
 	}
 
-	public function validateComment(int $commentId, bool $isValidated) {
+	public function validateComment(int $commentId, bool $validated) {
 		$db = self::dbConnect();
 		$q = $db->prepare('UPDATE comments SET isValidated=:isValidated WHERE id=:id');
 
 		$q->bindValue('id', $commentId, PDO::PARAM_INT);
-		$q->bindValue(':isValidated', $isValidated, PDO::PARAM_BOOL);
+		$q->bindValue(':isValidated', $validated, PDO::PARAM_BOOL);
 
 		$q->execute();
 	}
