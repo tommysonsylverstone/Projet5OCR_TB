@@ -7,83 +7,83 @@ try {
 		switch ($_GET['action']) {
 			case 'addComment':
 				if (isset($_POST['confirm-comment'])) {
-					addComment();
+					Controller::addComment();
 				}
 				break;
 
 			case 'addPost':
 				if (isset($_POST['confirm-button'])) {
-					addPost();
+					Controller::addPost();
 				}
 				break;
 
 			case 'addPostView':
-				addPostView();
+				Controller::addPostView();
 				break;
 
 			case 'administration':
-				administration();
+				Controller::administration();
 				break;
 
 			case 'unapprovedList':
-				unapprovedList();
+				Controller::unapprovedList();
 				break;
 
 			case 'commentValidated':
-				commentValidated();
+				Controller::commentValidated();
 				break;
 
 			case 'contact':
-				contact();
+				Controller::contact();
 				break;
 
 			case 'deletePost':
-				deletePost();
+				Controller::deletePost();
 				break;
 			
 			case 'editPost':
-				editPost();
+				Controller::editPost();
 				break;
 
 			case 'postsList':
-				postsList();
+				Controller::postsList();
 				break;
 
 			case 'login':
-				login();
+				Controller::login();
 				break;
 
 			case 'loginSuccess':
-				loginSuccess();
+				Controller::loginSuccess();
 				break;
 
 			case 'logout':
-				logout();
+				Controller::logout();
 				break;
 
 			case 'mainPage':
-				mainPage();
+				Controller::mainPage();
 				break;
 
 			case 'post':
-				post();
+				Controller::post();
 				break;
 
 			case 'registerSuccess':
-				registerSuccess();
+				Controller::registerSuccess();
 				break;
 
 			case 'register':
-				register();
+				Controller::register();
 				break;
 
 			default:
-				mainPage();
+				Controller::mainPage();
 				break;
 		}
 	}
 	else {
-		mainPage();
+		Controller::mainPage();
 	}
 }
 catch(Exception $e) {
