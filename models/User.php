@@ -63,7 +63,3 @@ class User {
 		$this->email = $email;
 	}
 }
-
-class Admin extends User {}
-
-class Member extends User {}
