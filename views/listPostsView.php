@@ -16,9 +16,9 @@ ob_start(); ?>
 </header>
 
 <div class="container">
-	<?php if ($pNumber == 0) {
-		echo "Pas de billets pour le moment, patience !";
-	} else { 
+	<?php if (empty($posts)) { ?>
+		<p class="text-center">Pas de billets pour le moment, patience !</p>
+	<?php } else { 
 		foreach ($posts as $post) { ?>
 			<div class="row">
 				<div class="col-lg-8 col-md-10 mx-auto">

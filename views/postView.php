@@ -42,10 +42,10 @@ ob_start(); ?>
 
 <section class="container">
 	<h2>Commentaires : </h2>
-	<?php
-	if ($comNumbers == 0) {
-		echo "Pas de commentaires pour le moment";
-	} else {
+	
+	<?php if (empty($comments)) { ?>
+		<p class="text-center">Pas de commentaires pour le moment</p>
+	<?php } else {
 		foreach($comments as $comment) {
 			if ($comment->getIsValidated()) { ?>
 				<div class="comment-body">
