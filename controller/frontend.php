@@ -16,8 +16,7 @@ function addComment() {
 		$cManager = new CommentManager();
 		$cManager->addComment($comment);
 
-		header("location: ?action=post&id=".$postId);
-		exit();
+		header("location: ?action=post&id=$postId");
 	}
 }	
 
