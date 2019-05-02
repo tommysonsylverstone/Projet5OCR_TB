@@ -8,23 +8,17 @@ class Comment {
 	private $commentDate;
 	private $isValidated;
 
-	public function __construct($postId, $authorName, $content) {
+	public function __construct(int $postId, string $authorName, string $content) {
 		$this->postId = $postId;
 		$this->authorName = $authorName;
 		$this->content = $content;
 	}
 
 	public static function fromArray(array $value):Comment {
-		$id = $value['id'];
-		$postId = $value['postId'];
-		$authorName = $value['authorName'];
-		$content =  $value['content'];
-		$commentDate = $value['commentDate'];
-		$isValidated = $value['isValidated'];
-		$comment = new Comment($postId, $authorName, $content);
-		$comment->setId($id);
-		$comment->setCommentDate($commentDate);
-		$comment->setIsValidated($isValidated);
+		$comment = new Comment($value['postId'], $value['authorName'], $value['content']);
+		$comment->setId($value['id']);
+		$comment->setCommentDate($value['commentDate']);
+		$comment->setIsValidated($value['isValidated']);
 
 		return $comment;
 	}

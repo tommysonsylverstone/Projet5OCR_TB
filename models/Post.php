@@ -9,7 +9,7 @@ class Post {
 	private $authorName;
 	private $lastUpdated;
 
-	public function __construct ($title, $chapo, $content, $authorName) {
+	public function __construct (string $title, string $chapo, string $content, string $authorName) {
 		$this->title = $title;
 		$this->chapo = $chapo;
 		$this->content = $content;
@@ -17,17 +17,10 @@ class Post {
 	}
 
 	public static function fromArray(array $value):Post {
-		$id = $value['id'];
-		$title = $value['titleP'];
-		$chapo = $value['chapo'];
-		$content =  $value['content'];
-		$postDate = $value['postDate'];
-		$authorName = $value['authorName'];
-		$lastUpdated = $value['lastUpdated'];
-		$post = new Post($title, $chapo, $content, $authorName);
-		$post->setId($id);
-		$post->setPostDate($postDate);
-		$post->setLastUpdated($lastUpdated);
+		$post = new Post($value['titleP'], $value['chapo'], $value['content'], $value['authorName']);
+		$post->setId($value['id']);
+		$post->setPostDate($value['postDate']);
+		$post->setLastUpdated($value['lastUpdated']);
 
 		return $post;
 	}
@@ -68,15 +61,15 @@ class Post {
 		return nl2br(htmlspecialchars($this->content));
 	}
 
-	public function getPostDate() {
+	public function getPostDate():string {
 		return $this->postDate;
 	}
 	
-	public function setPostDate($postDate) {
+	public function setPostDate(string $postDate) {
 		$this->postDate = $postDate;
 	}
 
-	public function getFormattedDate() {
+	public function getFormattedDate():string {
 		return date_format(date_create($this->postDate), 'd/m/Y à H:i');
 	}
 
@@ -88,15 +81,15 @@ class Post {
 		$this->authorName = $authorName;
 	}
 
-	public function getLastUpdated() {
+	public function getLastUpdated():string {
 		return $this->lastUpdated;
 	}
 	
-	public function setLastUpdated($lastUpdated) {
+	public function setLastUpdated(string $lastUpdated) {
 		$this->lastUpdated = $lastUpdated;
 	}
 
-	public function getFormattedLastUpdated() {
+	public function getFormattedLastUpdated():string {
 		return date_format(date_create($this->lastUpdated), 'd/m/Y à H:i');
 	}
 }
