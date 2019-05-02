@@ -59,7 +59,7 @@ class PostManager extends BaseManager {
 		$q->execute();
 	}
 
-	public function deletePost($postId) {
+	public function deletePost(int $postId) {
 		$db = self::dbConnect();
 		$q = $db->prepare('DELETE FROM posts WHERE id=:id');
 		$q->bindValue('id', $postId, PDO::PARAM_INT);

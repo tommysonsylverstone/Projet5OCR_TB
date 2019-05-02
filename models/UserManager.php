@@ -33,7 +33,7 @@ class UserManager extends BaseManager {
 		$q->execute();
 	}
 
-	public function login($username, $password) {
+	public function login(string $username, string $password) {
 		$db = self::dbConnect();
 		$q = $db->prepare('SELECT * FROM users WHERE username=:username and password=:password');
 
@@ -68,7 +68,7 @@ class UserManager extends BaseManager {
 		return User::fromArray($data);
 	}
 
-	public static function userExists($uName):bool {
+	public static function userExists(string $uName):bool {
 		$db = self::dbConnect();
 		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE username=:username');
 		$q->execute([':username' => $uName]);
@@ -76,7 +76,7 @@ class UserManager extends BaseManager {
 		return $q->fetchColumn();
 	}
 
-	public static function emailExists($email):bool {
+	public static function emailExists(string $email):bool {
 		$db = self::dbConnect();
 		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE email=:email');
 		$q->execute([':email' => $email]);
