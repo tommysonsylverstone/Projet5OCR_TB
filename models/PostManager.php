@@ -66,9 +66,4 @@ class PostManager extends BaseManager {
 
 		$q->execute();
 	}
-
-	public function count():bool {
-		$db = self::dbConnect();
-		return $db->query('SELECT COUNT(*) FROM posts')->fetchColumn();
-	}
 }

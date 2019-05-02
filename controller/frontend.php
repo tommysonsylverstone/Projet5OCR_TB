@@ -135,7 +135,6 @@ function postsList() {
 
 	$pManager = new PostManager();
 	$posts = $pManager->getPosts();
-	$pNumber = $pManager->count();
 
 	require('views/listPostsView.php');
 }
@@ -177,7 +176,6 @@ function post() {
 
 	$cManager = new CommentManager();
 	$comments = $cManager->getCommentsForPost($postId);
-	$comNumbers = $cManager->count();
 
 	require('views/postView.php');
 }
