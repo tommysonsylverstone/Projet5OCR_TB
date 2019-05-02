@@ -18,7 +18,7 @@ class PostManager extends BaseManager {
 		return $post;
 	}
 
-	public function getPosts() {
+	public function getPosts():array {
 		$db = self::dbConnect();
 		$q = $db->query('SELECT * FROM posts ORDER BY id DESC');
 
@@ -67,7 +67,7 @@ class PostManager extends BaseManager {
 		$q->execute();
 	}
 
-	public function count() {
+	public function count():bool {
 		$db = self::dbConnect();
 		return $db->query('SELECT COUNT(*) FROM posts')->fetchColumn();
 	}

@@ -36,9 +36,9 @@ class CommentManager extends BaseManager {
 		$db = self::dbConnect();
 		$q = $db->prepare('INSERT INTO comments(postId, authorName, content, commentDate) VALUES(:postId, :authorName, :content, NOW())');
 
-		$q->bindValue(':postId', $comment->getPostId());
-		$q->bindValue(':authorName', $comment->getAuthorName());
-		$q->bindValue(':content', $comment->getContent());
+		$q->bindValue(':postId', $comment->getPostId(), PDO::PARAM_INT);
+		$q->bindValue(':authorName', $comment->getAuthorName(), PDO::PARAM_STR);
+		$q->bindValue(':content', $comment->getContent(), PDO::PARAM_STR);
 
 		$q->execute();
 	}
@@ -47,14 +47,9 @@ class CommentManager extends BaseManager {
 		$db = self::dbConnect();
 		$q = $db->prepare('UPDATE comments SET isValidated=:isValidated WHERE id=:id');
 
-		$q->bindValue('id', $commentId);
+		$q->bindValue('id', $commentId, PDO::PARAM_INT);
 		$q->bindValue(':isValidated', $isValidated, PDO::PARAM_BOOL);
 
 		$q->execute();
-	}
-
-	public function count() {
-		$db = self::dbConnect();
-		return $db->query('SELECT COUNT(*) FROM comments')->fetchColumn();
 	}
 }

@@ -7,17 +7,17 @@ class UserManager extends BaseManager {
 		$db = self::dbConnect();
 		$q = $db->prepare('INSERT INTO users(username, password, email, type) VALUES(:username, :password, :email, :type)');
 
-		$q->bindValue(':username', $user->getUsername());
-		$q->bindValue(':password', md5($user->getPassword()));
-		$q->bindValue(':email', $user->getEmail());
-		$q->bindValue(':type', $user->getType());
+		$q->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
+		$q->bindValue(':password', md5($user->getPassword()), PDO::PARAM_STR);
+		$q->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
+		$q->bindValue(':type', $user->getType(), PDO::PARAM_STR);
 
 		$q-> execute();
 	}
 
 	public function updatePassword(User $user) {
 		$db = self::dbConnect();
-		$q = $db->prepare('UPDATE users SET password = :password');
+		$q = $db->prepare('UPDATE users SET password=:password');
 
 		$q->bindValue(':password', $user->getPassword(), PDO::PARAM_STR);
 
@@ -26,7 +26,7 @@ class UserManager extends BaseManager {
 
 	public function updateEmail(User $user) {
 		$db = self::dbConnect();
-		$q = $db->prepare('UPDATE users SET email = :email');
+		$q = $db->prepare('UPDATE users SET email=:email');
 
 		$q->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
 
@@ -68,19 +68,19 @@ class UserManager extends BaseManager {
 		return User::fromArray($data);
 	}
 
-	public static function userExists($uName) {
+	public static function userExists($uName):bool {
 		$db = self::dbConnect();
-		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE username = :username');
+		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE username=:username');
 		$q->execute([':username' => $uName]);
 
-		return (bool) $q->fetchColumn();
+		return $q->fetchColumn();
 	}
 
-	public static function emailExists($email) {
+	public static function emailExists($email):bool {
 		$db = self::dbConnect();
-		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
+		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE email=:email');
 		$q->execute([':email' => $email]);
 
-		return (bool) $q->fetchColumn();
+		return $q->fetchColumn();
 	}
 }
