@@ -65,7 +65,7 @@ class Post {
 		return $this->postDate;
 	}
 	
-	public function setPostDate(string $postDate) {
+	public function setPostDate($postDate) {
 		$this->postDate = $postDate;
 	}
 
@@ -81,11 +81,11 @@ class Post {
 		$this->authorName = $authorName;
 	}
 
-	public function getLastUpdated():string {
+	public function getLastUpdated() {
 		return $this->lastUpdated;
 	}
 	
-	public function setLastUpdated(string $lastUpdated) {
+	public function setLastUpdated($lastUpdated) {
 		$this->lastUpdated = $lastUpdated;
 	}
 
