@@ -41,14 +41,9 @@ class UserManager extends BaseManager {
 		$q->bindValue('password', MD5($password), PDO::PARAM_STR);
 
 		$q->execute();
-
-		$correct = $q->rowCount();
 		
-		if ($correct === 1) {
-			$_SESSION['username'] = $username;
-			header('location: ?action=loginSuccess');
-		} else {
-			echo "Nom d'utilisation ou mot de passe incorrect";
+		if ($q->rowCount() === 1) {
+			return new User();
 		}
 	}
 

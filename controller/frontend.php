@@ -14,6 +14,7 @@ class Controller {
 			echo '<a href="?action=post&id='.$postId.'">Revenir au billet</a>';
 		} else {
 			$comment = new Comment($postId, $_SESSION['username'], $postC);
+
 			$cManager = new CommentManager();
 			$cManager->addComment($comment);
 
@@ -33,6 +34,7 @@ class Controller {
 			echo "Veuillez remplir tous les champs";
 		} else {
 			$post = new Post($titleP, $chapo, $content, $username);
+
 			$pManager = new PostManager();
 			$pManager->addPost($post);
 
@@ -121,6 +123,7 @@ class Controller {
 			} else {
 				$post = new Post($titleP, $chapo, $content, $authorName);
 				$post->setId($postGetId);
+
 				$pManager = new PostManager();
 				$pManager->updatePost($post);
 
@@ -143,12 +146,19 @@ class Controller {
 	public static function login() {
 		$username = $_POST['username'] ?? '';
 		$password = $_POST['pwd'] ?? '';
+
 		if (isset($_POST['submit-button'])) {
 			if (empty($username) || empty($password)) {
 				$fields = "Veuillez remplir tous les champs";
 			} else {
 				$uManager = new UserManager();
-				$uManager->login($username, $password);
+				$userGet = $uManager->login($username, $password);
+				if ($userGet === null) {
+					$fields = "Nom d'utilisateur ou mot de passe incorrect";
+				} else {
+					$_SESSION['username'] = $username;
+					header('location: ?action=loginSuccess');
+				}
 			}
 		}
 
@@ -212,6 +222,7 @@ class Controller {
 				$user->setUsername($username);
 				$user->setPassword($passone);
 				$user->setEmail($email);
+				
 				UserManager::register($user);
 
 				header("location: ?action=registerSuccess&registration=success");
