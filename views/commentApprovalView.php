@@ -1,19 +1,10 @@
 <?php $title = 'Commentaires en attente';
 
-ob_start(); ?>
+$image = 'public/img/tengu.jpg';
 
-<header class="masthead" style="background-image: url('public/img/tengu.jpg')">
-	<div class="overlay"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-md-10 mx-auto">
-				<div class="site-heading">
-					<h1><?= $title ?></h1>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
+ob_start();
+
+include('includes/header-bg.php'); ?>
 
 <section class="container">
 	<table border="1">
@@ -35,6 +26,7 @@ ob_start(); ?>
 		<?php } ?> 
 	</table>
 </section>
+
 <?php $content = ob_get_clean();
 
 require('views/includes/template.php'); ?>

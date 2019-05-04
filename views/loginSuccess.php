@@ -6,29 +6,18 @@ if (isset($_SESSION['username'])) {
 	$title = "Oups !";
 }
 
+$image = 'public/img/temple_jp.jpg';
 
-ob_start(); ?>
+ob_start();
 
-<header class="masthead" style="background-image: url('public/img/temple_jp.jpg')">
-	<div class="overlay"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-md-10 mx-auto">
-				<div class="site-heading">
-					<h1><?= $title ?></h1>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
+include('includes/header-bg.php');
 
-<?php if(isset($_SESSION["username"])) { ?>
+if (isset($_SESSION["username"])) { ?>
 	<div class="container">
 		<h3>Vous êtes connecté, bienvenue <?= $_SESSION["username"] ?> !</h3>
 		<a href="index.php">Revenir à l'accueil</a>
 	</div>
-	<?php
-} else { ?>
+<?php } else { ?>
 	<div class="container">
 		<p>Quelque chose s'est mal passé.</p>
 		<a href="?action=login">Vous reconnecter</a>

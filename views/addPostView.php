@@ -1,19 +1,10 @@
 <?php $title = 'Ajout de billet';
 
-ob_start(); ?>
+$image = 'public/img/ueno_park.jpg';
 
-<header class="masthead" style="background-image: url('public/img/ueno_park.jpg')">
-	<div class="overlay"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-md-10 mx-auto">
-				<div class="site-heading">
-					<h1><?= $title ?></h1>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
+ob_start(); 
+
+include('includes/header-bg.php'); ?>
 
 <section class="container">
 	<form method="post" action="?action=addPost">

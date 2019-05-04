@@ -1,19 +1,10 @@
 <?php $title = 'Edition de post';
 
-ob_start(); ?>
+$image = 'public/img/turtles.jpg';
 
-<header class="masthead" style="background-image: url('public/img/turtles.jpg')">
-	<div class="overlay"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-md-10 mx-auto">
-				<div class="site-heading">
-					<h1><?= $title ?></h1>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
+ob_start();
+
+include('includes/header-bg.php'); ?>
 
 <div class="container">
 	<p>Voici le billet que vous voulez modifier :</p>
