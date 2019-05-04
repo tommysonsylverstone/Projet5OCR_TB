@@ -103,6 +103,8 @@ class Controller {
 			$pManager->deletePost($postId);
 
 			header("location: ?action=postsList");
+		} else {
+			header("location: index.php");
 		}
 
 		require('views/deletePostView.php');
