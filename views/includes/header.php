@@ -16,8 +16,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="?action=contact">Contact</a>
 				</li>
-				<?php if (empty(isset($_SESSION['username'])) && empty($_SESSION['username'])) {
-					?>
+				<?php if (empty(isset($_SESSION['username'])) && empty($_SESSION['username'])) { ?>
 					<li class="nav-item"><a href="?action=login">Se connecter</a></li>
 					<li class="nav-item"><a href="?action=register">S'inscrire</a></li>
 				<?php } else { ?>

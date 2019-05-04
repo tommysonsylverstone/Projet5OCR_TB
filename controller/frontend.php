@@ -1,7 +1,7 @@
 <?php
 
 include_once('views/includes/autoloader.php');
-include_once('models/User.php');
+
 session_start();
 
 class Controller {
@@ -48,7 +48,7 @@ class Controller {
 		$user = UserManager::getCurrentUser();
 
 		if (!$user->isAdmin()) {
-			header('location: index.php');
+			header("location: index.php");
 		}
 
 		require('views/addPostView.php');
@@ -58,7 +58,7 @@ class Controller {
 		$user = UserManager::getCurrentUser();
 
 		if (!$user->isAdmin()) {
-			header('location: index.php');
+			header("location: index.php");
 		}
 
 		require('views/adminView.php');
@@ -75,7 +75,7 @@ class Controller {
 		$user = UserManager::getCurrentUser();
 
 		if (!$user->isAdmin()) {
-			header('location: index.php');
+			header("location: index.php");
 		}
 
 		require('views/commentApprovalView.php');
@@ -83,7 +83,14 @@ class Controller {
 
 	public static function commentValidated() {
 		$user = UserManager::getCurrentUser();
-		require('views/commentValidated.php');
+
+		if (!$user->isAdmin()) {
+			header("location: index.php");
+		} else {
+			$valid = new CommentManager();
+			$valid->validateComment($_GET['id'], TRUE);
+			header("location: ?action=unapprovedList");
+		}
 	}
 
 	public static function deletePost() {
@@ -111,7 +118,7 @@ class Controller {
 		$user = UserManager::getCurrentUser();
 
 		if (empty($postGetId) || !$user->isAdmin()) {
-			header('location: index.php');
+			header("location: index.php");
 		}
 
 		$pManager = new PostManager();
@@ -157,7 +164,7 @@ class Controller {
 					$fields = "Nom d'utilisateur ou mot de passe incorrect";
 				} else {
 					$_SESSION['username'] = $username;
-					header('location: ?action=loginSuccess');
+					header("location: ?action=loginSuccess");
 				}
 			}
 		}
