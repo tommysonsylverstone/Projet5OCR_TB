@@ -51,6 +51,9 @@ ob_start(); ?>
 	</div>
 </div>
 
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
 <?php $content = ob_get_clean();
 
 require('includes/template.php'); ?>
