@@ -51,8 +51,8 @@ ob_start(); ?>
 	</div>
 </div>
 
-<script src="js/jqBootstrapValidation.js"></script>
-<script src="js/contact_me.js"></script>
+<script src="public/js/jqBootstrapValidation.js"></script>
+<script src="public/js/contact_me.js"></script>
 
 <?php $content = ob_get_clean();
 
