@@ -12,7 +12,10 @@ if (isset($_SESSION['username'])) { ?>
 		<a href="index.php">Retour à l'accueil</a> <br />
 		<a href="?action=logout">Se déconnecter.</a>
 	</div>
-<?php } else { ?>
+<?php } else {
+	if (!empty($fields)) { ?>
+		<p class="text-center"><?= $fields ?></p>
+	<?php } ?>
 	<div class="container">
 		<div class="register-input">
 			<form method="post" action="">

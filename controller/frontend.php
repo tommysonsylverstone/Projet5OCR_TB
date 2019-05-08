@@ -23,12 +23,14 @@ class Controller {
 	}	
 
 	public static function addPost() {
+		$user = UserManager::getCurrentUser();
+		
 		$username = $_SESSION['username'];
 		$titleP = $_POST['titleP'] ?? '';
 		$chapo = $_POST['chapo'] ?? '';
 		$content = $_POST['content'] ?? '';
 
-		if (empty($username)) {
+		if (!$user->isAdmin()) {
 			echo "Vous n'avez pas accès à cette page";
 		} elseif (empty($titleP) || empty($chapo) || empty($content)) {
 			echo "Veuillez remplir tous les champs";
@@ -213,19 +215,19 @@ class Controller {
 		if (isset($_POST['register-button'])) {
 			new UserManager();
 			if (empty($username) || empty($email) || empty($passone) || empty($passtwo)) {
-				echo "Veuillez renseigner tous les champs";
+				$fields = "Veuillez renseigner tous les champs";
 			} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-				echo "L'adresse mail est invalide";
+				$fields = "L'adresse mail est invalide";
 			} elseif (UserManager::userExists($username)) {
-				echo "Ce nom d'utilisateur est déjà pris";
+				$fields = "Ce nom d'utilisateur est déjà pris";
 			} elseif (UserManager::emailExists($email)) {
-				echo "Cette adresse mail est déjà utilisée";
+				$fields = "Cette adresse mail est déjà utilisée";
 			} elseif (!preg_match("#^[a-zA-Z0-9_-]{3,20}$#", $username)) {
-				echo "Le nom d'utilisateur fait plus de 20 caractères ou ne respecte pas les normes";
+				$fields = "Le nom d'utilisateur fait plus de 20 caractères ou ne respecte pas les normes";
 			} elseif (!preg_match("#^[a-zA-Z0-9]{10,}$#", $passone)) {
-				echo "Le mot de passe doit faire plus de 10 caractères";
+				$fields = "Le mot de passe doit faire plus de 10 caractères";
 			} elseif ($passone !== $passtwo) {
-				echo "Les deux mots de passe ne correspondent pas";
+				$fields = "Les deux mots de passe ne correspondent pas";
 			} else {
 				$user = new Member();
 				$user->setUsername($username);
