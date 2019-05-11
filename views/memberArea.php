@@ -18,6 +18,7 @@ include('includes/header-bg.php'); ?>
 		<button type="submit" name="submit-new-email" class="btn btn-primary">Valider</button>
 	</form>
 </section>
+
 <?php $content = ob_get_clean();
 
 require('includes/template.php');

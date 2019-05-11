@@ -202,6 +202,35 @@ class Controller {
 	}
 
 	public static function memberArea() {
+		$user = UserManager::getCurrentUser();
+
+		$username = $_SESSION['username'];
+		$email = $_POST['email'] ?? '';
+		$nEmail = $_POST['new-email'] ?? '';
+		$nEmail2 = $_POST['confirm-new-email'] ?? '';
+
+		if (isset($_POST['submit-new-email'])) {
+			if (empty($email) || empty($nEmail) || empty($nEmail2)){
+				$fields = "Veuillez renseigner tous les champs";
+			} elseif (!UserManager::emailExists($email)) {
+				$fields = "Cette adresse est incorrecte.";
+			} elseif (!filter_var($nEmail, FILTER_VALIDATE_EMAIL)) {
+				$fields = "Cette adresse mail n'est pas valide.";
+			} elseif ($nEmail !== $nEmail2) {
+				$fields = "Les deux champs ne correspondent pas.";
+			} else {
+				$user = new User();
+				$user->setEmail($nEmail);
+				$user->setUsername($username);
+				
+				$newEmail = new UserManager;
+				$newEmail->updateEmail($user);
+
+				$fields = "L'adresse mail a bien été mise à jour";
+			}
+		}
+
+
 		require('views/memberArea.php');
 	}
 
@@ -250,7 +279,7 @@ class Controller {
 				$user->setUsername($username);
 				$user->setPassword($passone);
 				$user->setEmail($email);
-				
+
 				UserManager::register($user);
 
 				header("location: ?action=registerSuccess&registration=success");
