@@ -228,7 +228,10 @@ class Controller {
 				$newEmail = new UserManager;
 				$newEmail->updateEmail($user);
 
-				$fields = "L'adresse mail a bien été mise à jour";
+				header('location: ?action=userParameter&updateEmail=success');
+				if (isset($_GET['updateEmail']) == 'success') {
+					$fields = "Votre adresse mail a été correctement mise à jour";
+				}
 			}
 		}
 
