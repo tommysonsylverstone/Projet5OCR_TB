@@ -15,7 +15,8 @@ class User {
 		$user = new User();
 		$user->setUserName($value['username']);
 		$user->setType($value['type']);
-
+		$user->setEmail($value['email']);
+		
 		return $user;
 	}
 
