@@ -14,9 +14,9 @@ if (!empty($fields)) { ?>
 	<h4>Modifier votre adresse mail</h4>
 	<form action="" method="post">
 		<label>Adresse mail actuelle</label><br/>
-		<input type="text" name="email" class="form-control" required/><br/>
+		<input type="text" name="email" class="form-control" value="<?= $email ?>" required/><br/>
 		<label>Nouvelle adresse mail</label><br/>
-		<input type="text" name="new-email" class="form-control" required/><br/>
+		<input type="text" name="new-email" class="form-control" value="<?= $nEmail ?>" required/><br/>
 		<label>Confirmer nouvelle adresse mail</label><br/>
 		<input type="text" name="confirm-new-email" class="form-control" required/><br/>
 		<button type="submit" name="submit-new-email" class="btn btn-primary">Valider</button>
