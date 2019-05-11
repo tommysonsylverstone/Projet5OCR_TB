@@ -28,9 +28,9 @@ if (!empty($fields)) { ?>
 	<form action="" method="post">
 		<label>Mot de passe actuel</label><br/>
 		<input type="password" name="password" class="form-control" required/><br/>
-		<label>Nouvelle adresse mail</label><br/>
+		<label>Nouveaux mot de passe</label><br/>
 		<input type="password" name="new-password" class="form-control" required/><br/>
-		<label>Confirmer nouvelle adresse mail</label><br/>
+		<label>Confirmer nouveau mot de passe</label><br/>
 		<input type="password" name="confirm-new-password" class="form-control" required/><br/>
 		<button type="submit" name="submit-new-password" class="btn btn-primary">Valider</button>
 	</form>
