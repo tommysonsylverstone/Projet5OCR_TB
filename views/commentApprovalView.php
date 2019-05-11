@@ -18,10 +18,13 @@ include('includes/header-bg.php'); ?>
 		</thead>
 		<?php foreach ($invalidComm as $comment) { ?>
 			<tr>
-				<td><?= $comment->getAuthorName() ?></td>
-				<td><?= $comment->getPostId() ?></td>
-				<td><?= $comment->getEscapedContent() ?></td>
-				<td><a class="btn btn-primary" href="?action=commentValidated&amp;id=<?= $comment->getId() ?>">Valider</a></td>
+				<form method="post" action="?action=commentValidated">
+					<input type="text" class="text-center form-control" name="comment-id" value="<?= $comment->getId()?>" readonly hidden>
+					<td><input type="text" class="text-center form-control" name="comment-authorname" value="<?= $comment->getAuthorName() ?>" readonly></td>
+					<td><input type="text" class="text-center form-control" name="comment-postid" value="<?= $comment->getPostId() ?>" readonly></td>
+					<td width="65%" class="text-center"><input type="text" class="text-center form-control" name="comment-content" value="<?= $comment->getEscapedContent() ?>" readonly></input></td>
+					<td><button type="submit" class="btn btn-primary" name="confirm-comment">Valider</button></td>
+				</form>
 			</tr>
 		<?php } ?> 
 	</table>
