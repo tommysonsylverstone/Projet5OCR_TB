@@ -205,6 +205,7 @@ class Controller {
 		$user = UserManager::getCurrentUser();
 		$username = $user->getUsername();
 		$stockedEmail = $user->getEmail();
+		$stockedPassword = $user->getPassword();
 
 		$email = $_POST['email'] ?? '';
 		$nEmail = $_POST['new-email'] ?? '';
@@ -230,6 +231,34 @@ class Controller {
 				$newEmail->updateEmail($user);
 
 				$fields = "Votre adresse mail a été correctement mise à jour";
+
+			}
+		}
+
+		$password = $_POST['password'] ?? '';
+		$nPassword = $_POST['new-password'] ?? '';
+		$nPassword2 = $_POST['confirm-new-password'] ?? '';
+
+		if (isset($_POST['submit-new-password'])) {
+			if (empty($password) || empty($nPassword) || empty($nPassword2)){
+				$fields = "Veuillez renseigner tous les champs";
+			} elseif ($stockedPassword !== md5($password)) {
+				$fields = "Ce mot de passe incorrecte.";
+			} elseif (!preg_match("#^[a-zA-Z0-9]{10,}$#", $nPassword)) {
+				$fields = "Le mot de passe ne doit pas comporter de caractères spéciaux et doit contenir au moins 10 caractères.";
+			} elseif ($stockedPassword == md5($nPassword)) {
+				$fields = "Le nouveau mot de passe ne doit pas être votre mot de passe actuel.";
+			} elseif ($nPassword !== $nPassword2) {
+				$fields = "Les deux champs ne correspondent pas.";
+			} else {
+				$user = new User();
+				$user->setPassword($nPassword);
+				$user->setUsername($username);
+
+				$newPassword = new UserManager;
+				$newPassword->updatePassword($user);
+
+				$fields = "Votre mot de passe a été correctement mise à jour";
 
 			}
 		}
