@@ -218,11 +218,13 @@ class Controller {
 				$fields = "Cette adresse mail n'est pas valide.";
 			} elseif ($nEmail !== $nEmail2) {
 				$fields = "Les deux champs ne correspondent pas.";
+			} elseif (UserManager::emailExists($nEmail)) {
+				$fields = "Cette adresse mail est déjà utilisée";
 			} else {
 				$user = new User();
 				$user->setEmail($nEmail);
 				$user->setUsername($username);
-				
+
 				$newEmail = new UserManager;
 				$newEmail->updateEmail($user);
 
