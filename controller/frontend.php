@@ -210,7 +210,7 @@ class Controller {
 			$stockedEmail = $user->getEmail();
 			$stockedPassword = $user->getPassword();
 		} else {
-			header('location: index.php');
+			header("location: index.php");
 		}
 
 		$email = $_POST['email'] ?? '';
@@ -277,6 +277,10 @@ class Controller {
 		$user = UserManager::getCurrentUser();
 
 		$postId = $_GET['id'];
+
+		if (!PostManager::postExists($postId)) {
+			header("location: ?action=postsList");
+		}
 
 		$pManager = new PostManager();
 		$post = $pManager->getPost($postId);
