@@ -4,7 +4,11 @@ $image = 'public/img/ueno_park.jpg';
 
 ob_start();
 
-include('includes/header-bg.php'); ?>
+include('includes/header-bg.php');
+
+if (!empty($fields)) { ?>
+	<p class="text-center"><?= $fields ?></p>
+<?php } ?>
 
 <section class="container">
 	<h4>Modifier votre adresse mail</h4>
