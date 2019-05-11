@@ -202,14 +202,21 @@ class Controller {
 	}
 
 	public static function memberArea() {
-		$user = UserManager::getCurrentUser();
-		$username = $user->getUsername();
-		$stockedEmail = $user->getEmail();
-		$stockedPassword = $user->getPassword();
+		$session = $_SESSION['username'];
+		
+		if (isset($session)) {
+			$user = UserManager::getCurrentUser();
+			$username = $user->getUsername();
+			$stockedEmail = $user->getEmail();
+			$stockedPassword = $user->getPassword();
+		} else {
+			header('location: index.php');
+		}
 
 		$email = $_POST['email'] ?? '';
 		$nEmail = $_POST['new-email'] ?? '';
 		$nEmail2 = $_POST['confirm-new-email'] ?? '';
+
 
 		if (isset($_POST['submit-new-email'])) {
 			if (empty($email) || empty($nEmail) || empty($nEmail2)){
