@@ -203,8 +203,9 @@ class Controller {
 
 	public static function memberArea() {
 		$user = UserManager::getCurrentUser();
+		$username = $user->getUsername();
+		$stockedEmail = $user->getEmail();
 
-		$username = $_SESSION['username'];
 		$email = $_POST['email'] ?? '';
 		$nEmail = $_POST['new-email'] ?? '';
 		$nEmail2 = $_POST['confirm-new-email'] ?? '';
@@ -212,7 +213,7 @@ class Controller {
 		if (isset($_POST['submit-new-email'])) {
 			if (empty($email) || empty($nEmail) || empty($nEmail2)){
 				$fields = "Veuillez renseigner tous les champs";
-			} elseif (!UserManager::emailExists($email)) {
+			} elseif ($stockedEmail !== $email) {
 				$fields = "Cette adresse est incorrecte.";
 			} elseif (!filter_var($nEmail, FILTER_VALIDATE_EMAIL)) {
 				$fields = "Cette adresse mail n'est pas valide.";
@@ -228,13 +229,10 @@ class Controller {
 				$newEmail = new UserManager;
 				$newEmail->updateEmail($user);
 
-				header('location: ?action=userParameter&updateEmail=success');
-				if (isset($_GET['updateEmail']) == 'success') {
-					$fields = "Votre adresse mail a été correctement mise à jour";
-				}
+				$fields = "Votre adresse mail a été correctement mise à jour";
+
 			}
 		}
-
 
 		require('views/memberArea.php');
 	}
