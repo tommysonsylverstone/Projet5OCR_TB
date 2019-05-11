@@ -1,7 +1,5 @@
 <?php
 
-function loadClass($class) {
-	require 'models/'.$class.'.php';
-}
-
-spl_autoload_register('loadClass');
+spl_autoload_register(function ($class) {
+	include 'models/'.$class.'.php';
+});

@@ -3,50 +3,32 @@
 require_once('BaseManager.php');
 
 class CommentManager extends BaseManager {
-	public function getCommentsForPost(int $postId, bool $isValidated=true) {
+	public function getCommentsForPost(int $postId, bool $validated=true):array {
 		$db = self::dbConnect();
-		$q = $db->prepare('SELECT * FROM comments WHERE postId = ? ORDER BY id DESC');
-		$q->execute(array($postId));
+		$q = $db->prepare('SELECT * FROM comments WHERE postId = ? AND isValidated = ? ORDER BY id DESC');
+		$q->execute(array($postId, $validated));
 
 		$commentData = $q->fetchAll(PDO::FETCH_ASSOC);
 		$commentsList = [];
 
-		foreach ($commentData as $key => $value) {
-			$id = $value['id'] ?? '';
-			$postId = $value['postId'] ?? '';
-			$authorName = $value['authorName'] ?? '';
-			$content =  $value['content'] ?? '';
-			$commentDate = $value['commentDate'] ?? '';
-			$isValidated = $value['isValidated'] ?? '';
-			$comment = new Comment($postId, $authorName, $content);
-			$comment->setId($id);
-			$comment->setCommentDate($commentDate);
-			$comment->setIsValidated($isValidated);
-			$commentsList[] = $comment;
+		foreach ($commentData as $value) {
+			$commentsList[] = Comment::fromArray($value);
 		}
+
 		return $commentsList;
 	}
 
-	public function getCommentsForAdmin() {
+	public function getCommentsForAdmin():array {
 		$db = self::dbConnect();
 		$q = $db->query('SELECT * FROM comments WHERE isValidated = FALSE ORDER BY id DESC');
 
-		$comments = $q->fetchAll();
+		$comments = $q->fetchAll(PDO::FETCH_ASSOC);
 		$commentsList = [];
 
-		foreach ($comments as $key => $value) {
-			$id = $value['id'] ?? '';
-			$postId = $value['postId'] ?? '';
-			$authorName = $value['authorName'] ?? '';
-			$content =  $value['content'] ?? '';
-			$commentDate = $value['commentDate'] ?? '';
-			$isValidated = $value['isValidated'] ?? '';
-			$comment = new Comment($postId, $authorName, $content);
-			$comment->setId($id);
-			$comment->setCommentDate($commentDate);
-			$comment->setIsValidated($isValidated);
-			$commentsList[] = $comment;
+		foreach ($comments as $value) {
+			$commentsList[] = Comment::fromArray($value);
 		}
+
 		return $commentsList;
 	}
 
@@ -54,25 +36,20 @@ class CommentManager extends BaseManager {
 		$db = self::dbConnect();
 		$q = $db->prepare('INSERT INTO comments(postId, authorName, content, commentDate) VALUES(:postId, :authorName, :content, NOW())');
 
-		$q->bindValue(':postId', $comment->getPostId());
-		$q->bindValue(':authorName', $comment->getAuthorName());
-		$q->bindValue(':content', $comment->getContent());
+		$q->bindValue(':postId', $comment->getPostId(), PDO::PARAM_INT);
+		$q->bindValue(':authorName', $comment->getAuthorName(), PDO::PARAM_STR);
+		$q->bindValue(':content', $comment->getContent(), PDO::PARAM_STR);
 
 		$q->execute();
 	}
 
-	public function validateComment(int $commentId, bool $isValidated) {
+	public function validateComment(int $commentId, bool $validated) {
 		$db = self::dbConnect();
 		$q = $db->prepare('UPDATE comments SET isValidated=:isValidated WHERE id=:id');
 
-		$q->bindValue('id', $commentId);
-		$q->bindValue(':isValidated', $isValidated, PDO::PARAM_BOOL);
+		$q->bindValue('id', $commentId, PDO::PARAM_INT);
+		$q->bindValue(':isValidated', $validated, PDO::PARAM_BOOL);
 
 		$q->execute();
-	}
-
-	public function count() {
-		$db = self::dbConnect();
-		return $db->query('SELECT COUNT(*) FROM comments')->fetchColumn();
 	}
 }

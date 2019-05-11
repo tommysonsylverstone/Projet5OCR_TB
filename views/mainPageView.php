@@ -2,6 +2,19 @@
 
 ob_start(); ?>
 
+<header class="masthead" style="background-image: url('public/img/temple_jp.jpg')">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="site-heading">
+					<h1>Bienvenue sur mon blog !</h1>
+					<span class="subheading">Mon blog de présentation</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
 <section class="container">
 	<article class="row">
 		<h1>Benjamin Tenreiro, le développeur qu'il vous faut !</h1>

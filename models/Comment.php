@@ -6,12 +6,21 @@ class Comment {
 	private $authorName;
 	private $content;
 	private $commentDate;
-	private $isValidated;
+	private $validated;
 
-	public function __construct($postId, $authorName, $content) {
+	public function __construct(int $postId, string $authorName, string $content) {
 		$this->postId = $postId;
 		$this->authorName = $authorName;
 		$this->content = $content;
+	}
+
+	public static function fromArray(array $value):Comment {
+		$comment = new Comment($value['postId'], $value['authorName'], $value['content']);
+		$comment->setId($value['id']);
+		$comment->setCommentDate($value['commentDate']);
+		$comment->setValidated($value['isValidated']);
+
+		return $comment;
 	}
 
 	public function getId():int {
@@ -62,11 +71,11 @@ class Comment {
 		return date_format(date_create($this->commentDate), 'd/m/Y à H:i');
 	}
 
-	public function getIsValidated():bool {
-		return $this->isValidated;
+	public function getValidated():bool {
+		return $this->validated;
 	}
 
-	public function setIsValidated(bool $isValidated) {
-		$this->isValidated = $isValidated;
+	public function setValidated(bool $validated) {
+		$this->validated = $validated;
 	}
 }

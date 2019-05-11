@@ -9,11 +9,20 @@ class Post {
 	private $authorName;
 	private $lastUpdated;
 
-	public function __construct ($title, $chapo, $content, $authorName) {
+	public function __construct (string $title, string $chapo, string $content, string $authorName) {
 		$this->title = $title;
 		$this->chapo = $chapo;
 		$this->content = $content;
 		$this->authorName = $authorName;
+	}
+
+	public static function fromArray(array $value):Post {
+		$post = new Post($value['titleP'], $value['chapo'], $value['content'], $value['authorName']);
+		$post->setId($value['id']);
+		$post->setPostDate($value['postDate']);
+		$post->setLastUpdated($value['lastUpdated']);
+
+		return $post;
 	}
 
 	public function getId():int {
@@ -52,7 +61,7 @@ class Post {
 		return nl2br(htmlspecialchars($this->content));
 	}
 
-	public function getPostDate() {
+	public function getPostDate():string {
 		return $this->postDate;
 	}
 	
@@ -60,7 +69,7 @@ class Post {
 		$this->postDate = $postDate;
 	}
 
-	public function getFormattedDate() {
+	public function getFormattedDate():string {
 		return date_format(date_create($this->postDate), 'd/m/Y à H:i');
 	}
 
@@ -80,7 +89,7 @@ class Post {
 		$this->lastUpdated = $lastUpdated;
 	}
 
-	public function getFormattedLastUpdated() {
+	public function getFormattedLastUpdated():string {
 		return date_format(date_create($this->lastUpdated), 'd/m/Y à H:i');
 	}
 }

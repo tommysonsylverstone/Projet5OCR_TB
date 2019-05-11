@@ -1,11 +1,15 @@
 <?php $title = 'Liste des billets';
 
-ob_start(); ?>
+$image = 'public/img/montagne_rv.jpg';
 
-<section>
-	<?php if ($pNumber == 0) {
-		echo "Pas de billets pour le moment, patience !";
-	} else {
+ob_start(); 
+
+include('includes/header-bg.php'); ?>
+
+<div class="container">
+	<?php if (empty($posts)) { ?>
+		<p class="text-center">Pas de billets pour le moment, patience !</p>
+	<?php } else { 
 		foreach ($posts as $post) { ?>
 			<div class="row">
 				<div class="col-lg-8 col-md-10 mx-auto">
@@ -22,7 +26,7 @@ ob_start(); ?>
 						} else {
 							echo "<em>édité le " . $post->getFormattedLastUpdated() . "</em>";
 						}
-						if ($user->getType() == 'admin') { ?>
+						if ($user->isAdmin()) { ?>
 							<ul class="list-inline">
 								<li class="list-inline-item"><a href="?action=deletePost&amp;id=<?= $post->getId() ?>">Supprimer ce post</a></li>
 								<li class="list-inline-item"><a href="?action=editPost&amp;id=<?= $post->getId() ?>">éditer</a></li>
@@ -34,7 +38,7 @@ ob_start(); ?>
 			</div>
 		<?php }
 	} ?>
-</section>
+</div>
 
 <?php $content = ob_get_clean();
 

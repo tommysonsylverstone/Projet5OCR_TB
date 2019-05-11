@@ -1,11 +1,15 @@
-<?php $title = "Enregistrement";
+<?php $title = "Enregistrement terminé";
 
-ob_start(); 
+$image = 'public/img/road.jpg';
 
-if (!isset($_GET['registration']) || $_GET['registration'] !== 'success') {
+ob_start();
+
+include('includes/header-bg.php');
+
+if (!isset($_GET['registration']) || $_GET['registration'] !== 'success') { 
 	header("location: index.php");
 } else { ?>
-	<section class="register_success">
+	<section class="register_success container">
 		<p><h2>Votre enregistrement a été effectué avec succès !</h2><br/>
 			<a href="index.php">Retour à l'accueil</a><br/>
 			<a href="?action=login">Vous connecter</a>

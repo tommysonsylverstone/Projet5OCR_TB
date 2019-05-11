@@ -6,80 +6,84 @@ try {
 	if (isset($_GET['action'])) {
 		switch ($_GET['action']) {
 			case 'addComment':
-			if (isset($_POST['confirm-comment'])) {
-				addComment();
-			}
-			break;
+				if (isset($_POST['confirm-comment'])) {
+					Controller::addComment();
+				}
+				break;
 
 			case 'addPost':
-			if (isset($_POST['confirm-button'])) {
-				addPost();
-			}
-			break;
+				if (isset($_POST['confirm-button'])) {
+					Controller::addPost();
+				}
+				break;
 
 			case 'addPostView':
-			addPostView();
-			break;
+				Controller::addPostView();
+				break;
 
 			case 'administration':
-			administration();
-			break;
+				Controller::administration();
+				break;
 
 			case 'unapprovedList':
-			unapprovedList();
-			break;
+				Controller::unapprovedList();
+				break;
 
 			case 'commentValidated':
-			commentValidated();
-			break;
+				Controller::commentValidated();
+				break;
+
+			case 'contact':
+				Controller::contact();
+				break;
 
 			case 'deletePost':
-			deletePost();
-			break;
+				Controller::deletePost();
+				break;
 			
 			case 'editPost':
-			editPost();
-			break;
+				Controller::editPost();
+				break;
 
 			case 'postsList':
-			postsList();
-			break;
+				Controller::postsList();
+				break;
 
 			case 'login':
-			login();
-			break;
+				Controller::login();
+				break;
 
 			case 'loginSuccess':
-			loginSuccess();
-			break;
+				Controller::loginSuccess();
+				break;
 
 			case 'logout':
-			logout();
-			break;
+				Controller::logout();
+				break;
 
 			case 'mainPage':
-			mainPage();
-			break;
+				Controller::mainPage();
+				break;
 
 			case 'post':
-			post();
-			break;
+				Controller::post();
+				break;
 
 			case 'registerSuccess':
-			registerSuccess();
-			break;
+				Controller::registerSuccess();
+				break;
 
 			case 'register':
-			register();
-			break;
+				Controller::register();
+				break;
 
 			default:
-			//what do i insert in this ? 404 page ?
-			break;
+				Controller::mainPage();
+				break;
 		}
 	}
 	else {
-		mainPage();
+		Controller::mainPage();
 	}
 }
 catch(Exception $e) {
