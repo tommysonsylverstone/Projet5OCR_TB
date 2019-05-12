@@ -17,19 +17,21 @@ class UserManager extends BaseManager {
 
 	public function updatePassword(User $user) {
 		$db = self::dbConnect();
-		$q = $db->prepare('UPDATE users SET password=:password');
+		$q = $db->prepare('UPDATE users SET password=:password WHERE username=:username');
 
-		$q->bindValue(':password', $user->getPassword(), PDO::PARAM_STR);
+		$q->bindValue(':password', md5($user->getPassword()), PDO::PARAM_STR);
+		$q->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
 
 		$q->execute();
 	}
 
 	public function updateEmail(User $user) {
 		$db = self::dbConnect();
-		$q = $db->prepare('UPDATE users SET email=:email');
+		$q = $db->prepare('UPDATE users SET email=:email WHERE username=:username');
 
 		$q->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
-
+		$q->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
+		
 		$q->execute();
 	}
 

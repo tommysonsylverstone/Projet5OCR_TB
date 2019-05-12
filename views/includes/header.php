@@ -20,6 +20,7 @@
 					<li class="nav-item"><a href="?action=login">Se connecter</a></li>
 					<li class="nav-item"><a href="?action=register">S'inscrire</a></li>
 				<?php } else { ?>
+					<li class="nav-item"><a class="nav-link" href="?action=userParameter">Mon espace</a></li>
 					<li class="nav-item"><a href="?action=logout">Se déconnecter</a></li>
 				<?php } ?>
 			</ul>

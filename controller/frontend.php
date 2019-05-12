@@ -201,6 +201,78 @@ class Controller {
 		require('views/mainPageView.php');
 	}
 
+	public static function memberArea() {
+		$session = $_SESSION['username'];
+		
+		if (isset($session)) {
+			$user = UserManager::getCurrentUser();
+			$username = $user->getUsername();
+			$stockedEmail = $user->getEmail();
+			$stockedPassword = $user->getPassword();
+		} else {
+			header('location: index.php');
+		}
+
+		$email = $_POST['email'] ?? '';
+		$nEmail = $_POST['new-email'] ?? '';
+		$nEmail2 = $_POST['confirm-new-email'] ?? '';
+
+
+		if (isset($_POST['submit-new-email'])) {
+			if (empty($email) || empty($nEmail) || empty($nEmail2)){
+				$fields = "Veuillez renseigner tous les champs";
+			} elseif ($stockedEmail !== $email) {
+				$fields = "Cette adresse est incorrecte.";
+			} elseif (!filter_var($nEmail, FILTER_VALIDATE_EMAIL)) {
+				$fields = "Cette adresse mail n'est pas valide.";
+			} elseif ($nEmail !== $nEmail2) {
+				$fields = "Les deux champs ne correspondent pas.";
+			} elseif (UserManager::emailExists($nEmail)) {
+				$fields = "Cette adresse mail est déjà utilisée";
+			} else {
+				$user = new User();
+				$user->setEmail($nEmail);
+				$user->setUsername($username);
+
+				$newEmail = new UserManager;
+				$newEmail->updateEmail($user);
+
+				$fields = "Votre adresse mail a été correctement mise à jour";
+
+			}
+		}
+
+		$password = $_POST['password'] ?? '';
+		$nPassword = $_POST['new-password'] ?? '';
+		$nPassword2 = $_POST['confirm-new-password'] ?? '';
+
+		if (isset($_POST['submit-new-password'])) {
+			if (empty($password) || empty($nPassword) || empty($nPassword2)){
+				$fields = "Veuillez renseigner tous les champs";
+			} elseif ($stockedPassword !== md5($password)) {
+				$fields = "Ce mot de passe incorrecte.";
+			} elseif (!preg_match("#^[a-zA-Z0-9]{10,}$#", $nPassword)) {
+				$fields = "Le mot de passe ne doit pas comporter de caractères spéciaux et doit contenir au moins 10 caractères.";
+			} elseif ($stockedPassword == md5($nPassword)) {
+				$fields = "Le nouveau mot de passe ne doit pas être votre mot de passe actuel.";
+			} elseif ($nPassword !== $nPassword2) {
+				$fields = "Les deux champs ne correspondent pas.";
+			} else {
+				$user = new User();
+				$user->setPassword($nPassword);
+				$user->setUsername($username);
+
+				$newPassword = new UserManager;
+				$newPassword->updatePassword($user);
+
+				$fields = "Votre mot de passe a été correctement mise à jour";
+
+			}
+		}
+
+		require('views/memberArea.php');
+	}
+
 	public static function post() {
 		$user = UserManager::getCurrentUser();
 
@@ -246,7 +318,7 @@ class Controller {
 				$user->setUsername($username);
 				$user->setPassword($passone);
 				$user->setEmail($email);
-				
+
 				UserManager::register($user);
 
 				header("location: ?action=registerSuccess&registration=success");

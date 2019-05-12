@@ -65,6 +65,10 @@ try {
 				Controller::mainPage();
 				break;
 
+			case 'userParameter':
+				Controller::memberArea();
+				break;
+
 			case 'post':
 				Controller::post();
 				break;
