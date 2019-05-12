@@ -66,4 +66,12 @@ class PostManager extends BaseManager {
 
 		$q->execute();
 	}
+
+	public static function postExists(int $postId):bool {
+		$db = self::dbConnect();
+		$q = $db->prepare('SELECT COUNT(*) FROM posts WHERE id=:id');
+		$q->execute([':id' => $postId]);
+
+		return $q->fetchColumn();
+	}
 }
