@@ -89,10 +89,23 @@ class Controller {
 		if (!$user->isAdmin()) {
 			header("location: index.php");
 		} else {
-			$valid = new CommentManager();
-			$valid->validateComment($_GET['id'], TRUE);
-			header("location: ?action=unapprovedList");
+			if (isset($_POST['confirm-comment'])) {
+				$commentPostId = $_POST['comment-postid'];
+				$commentName = $_POST['comment-authorname'];
+				$commentContent = $_POST['comment-content'];
+				$commentId = $_POST['comment-id'];
+
+				$comment = new Comment($commentPostId, $commentName, $commentContent);
+				$comment->setValidated(TRUE);
+				$comment->setId($commentId);
+				
+				$valid = new CommentManager();
+				$valid->validateComment($comment);
+
+				header("location: ?action=unapprovedList");
+			}
 		}
+
 	}
 
 	public static function deletePost() {

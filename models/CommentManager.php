@@ -43,12 +43,12 @@ class CommentManager extends BaseManager {
 		$q->execute();
 	}
 
-	public function validateComment(int $commentId, bool $validated) {
+	public function validateComment(Comment $comment) {
 		$db = self::dbConnect();
 		$q = $db->prepare('UPDATE comments SET isValidated=:isValidated WHERE id=:id');
 
-		$q->bindValue('id', $commentId, PDO::PARAM_INT);
-		$q->bindValue(':isValidated', $validated, PDO::PARAM_BOOL);
+		$q->bindValue(':id', $comment->getId(), PDO::PARAM_INT);
+		$q->bindValue(':isValidated', $comment->getValidated(), PDO::PARAM_BOOL);
 
 		$q->execute();
 	}
