@@ -1,7 +1,5 @@
 <?php
 
-include_once('views/includes/autoloader.php');
-
 session_start();
 
 class Controller {

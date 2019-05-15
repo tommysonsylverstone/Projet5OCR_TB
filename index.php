@@ -1,5 +1,8 @@
 <?php
 
+require('autoloader/autoloader.php');
+Autoloader::register();
+
 require('controller/frontend.php');
 
 try {
