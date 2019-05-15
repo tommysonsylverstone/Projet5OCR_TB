@@ -4,7 +4,7 @@ require_once('BaseManager.php');
 
 class PostManager extends BaseManager {
 	public function getPost($postId):Post {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('SELECT * FROM posts WHERE id = ?');
 		$q->execute(array($postId));
 
@@ -19,7 +19,7 @@ class PostManager extends BaseManager {
 	}
 
 	public function getPosts():array {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->query('SELECT * FROM posts ORDER BY id DESC');
 
 		$posts = $q->fetchAll();
@@ -34,7 +34,7 @@ class PostManager extends BaseManager {
 
 	public function addPost(Post $post) {
 		if (!empty($post)) {
-			$db = self::dbConnect();
+			$db = new BaseManager();
 			$q = $db->prepare('INSERT INTO posts(titleP, chapo, content, authorName, postDate) VALUES(:titleP, :chapo, :content, :authorName, NOW())');
 
 			$q->bindValue(':titleP', $post->getTitle(), PDO::PARAM_STR);
@@ -47,7 +47,7 @@ class PostManager extends BaseManager {
 	}
 
 	public function updatePost(Post $post) {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('UPDATE posts SET titleP=:titleP, chapo=:chapo, authorName=:authorName, content=:content, lastUpdated=NOW() WHERE id=:id');
 
 		$q->bindValue(':id', $post->getId(), PDO::PARAM_INT);
@@ -60,7 +60,7 @@ class PostManager extends BaseManager {
 	}
 
 	public function deletePost(int $postId) {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('DELETE FROM posts WHERE id=:id');
 		$q->bindValue('id', $postId, PDO::PARAM_INT);
 
@@ -68,7 +68,7 @@ class PostManager extends BaseManager {
 	}
 
 	public static function postExists(int $postId):bool {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('SELECT COUNT(*) FROM posts WHERE id=:id');
 		$q->execute([':id' => $postId]);
 
