@@ -11,7 +11,7 @@ class BaseManager {
 			try {
 				self::$PDOInstance = new PDO($dsn, $username, $password);
 			} catch (PDOException $e) { 
-				die("PDO CONNECTION ERROR: " . $e->getMessage() . "<br/>");
+				echo "PDO CONNECTION ERROR: " . $e->getMessage() . "<br/>";
 			}
 		}
 		return self::$PDOInstance;
