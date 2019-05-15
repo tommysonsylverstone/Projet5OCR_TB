@@ -4,7 +4,7 @@ require_once('BaseManager.php');
 
 class UserManager extends BaseManager {
 	public static function register(User $user) {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('INSERT INTO users(username, password, email, type) VALUES(:username, :password, :email, :type)');
 
 		$q->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
@@ -16,7 +16,7 @@ class UserManager extends BaseManager {
 	}
 
 	public function updatePassword(User $user) {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('UPDATE users SET password=:password WHERE username=:username');
 
 		$q->bindValue(':password', md5($user->getPassword()), PDO::PARAM_STR);
@@ -26,7 +26,7 @@ class UserManager extends BaseManager {
 	}
 
 	public function updateEmail(User $user) {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('UPDATE users SET email=:email WHERE username=:username');
 
 		$q->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
@@ -36,7 +36,7 @@ class UserManager extends BaseManager {
 	}
 
 	public function login(string $username, string $password) {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('SELECT * FROM users WHERE username=:username and password=:password');
 
 		$q->bindValue('username', $username, PDO::PARAM_STR);
@@ -56,7 +56,7 @@ class UserManager extends BaseManager {
 			return new User();
 		}
 
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('SELECT * FROM users WHERE username = ?');
 		$q->execute(array($username));
 
@@ -66,7 +66,7 @@ class UserManager extends BaseManager {
 	}
 
 	public static function userExists(string $uName):bool {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE username=:username');
 		$q->execute([':username' => $uName]);
 
@@ -74,7 +74,7 @@ class UserManager extends BaseManager {
 	}
 
 	public static function emailExists(string $email):bool {
-		$db = self::dbConnect();
+		$db = new BaseManager();
 		$q = $db->prepare('SELECT COUNT(*) FROM users WHERE email=:email');
 		$q->execute([':email' => $email]);
 
