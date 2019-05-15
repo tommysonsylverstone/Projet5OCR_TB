@@ -3,7 +3,7 @@
 require('autoloader/autoloader.php');
 Autoloader::register();
 
-require('controller/frontend.php');
+require('controller/controller.php');
 
 try {
 	if (isset($_GET['action'])) {
